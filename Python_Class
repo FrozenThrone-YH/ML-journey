@@ -1,0 +1,121 @@
+'''
+클래스 : "상태(변수)와 행동(함수)을 정의한 틀이다.
+클래스를 이용하려면 클래스를 바탕으로 객체 생성해야함.
+객체 : 클래스를 바탕으로 만들어진 피조물
+객체의 변수값을 수정하거나 함수호출을 하더라도 다른 객체에 영향을 주지 않음
+객체 내부에 존재하는 변수/함수 이름 외에 변수를 추가 생성할 수 있다. 
+
+pass : if, for, while, def, class와 같이 : (콜론)이 들어가는 문장을 사용한 뒤
+코드를 작성하지 않더라도 정상적인 실행이 되도록 처리되는 키워드.
+
+클래스에서 함수를 정의할 수 있음. 정의된 함수는 메서드라고 부르게 됨
+클래스에 메서드를 정의할때는 함수내부에서 객체에 있는 변수/함수를
+사용할 수 있도록 첫번쨰 매개변수에 객체정보를 자동으로 넘겨줌
+따라서 클래스에 메서드를 정의할때는 최소 한개의 매개변수를 사용해야함.
+그 한개가 바로 객체 정보를 담는 매개변수
+
+클래스를 바탕으로 객체를 생성할 떄, 메서드에서 사용하는 변수들을 미리 초기화
+하려면 생성자를 정의해야함
+
+생성자 : __init__ 형태의 함수이름을 가짐. 객체가 생성되는 시점에 자동으로
+호출되는 함수다. 다른 함수들과 마찬가지로 매개변수는 사용하고싶은 만큼
+지정할 수 있으나, 생성자 함수가 끝나고 객체정보를 반환해야되기 때문에
+return 키워드는 사용할 수 없다. 
+'''
+
+class Calculator:
+          #생성자함수를 제일 먼저 생성하는 게 개발자들간의 약속
+          def __init__(self,_num=0,_num1=0):
+                    #생성자 함수의 self : 새로 만들어진 객체
+                    print("생성자 함수 호출",self)
+                    self.num = _num
+                    self.num1 = _num1
+          #객체에 num, num1 변수값을 설정하는 함수
+          def set_data(self,_num, _num1):
+                    self.num = _num
+                    self.num1 = _num1
+          def add(self):
+                    return self.num + self.num1
+          #빼기
+          def sub(self):
+                    return self.num - self.num1
+          #나누기
+          def div(self):
+                    print("Calculator의 div함수")
+                    return self.num / self.num1
+          #곱하기
+          def mul(self):
+                    return self.num * self.num1
+                    
+
+'''
+클래스 상속 : 기존에 만들어져있는 클래스의 기능을 물려받는 것.
+기존 클래스의 함수나 변수를 그대로 사용가능하고, 특정한 함수의 기능을
+수정(오버라이딩), 새로운 함수를 추가할 수 있음. 
+'''
+
+#Calculator 클래스를 상속받은 Upgrage 클래스 정의
+class UpgradeCal(Calculator):
+          num3 = 10 #클래스 변수 : 객체 마다 생성되는 것이 아닌 공용
+          #새로운 함수 정의
+          def pow(self):
+                    return self.num ** self.num1
+          #div 함수에서 0으로 나눌 수 없도록 처리
+          def div(self):  #기존에 있는 div 함수 기능은 사라지고, 새롭게 덮어씀
+                    print("UpgradeCal의 div함수")
+                    if self.num1 ==0: #오버라이딩 
+                              print("0으로 나눌 수 없음")
+                              return #함수 강제 종료 
+                    return super().div() #super는 상속 받은 함수를 부르는
+
+                     
+                    
+
+a = UpgradeCal(20,10)
+print("생성된 클래스 객체",a)
+print(a.add())
+print(a.sub())
+print(a.div())
+print(a.mul())
+print(a.pow())
+print(a.num3, UpgradeCal.num3)
+
+b=UpgradeCal()
+UpgradeCal.num3 = 100
+
+print(a.num3, UpgradeCal.num3, b.num3)
+print(id(a.num3),id(UpgradeCal.num3),id(b.num3))
+'''
+#클래스를 객체로 만들때, 클래스이름의 함수를 호출하듯이 생성
+a = Calculator(20,100) #객체를 생성후 a라는 변수에 저장
+a.num = 20        #멤버 변수라고 해준다. 
+a.num1 = 100
+print("add함수 호출전 a변수 값",a)
+#객체에 복사된 add함수 호출 
+print(a.add())  # - a를 자동으로 매개 변수로 넘겨준다.
+print(a.sub())
+print(a.div())
+print(a.mul())
+#클래스에 정의된 함수 호출 시 어떤 객체 정보를 넘겨줄지 파이썬이 모르므로
+#self 매개 변수에 전달할 객체를 인자로 사용해야함. 
+print(a)
+#클래스에 정의된 add함수 호출
+Calculator.add(a)
+
+print(id(Calculator.add),id(a.add))
+
+
+#객체 내부에 있는 변수/함수를 사용하려면 객체.변수(또는 함수)로 호출
+a.num = 10 #객체 내부에 있는 num - 독립적 
+num = 20
+
+print(a.num, num)
+print(id(a.num),id(num))
+
+
+b = Calculator(30,200)
+b.num=30
+
+print(a.num,b.num,num)
+print(id(a.num),id(b.num))
+'''
