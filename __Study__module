@@ -1,0 +1,15 @@
+'''
+모듈 : 파이썬 코드로 구성된 클래스/변수/함수가 저장된 파일
+다른 모듈의 클래스/변수/함수를 사용하려면 모듈단위로 추가해야함 
+'''
+
+#현재 폴더의 a1.py에 작성된 변수/클래스/함수를 파이썬이 로드
+import a1 as a
+#import 하는 파일의 특정한 함수/변수/클래스만 추가하는 방식 
+from a1 import UpgradeCal
+#import하는 파일에 모든 함수/변수/클래스 추가(파일명 미입력)
+from a1 import *
+
+class UpUpCal(UpgradeCal):
+          pass
+
