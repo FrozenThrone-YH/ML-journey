@@ -1,0 +1,22 @@
+#테스트용 뷰함수
+def test(request):
+    #render(request, HTML파일경로, 사전형데이터) 
+    #해당요청을 보낸 웹클라이언트에게 전송할 HTML 파일을 
+    #사전형데이터로 편집한 뒤 전송하는 함수
+    #뷰함수는 반드시 HTML파일이나 다른사이트주소, 파일데이터를 
+    #return 시켜야함. 
+    return render(request,"test.html",{})
+
+#뷰함수가 템플릿이 HTML을 변경할 수 있도록 변수값 전달 
+    
+def test_value(request):
+    #render함수의 인자값으로 사용할 사전형 데이터 생성 
+    dict = {'a':'홍길동님','b':[1,2,3,4,5]}
+    #dict['a']
+    return render(request,"test_value.html",dict)
+
+def test_input(request,number):
+    print(number)
+    return render(request,"test_input.html",{'a':number})
+    
+    
