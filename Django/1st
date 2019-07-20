@@ -1,0 +1,38 @@
+'''
+투표 어플리케이션 제작 
+MTV 패턴으로 접근
+'''
+제일 먼저 vote라는 폴더를 생성 
+
+#M - model.py - class 제작 
+
+#설문항목을 저장하는 모델클래스
+class Question(models.Model):
+    #제목
+    #100글자로 제한된 문자열을 저장할 수 있는 공간을 생성
+    #CharField : 글자수 제한이 있는 저장공간을 생성할때 사용하는 클래스
+    #CharField객체 생성시 max_length(최대글자제한) 매개변수에 정수 값 입력
+    #정수값을 필수적으로 입력해야함 
+    
+    title = models.CharField(max_length=100)
+    
+    #생성일 - pub_date변수 생성
+    #DateField - 년월일 데이터를 저장할 수 있는 공간
+    #DateTimeField = 년월일+시분초 데이터를 저장할 수 있는 공간
+    #옵션) auto_now_add 매개변수 : True값 설정시, 서버의 시간을
+    #데이터베이스에 저장할 때 자동으로 입력해준다. 
+    
+    pub_date = models.DateTimeField(auto_now_add=True)
+    
+#setting.py파일로 들어가서 vote 폴더를 등록해줘야 한다. 
+
+    INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'vote', 
+ ]
+
