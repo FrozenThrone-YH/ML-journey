@@ -1,0 +1,18 @@
+from django.contrib import admin
+from django.urls import path
+from vote.views import main, detail, vote, result
+   
+urlpatterns = [
+   #path함수에 name 매개변수 : 등록된 뷰의 별칭을 등록하는 매개변수
+    #템플릿 : {% url 별칭의 이름(문자열) %}
+    #뷰 : reverse함수로 별칭 기반의 사이트 주소 추출가능
+    path('vote/',main, name="main"),
+    #127.0.0.1:8000/vote/숫자
+    path('vote/<int:q_id>/',detail, name='detail'),
+    path('vote/vote/',vote, name='vote'),
+    path('vote/result/<int:c_id>/',result, name='result'),
+    
+]
+
+#사이트 주소의 형식에 맞게 입력 했는데, 별칭을 이용해서 사이트 주소 넣는 것! 
+#별칭 기반으로 result 뷰함수의 URL을 추출 및 전달.  
