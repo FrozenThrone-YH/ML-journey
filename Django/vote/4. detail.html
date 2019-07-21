@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+{# q : Question 객체 한개, c : q와 연결된 Choice 객체들 #}
+<h2> {{ q.title }} / {{ q.pub_date }} </h2>
+<table>
+	{% for obj in c %}
+	<tr>
+		<td>{{ obj.name }}</td>
+	</tr>
+	{% endfor %}
+</table>
+
+</body>
+</html>
+
+
+
+
+
