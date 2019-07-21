@@ -12,6 +12,11 @@
 
 <form action="" method="post"> 
 <!-- 데이터 숨겨서 송부하므로 post -->
+	{% csrf_token %}
+	<!-- csrf : 도메인주소가 다른 폼에서 웹서버로 데이터를 전송하는 공격
+	ex) 다른 사이트가 네이버결제주소로 데이터를 전송해 결제가 이뤄지는 것
+	Django 프레임워크는 csrf공격을 막기위해 form태그에 csrf_token을
+	생성해야함 -->
 	<table>
 		{% for obj in c %}
 		<tr>
