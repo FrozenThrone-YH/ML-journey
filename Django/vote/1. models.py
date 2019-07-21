@@ -68,3 +68,5 @@ class Choice(models.Model):
     def __str__(self):
         #Question 객체의 title + Choice객체의 name
         return "%s - %s"%(self.q.title,self.name)
+
+    
