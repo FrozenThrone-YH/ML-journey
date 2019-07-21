@@ -1,3 +1,5 @@
+#step1. 질문과 답 만들기
+
 #메인화면 - 데이터 베이스에 저장된 Question객체를 바탕으로 HTML을 전달
 
 def main(request):
@@ -30,6 +32,8 @@ def detail(request,q_id):
     print(c)
     #HTML코드로 추출한 객체들 전달 
     return render(request,"vote/detail.html",{'q':q,'c':c})
+
+
 
 
 
