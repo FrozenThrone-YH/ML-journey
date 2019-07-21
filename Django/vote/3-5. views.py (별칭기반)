@@ -112,3 +112,9 @@ def result(request,c_id):
     
     #결과화면 HTML에 Quetion객체와 Choice 객체 리스트를 전달
     return render(request, "vote/result.html",{'q':q,'c_list':c_list})
+
+
+
+
+
+# 완성후 4-6 result.html (별칭기반으로 넘어간다.)
