@@ -10,7 +10,7 @@ path(웹클라이언트가 요청할 url주소(문자열), 호출될 뷰클래�
 
 from django.contrib import admin
 from django.urls import path
-from vote.views import main, detail, vote
+from vote.views import main, detail, vote, result
 
 urlpatterns = [
     path('a1/', admin.site.urls),
@@ -19,8 +19,9 @@ urlpatterns = [
     #127.0.0.1:8000/vote/숫자
     path('vote/<int:q_id>/',detail),
     path('vote/vote/',vote),
+    path('vote/result/<int:c_id>/',result),
     
 ]
 
 #사이트 접속할때 127.0.0.1:8000/vote/숫자 에서 
-숫자에 번호를 입력하면 그 번호에 맞는 Question 객체에 해당하는 것으로 넘어간다.
+#숫자에 번호를 입력하면 그 번호에 맞는 Question 객체에 해당하는 것으로 넘어간다.
