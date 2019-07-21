@@ -1,6 +1,9 @@
 #3-3대비 변경점 def vote의 마지막에 투표하기 눌렀을때 연결되는 사이트 지정 
 #     -> HttpResponseRedirect('/vote/result/%s/'%(c.id))
 
+from django.http.response import HttpResponseRedirect
+from django.urls.base import reverse
+
 #Question 모델 클래스 import 
 from vote.models import Question,Choice
     
