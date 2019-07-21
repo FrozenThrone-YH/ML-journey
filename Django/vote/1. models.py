@@ -70,3 +70,5 @@ class Choice(models.Model):
         return "%s - %s"%(self.q.title,self.name)
 
     
+# Django 메뉴에서 make migration으로 저장공간을 만들어줘야 한다. 
+# make migration한 후 migrate를 해줘야 최종 완성 
