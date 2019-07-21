@@ -10,14 +10,15 @@ path(웹클라이언트가 요청할 url주소(문자열), 호출될 뷰클래�
 
 from django.contrib import admin
 from django.urls import path
-from vote.views import main, detail
+from vote.views import main, detail, vote
 
 urlpatterns = [
     path('a1/', admin.site.urls),
 
-path('vote/',main),
+    path('vote/',main),
     #127.0.0.1:8000/vote/숫자
-    path('vote/<int:q_id>/',detail)
+    path('vote/<int:q_id>/',detail),
+    path('vote/vote/',vote),
     
 ]
 
