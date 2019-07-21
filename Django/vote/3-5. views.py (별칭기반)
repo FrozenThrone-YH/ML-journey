@@ -81,6 +81,14 @@ def vote(request):
         #return HttpResponseRedirect('/vote/result/%s/'%(c.id))
         #별칭기반으로 result 뷰함수의 URL을 추출 및 전달
         return HttpResponseRedirect(reverse('result',args=(c.id,) ))
+        
+        '''
+        HttpResponseRedirect(URL 문자열)
+        : 웹 클라이언트에게 HTML이나 파일을 전달하는 것이 아닌 
+        다른 뷰 함수의 URL주소를 넘겨주는 클래스. 웹클라이언트가
+        리다이렉트 주소를 받으면 해당 주소로 웹서버에게 재 요청을 함.
+        reverse(별칭문자열, args) : urls.py에서 등록한 별칭으로 URL주소를 반환하는 함수.
+        '''
     
 #Choice 객체의 id를 바탕으로 설문결과 출력
 def result(request,c_id):
