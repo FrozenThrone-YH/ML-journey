@@ -1,3 +1,5 @@
+#3-2 대비 변경 사항 def result 추가 
+
 from vote.models import Question,Choice
     
 #메인화면 - 데이터 베이스에 저장된 Question객체를 바탕으로 HTML을 전달
@@ -57,4 +59,24 @@ def vote(request):
         c.save()
 
 #Choice 객체의 id를 바탕으로 설문결과 출력
+def result(request,c_id):
+    #c_id 기반의 choice 객체 한개 찾기 
+    c = Choice.objects.get(id=c_id)
+    #Choice 객체와 연동된 Question 객체 추출
 
+
+    # ~와 연동된 = ~. / ?의 객체 추출 = ~.! -> 이부분 이해를 해야하 함!! 
+    # q= Question.objects.get(id=c.q.id) #c에 연동된 q의 id값과 같은 Question 객체를 가져온다.
+    q_2 = Question.objects.get(id=c.q.id)
+    print(q_2)
+    q = c.q
+    print("c.q: ",c.q)
+    print("q_2: ",q_2)
+    print("q:",q)
+    
+    #Question객체와 연동된 모든 Choice객체 추출
+    c_list = q.choice_set.all()
+    #c_list=c.q.choice_set.all() 와 같음 
+    
+    #결과화면 HTML에 Quetion객체와 Choice 객체 리스트를 전달
+    return render(request, "vote/result.html",{'q':q,'c_list':c_list})
