@@ -12,3 +12,34 @@ print(matrix)
 *..
 .*.
 [['.', '*', '*'], ['*', '.', '.'], ['.', '*', '.']]
+
+
+# 생각한거 정리
+
+a,b = map(int, input().split())
+matrix = []
+for i in range(a):
+    matrix.append(list(input()))
+
+for i in range(a):
+    for j in range(b):
+        if matrix[i][j]=='*':
+            matrix[i][j]=='*'
+        elif i==0 and j==0:
+            matrix[i][j]=(matrix[i+1][j]=='*')+(matrix[i][j+1]=='*')
+        elif j == b-1:
+            if i==0:
+                matrix[i][j]=(matrix[i+1][j]=='*')+(matrix[i][j-1]=='*')
+            else :
+                matrix[i][j]=(matrix[i+1][j]=='*')+(matrix[i-1][j]=='*')+(matrix[i][j-1]=='*')
+        elif i == a-1:
+            if j ==0:
+                matrix[i][j]=(matrix[i][j+1]=='*')+(matrix[i-1][j]=='*')
+            else :
+                matrix[i][j]=(matrix[i+1][j]=='*')+(matrix[i][j+1]=='*')+(matrix[i][j-1]=='*')+(matrix[i-1][j]=='*')
+         
+            
+for i in range(a):
+    for j in range(b):
+        print(matrix[i][j],end='')
+    print()
