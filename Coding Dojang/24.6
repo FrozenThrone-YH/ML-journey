@@ -11,3 +11,23 @@ for i in cost:
             c.insert(j-1,',')
     c.reverse().join()
     print(c)
+    
+ #---------------------------------------------
+ 
+#Test 통과!  
+#range안의 값 찾는데 힘들었음
+#join시 띄어쓰기 넣어서 삽질 
+
+prices = list(map(int,input().split(';')))
+prices.sort(reverse=True)
+
+for i in prices:
+    c = list(str(i))
+    c.reverse()
+    for j in range(1,len(c)+2):
+        if j % 4 == 0:
+            c.insert(j-1,',')
+    c.reverse()
+    d=''.join(c)
+    e='{0:>9}'.format(d)
+    print(e)
