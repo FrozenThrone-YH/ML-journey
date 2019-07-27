@@ -29,3 +29,15 @@ for i in b :
                     
                     
 #코드를 이렇게 했는데 통과가 안됨 
+
+with open('words.txt','r') as file:
+
+    line=file.readline().split()
+
+    for word in line:
+
+        if 'c' in word:
+
+            print(word.strip(',.'))
+            
+# 이렇게 하면 통과됨
