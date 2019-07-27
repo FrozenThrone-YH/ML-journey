@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+{# c : 삭제할 Choice 객체 #}
+<h3> 삭제 페이지</h3>
+<p> {{c.name}}을 삭제하시겠습니까?</p>
+<form action="" method="post">
+	{% csrf_token %}
+	<input type="submit" value="삭제하기"/>
+
+</form>
+
+<a href="{% url 'main' %}">이전 페이지로 돌아가기</a>
+
+
+</body>
+</html>
