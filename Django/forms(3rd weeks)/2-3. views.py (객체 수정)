@@ -1,1 +1,100 @@
-#
+from django.shortcuts import render, get_object_or_404
+
+#get_object까지 치고 자동완성하면 import가 자동으로 된다. 
+
+이번 파일은 객체 수정 함수 추가 
+
+'''
+Question 객체 추가 함수
+1)GET - 사용자에게 Question 객체를 생성할때 사용할 변수값을 입력
+할수 있는 input 태그와 form 태그 제공
+2)Post - 사용자가 입력한 데이터를 바탕으로 Qeustion 객체를 생성
+및 데이터 베이스 저장
+''' 
+from vote.forms import QuestionForm
+
+def q_registe(request):
+    #사용자 요청이 GET인지 POST인지 구분 
+    if request.method == "GET":
+        #GET으로 요청했을때는 HTML로 제공
+        #QuestionForm 객체를 생성
+        #QuestionForm 객체를 생성할 때 입력값이 없는 형태로 생성하면
+        #Input 태그에 아무런 값도 입력되있지 않은 상태의 객체가 생성됨
+        form = QuestionForm()   #QuestionFrom 객체 하나 생성
+            
+        #객체를 바탕으로 HTML 코드로 변환
+       
+        #as_p(),as_table,as_ul함수 : Form 객체에 입력할 수 있는
+        #공간들을 <input>으로 변환하면서 <p>,<tr>,<td><li<태그로 
+        #감싸누는 기능이 있는 함수
+         
+        rendered = form.as_p()
+        print(rendered)
+        #변환값을 HTML 파일에 전달 
+        return render(request,"vote/q_registe.html",
+                    {'rendered' : rendered})
+    
+    
+    elif request.method == "POST":
+        #POST로 요청했을때는 다른 주소를 제공
+        #QuestionForm 객체를 생성 - 사용자 입력 바탕으로 생성
+        form = QuestionForm(request.POST)
+        #사용자가 입력한 값 기반으로 데이터 생성?
+        
+        #QuestionForm 객체와 연동된 Question 객체를 생성 및 저장
+        #form.save(commit=False)
+        # : 연동된 모델클래스의 객체로 변환만 하는 함수 
+        # 데이터 베이스에 저장은 하지 않고 객체로 변경만?
+        #form.save():연동된 모델클래스의 객체를 생성 및 데이터 베이스에 저장 
+        new_q = form.save()
+        print(new_q)
+        #새로운 객체가 형성되었다.
+        #생성된 Question객체의 id값으로 detail뷰의 링크를 전달
+        return HttpResponseRedirect(
+            reverse('detail',args=(new_q.id,)))
+        
+        
+#-------------------------------------------------------------------------------------아래가 추가 내용
+    
+
+#Question 객체 수정 함수
+#q_id : 사용자가 수정할 대상(Question)의 id값을 가지고 있다.
+#에러시 사용자가 잘못요청했을때 다른 요청으로 해달라고 하는 에러 만들기 
+#404 error - 4xx는 사용자 error(남탓하기) 
+def q_update(request,q_id):
+    #수정할 Question 객체를 추출 하는 과정 필요
+    #q_id: 어떤 객체를 수정할지 정보가 필요함
+    #get_object_or_404 : 모델클래스의객체들중 id변수값을 이용해
+    #객체 한개를 추출하는 함수. 단, 해당id값으로 된 객체가 없는 경우
+    #사용자의 요청에 잘못있는 걸로 판단해 404에러 페이지를 전달한다.
+    q = get_object_or_404(Question,id=q_id)
+    #Question 객체들을 대상으로 id값이 q_id값이 동일한 녀석을 q에 저장하겠다.
+    #단, id값이 없으면 404에러값을 사용자에게 전달하겠다.
+    
+    #조건문 - POST, GET인지 구분 필요
+        #GET으로 요청시 QuestionForm 객체 생성 - 수정할 객체를 바탕으로 생성
+        
+    if request.method == "GET":
+        #form 클래스 객체 생성시 instance매개변수에 연동된 객체를 전달하면 
+        #해당 객체가 가진 값을 input태그에 채운 상태로 form 객체가 생성된다.
+        form = QuestionForm(instance=q)
+        #인스탄스 매개변수 사용하는 이유는 - 수정할때 수정하려는 것의 제목과 내용이 뜨도록 하기 위해서 (네이버 글 수정하듯이) 
+        #as_table():각 입력공간과 설명을 <tr>과 <td>로 묶어주는 함수 
+        result = form.as_table()
+        return render(request,"vote/q_update.html",
+                      {'result':result})
+        #누구한테 보낼것이냐(request), 무엇을 보낼것이냐("html"), 그 값을 보낼때 어떤 값으로 수정해서 보낼것이냐(딕셔너리형태)
+       
+       #POST 요청시 QuestionForm 객체생성 - 수정대상객체 + 사용자 입력으로 생성
+    elif request.method == "POST":
+        #수정대상객체와 사용자입력으로 form객체 생성시
+        #기존의 객체 정보를 수정한 상태의 form 객체가 생성됨
+        form = QuestionForm(request.POST,instnace=q)
+        qq = form.save() #사용자입력으로 수정한 결과를 데이터베이스에 반영
+        print(q, qq)
+        #detail view로 이동
+        return HttpResponseRedirect(reverse('detail',args=(q.id)))
+        
+
+
+#Question 객체 삭제 함수
