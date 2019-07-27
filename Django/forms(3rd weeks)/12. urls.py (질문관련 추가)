@@ -1,0 +1,13 @@
+urlpatterns = [
+    #127.0.0.1:8000/vote/qr/
+    path('vote/qr/',q_registe, name='qr'),
+    path('vote/qu/<int:q_id>/',q_update, name='qu'),
+    #127.0.0.1:8000/vote/qd/q_id
+    path('vote/qd/<int:q_id>/',q_delete, name='qd'),
+        #127.0.0.1:8000/vote/cr/
+    path('vote/cr/',c_registe, name='cr'),
+    path('vote/cu/<int:c_id>/',c_update, name='cu'),
+    #127.0.0.1:8000/vote/cd/c_id
+    path('vote/cd/<int:c_id>/',c_delete, name='cd'),
+    
+]
