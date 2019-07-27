@@ -1,4 +1,38 @@
-#Question 객체 추가 함수
+'''
+Question 객체 추가 함수
+1)GET - 사용자에게 Question 객체를 생성할때 사용할 변수값을 입력
+할수 있는 input 태그와 form 태그 제공
+2)Post - 사용자가 입력한 데이터를 바탕으로 Qeustion 객체를 생성
+및 데이터 베이스 저장
+''' 
+from vote.forms import QuestionForm
+
+def q_registe(request):
+    #사용자 요청이 GET인지 POST인지 구분 
+    if request.method == "GET":
+        #GET으로 요청했을때는 HTML로 제공
+        #QuestionForm 객체를 생성
+        #QuestionForm 객체를 생성할 때 입력값이 없는 형태로 생성하면
+        #Input 태그에 아무런 값도 입력되있지 않은 상태의 객체가 생성됨
+        form = QuestionForm()   #QuestionFrom 객체 하나 생성
+            
+        #객체를 바탕으로 HTML 코드로 변환
+       
+        #as_p(),as_table,as_ul함수 : Form 객체에 입력할 수 있는
+        #공간들을 <input>으로 변환하면서 <p>,<tr>,<td><li<태그로 
+        #감싸누는 기능이 있는 함수
+         
+        rendered = form.as_p()
+        print(rendered)
+        #변환값을 HTML 파일에 전달 
+        return render(request,"vote/q_registe.html",
+                    {'rendered' : rendered})
+    
+    
+    elif request.method == "POST":
+        pass #POST로 요청했을때는 다른 주소를 제공
+    
+    
 
 #Question 객체 수정 함수
 
