@@ -1,0 +1,59 @@
+# idx = c.q.id 를 설정하는 것이 매우 중요!!!! 
+
+def c_update(request, c_id):
+    #수정할 Question 객체를 추출 하는 과정 필요
+    #q_id: 어떤 객체를 수정할지 정보가 필요함
+    #get_object_or_404 : 모델클래스의객체들중 id변수값을 이용해
+    #객체 한개를 추출하는 함수. 단, 해당id값으로 된 객체가 없는 경우
+    #사용자의 요청에 잘못있는 걸로 판단해 404에러 페이지를 전달한다.
+    c = get_object_or_404(Choice,id=c_id)
+    #Question 객체들을 대상으로 id값이 q_id값이 동일한 녀석을 q에 저장하겠다.
+    #단, id값이 없으면 404에러값을 사용자에게 전달하겠다.
+    
+    #조건문 - POST, GET인지 구분 필요
+        #GET으로 요청시 QuestionForm 객체 생성 - 수정할 객체를 바탕으로 생성
+        
+    if request.method == "GET":
+        #form 클래스 객체 생성시 instance매개변수에 연동된 객체를 전달하면 
+        #해당 객체가 가진 값을 input태그에 채운 상태로 form 객체가 생성된다.
+        form = ChoiceForm(instance=c)
+        #인스탄스 매개변수 사용하는 이유는 - 수정할때 수정하려는 것의 제목과 내용이 뜨도록 하기 위해서 (네이버 글 수정하듯이) 
+        #as_table():각 입력공간과 설명을 <tr>과 <td>로 묶어주는 함수 
+        c_result = form.as_table()
+        return render(request,"vote/c_update.html",
+                      {'c_result':c_result})
+        #누구한테 보낼것이냐(request), 무엇을 보낼것이냐("html"), 그 값을 보낼때 어떤 값으로 수정해서 보낼것이냐(딕셔너리형태)
+       
+       #POST 요청시 QuestionForm 객체생성 - 수정대상객체 + 사용자 입력으로 생성
+    elif request.method == "POST":
+        #수정대상객체와 사용자입력으로 form객체 생성시
+        #기존의 객체 정보를 수정한 상태의 form 객체가 생성됨
+        form = ChoiceForm(request.POST,instance=c)
+        cc = form.save() #사용자입력으로 수정한 결과를 데이터베이스에 반영
+        idx = c.q.id
+        print(c, cc)
+        #detail view로 이동
+        return HttpResponseRedirect(reverse('detail',args=(idx,)))
+        
+
+
+#Choice 객체 삭제 
+#c_id : 수정할 choice객체의 id값
+#공통 : 삭제할 Choice객체 추출 
+#GET - 삭제 여부를 물어보는 HTML 파일 전달
+#POST - 추출한 Choice 객체를 삭제 및 메인(또는 detail)로 이동 
+def c_delete(request, c_id):
+    c = get_object_or_404(Choice,id=c_id)
+    #q_id : 삭제할 대상
+    if request.method == "GET":
+        #form을 넘겨줄것이 아니라 rander함수를 써서 html을 리턴
+        return render(request, "vote/c_delete.html",
+                      {'c':c})
+    elif request.method == "POST":
+        #추출한 Question객체를 데이터베이스에서 제거 
+        print("삭제할 대상의 id 변수값:",c.id)
+        c.delete() #데이터베이스에 해당 객체 정보를 삭제하는 함수
+        #삭제를 하더라도 id변수값을 제외한 변수들 값은 사용 할 수 있음. 
+        print("삭제된 대상의 id변수값 :",c.id)
+        print("삭제된 대상의 title:",c.name)
+        return HttpResponseRedirect(reverse('main'))
