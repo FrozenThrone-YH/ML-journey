@@ -1,0 +1,8 @@
+'''
+기존에 만들어진 Vote folder에 파일을 만들어 준다. 
+
+vote 폴더에 오른쪽 클릭 - new - pydev module 
+팝업창이 뜬다. 
+package -> 생성되는 폴더 이름 
+name -> forms => finish로 새성
+'''
