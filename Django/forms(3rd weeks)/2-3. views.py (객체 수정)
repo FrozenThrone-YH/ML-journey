@@ -89,7 +89,7 @@ def q_update(request,q_id):
     elif request.method == "POST":
         #수정대상객체와 사용자입력으로 form객체 생성시
         #기존의 객체 정보를 수정한 상태의 form 객체가 생성됨
-        form = QuestionForm(request.POST,instnace=q)
+        form = QuestionForm(request.POST,instance=q)
         qq = form.save() #사용자입력으로 수정한 결과를 데이터베이스에 반영
         print(q, qq)
         #detail view로 이동
