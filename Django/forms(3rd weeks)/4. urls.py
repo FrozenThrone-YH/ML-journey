@@ -1,4 +1,4 @@
-   from vote.views import q_registe,
+   from vote.views import q_registe
    
  
    urlpatterns = [
