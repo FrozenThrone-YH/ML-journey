@@ -1,1 +1,12 @@
-#
+   from vote.views import q_registe, q_update
+   
+ 
+   urlpatterns = [
+   #127.0.0.1:8000 vote/qr/
+    path('vote/qr/',q_registe, name='qr'),
+    path('vote/qu/<int:q_id>',q_update, name='qu'),
+    
+    #---------------------------------------------아래가 추가 내용 
+    
+    
+    ]
