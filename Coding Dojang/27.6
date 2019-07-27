@@ -1,0 +1,31 @@
+'''
+문자열이 저장된 words.txt 파일이 주어집니다(문자열은 한 줄로 저장되어 있습니다). 
+words.txt 파일에서 문자 c가 포함된 단어를 각 줄에 출력하는 프로그램을 만드세요. 
+단어를 출력할 때는 등장한 순서대로 출력해야 하며 ,(콤마)와 .(점)은 출력하지 않아야 합니다.
+
+words.txt
+Fortunately, however, for the reputation of Asteroid B-612, 
+a Turkish dictator made a law that his subjects, under pain of death, 
+should change to European costume. So in 1920 the astronomer gave 
+his demonstration all over again, dressed with impressive style and elegance. 
+And this time everybody accepted his report.
+
+표준출력
+dictator
+subjects
+change
+costume
+elegance
+accepted
+'''
+
+file = open('words.txt', 'r')
+s = file.read()
+b = file.split(' ')
+
+for i in b :
+          if 'c' in i :
+                    print(i.strip(',.'))
+                    
+                    
+#코드를 이렇게 했는데 통과가 안됨 
