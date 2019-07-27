@@ -1,0 +1,18 @@
+form vote.forms import ChoiceForm
+
+#답변 항목 등록 
+
+def c_registe(request):
+    if request.method == "GET":
+      form = ChoiceForm()
+      result = form.as_p()
+      return render(request, "vote/c_registe.html",{'result':result})
+     elif request.method == "POST":
+      form = ChoiceForm(request.POST)
+      new_c = form.save()
+      idx = new_c.q.id #이부분이 질문 등록과는 다름
+      #choice의 c항목과 연결된 Question 항목의 id 를 받아야한다. 
+      
+      return HttpResponseRedirect(reverse('detail',args=(idx,)))
+      
+      
