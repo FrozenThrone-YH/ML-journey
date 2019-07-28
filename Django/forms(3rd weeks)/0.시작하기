@@ -5,4 +5,13 @@ vote 폴더에 오른쪽 클릭 - new - pydev module
 팝업창이 뜬다. 
 package -> 생성되는 폴더 이름 
 name -> forms => finish로 새성
+
+Django 공식 홈페이지에서 form 관련 document 확인하여 추가 공부 필요 
+
+https://docs.djangoproject.com/en/2.2/topics/forms/
+
+Django 공식 홈페이지에서 template 관련 document 확인하여 추가 공부 필요 
+
+https://docs.djangoproject.com/en/2.2/topics/templates/
+
 '''
