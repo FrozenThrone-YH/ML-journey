@@ -5,6 +5,8 @@ mysite7 오른쪽 클릭 - Django 메뉴 - Create Application - customlogin 이�
 
 # mysite7폴더의 settings.py 열기
 # 35번째 줄에 INSTALLED_APPS에 새로 만든 것 추가 
+# 관리자 사이트에서 인증 및 권한에 있는 사용자(들)이라는 클래스 활용예정 
+# (id : admin / pw : qwerasdf)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
