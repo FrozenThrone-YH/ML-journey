@@ -18,6 +18,10 @@ INSTALLED_APPS = [
     'vote',
     'customlogin'
 ]
+
+#customlogin 폴더 오른쪽 클릭 - new - Pydev 2번 (하나는 forms / 하나는 urls
+#customlogin 폴더 오른쪽 클릭 - new - folder (이름은 templates)
+#customlogin 폴더 내 templates 폴더 오른쪽 클릭 - new - folder (이름은 cl) 
 '''
 
 수업 진행 방향
