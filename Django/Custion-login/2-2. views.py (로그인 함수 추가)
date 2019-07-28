@@ -58,7 +58,7 @@ def signup(request):
 # 중요한 것은! 비밀번호는 암호화 된 상태에서 비교해야한다! 
 def signin(request):
     if request.method == "GET" : 
-        return render(request, "cl/signin.html",{'result':SignupForm().as_table()})
+        return render(request, "cl/signin.html",{'result':SigninForm().as_table()})
         #이번엔 한줄로 표현(이것이 최종 표현, 더이상 줄일 수 없다?) - 앞에서는 result에 할당하고 그것을 사용  
     elif request.method == "POST" :
         #is_valid는 회원가입시에 썼으니, 회원가입이 되어 있다면 is_valid는 False가 뜬다.
