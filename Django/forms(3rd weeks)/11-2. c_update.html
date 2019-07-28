@@ -47,6 +47,9 @@ return render(request,"vote/c_update.html",{'c_result':c_result})
 </head>
 <body>
 {# c_result : <tr><td>로 감싸진 <input>들 #}
+{# id : Question 객체 id #}
+{# detail_url : detail페이지의 주소 #}
+	
 <h3> 설문조사 수정 페이지 </h3>
 <form action="" method='post'>
 	{% csrf_token %}
