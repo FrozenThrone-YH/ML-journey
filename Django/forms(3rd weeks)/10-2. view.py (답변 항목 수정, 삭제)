@@ -20,6 +20,9 @@ def c_update(request, c_id):
         #인스탄스 매개변수 사용하는 이유는 - 수정할때 수정하려는 것의 제목과 내용이 뜨도록 하기 위해서 (네이버 글 수정하듯이) 
         #as_table():각 입력공간과 설명을 <tr>과 <td>로 묶어주는 함수 
         c_result = form.as_table()
+        
+        #c_reuslt = ChoiceForm(instance=c).as_table()과 같다. 
+        
         return render(request,"vote/c_update.html",
                       {'c_result':c_result})
         #누구한테 보낼것이냐(request), 무엇을 보낼것이냐("html"), 그 값을 보낼때 어떤 값으로 수정해서 보낼것이냐(딕셔너리형태)
