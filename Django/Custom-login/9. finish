@@ -1,0 +1,16 @@
+'''
+
+지금까지 했던 모든 html 파일에 
+<body> 윗부분을 날리고 
+
+{% extends 'base.html' %}
+{% block content %}
+
+을 넣어주고
+
+</body> 아랫부분 날리고
+
+{% endblock %}을 넣어주면 로그인 / 전화번호는 계속 화면에 남는다. 
+
+
+'''
