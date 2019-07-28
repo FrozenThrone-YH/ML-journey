@@ -30,7 +30,7 @@ def c_update(request, c_id):
         #'id':c.q.id 추가에 대한 설명은 c_update.html에 있음, 이전 페이지로 갈때 필요함
         # HTML코드에 detail 페잊로 이동하기 위한 Question객체의 id값 전달 (강사님 설명)
         #c_result : form 태그 안에 들어갈 input 태그 문자열
-        #detai_rul로도 넘길 수 있음 : 해당 수정페이지와 연관된 detail페이지의 주소전달
+        #detai_url로도 넘길 수 있음 : 해당 수정페이지와 연관된 detail페이지의 주소전달
         detail_url = reverse('detail', args=(c.q.id,))
        
        
