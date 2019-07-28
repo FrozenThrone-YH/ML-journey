@@ -10,3 +10,10 @@ from django.urls import path, include
 # -> 127.0.0.1:8000/test로 시작하는 모든 요청들을 vote폴더에 
 #urls.py에서 처리할 수 있도록 등록 
 
+
+urlpatterns = [
+    #127.0.0.1:8000/cl/로 시작하는 요청들은 
+    #customlogin/url.py에서 처리 
+    path('cl/',include('customlogin.urls')), # 기존 코드에 코드 추가 필요
+    
+]
