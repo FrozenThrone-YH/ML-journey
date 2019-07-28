@@ -60,5 +60,8 @@ return render(request,"vote/c_update.html",{'c_result':c_result})
 </form>
 
 <a href="{% url 'detail' id %}">이전 페이지로 돌아가기</a>
+	
+<!-- {% url 'detail' id %}대신 python 코드인 {{ detail_url }} 이걸로 처리할 수 있다. -->
+	
 </body>
 </html>
