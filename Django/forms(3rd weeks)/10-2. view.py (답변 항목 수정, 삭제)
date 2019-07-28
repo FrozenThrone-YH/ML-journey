@@ -45,6 +45,8 @@ def c_update(request, c_id):
         #detail view로 이동
         return HttpResponseRedirect(reverse('detail',args=(idx,)))
         
+        #수정이 완료됐다고 띄우고 싶다면 render함수 이용 
+        
 
 
 #Choice 객체 삭제 
