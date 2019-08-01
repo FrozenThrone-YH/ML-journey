@@ -30,3 +30,31 @@ def get_min_max_score(*args):
 
 def get_average(**kwargs):
     return float(sum(kwargs.value())/len(**kwargs)
+    
+
+#재시도(변경점 : len(**kwargs) 뒤에 )괄호 하나 누락으로 문법 에러 발생 
+# ) 괄호 누락에 대한 문법 오류는 정확히 지적을 안해줘서 찾기 난해하다. 
+# 변경점 : value →  values 
+'''
+괄호 누락시 오류
+  File "<ipython-input-15-e3a87cd3f52d>", line 9
+    min_score, max_score = get_min_max_score(korean, english, mathematics, science)
+            ^
+SyntaxError: invalid syntax
+
+value만 썻을 시 오류 
+<ipython-input-17-0defb33c3869> in get_average(**kwargs)
+      5 
+      6 def get_average(**kwargs):
+----> 7     return float(sum(kwargs.value())/len(kwargs))
+      8 
+      9 min_score, max_score = get_min_max_score(korean, english, mathematics, science)
+
+AttributeError: 'dict' object has no attribute 'value' 
+'''
+
+def get_min_max_score(*args):
+    return float(min(args)), float(max(args))
+
+def get_average(**kwargs):
+    return float(sum(kwargs.values())/len(kwargs))
