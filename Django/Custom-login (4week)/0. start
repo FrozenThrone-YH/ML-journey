@@ -46,3 +46,23 @@ AUTHENTICATION_BACKENDS = (
 #윗줄 복사 후 추가 
 
 #다하면 맨 상위폴더 (mysite7)에 오른쪽 클릭 후 Django - migrate 하기 
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                #social.django기능을 사용하기 위한 설정
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
+            ],
+        },
+    },
+]
+#redirect는 다른 사이트를 보여줄때 썼던 명령어
