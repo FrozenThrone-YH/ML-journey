@@ -12,3 +12,6 @@ LOGIN_REDIRECT_URL= reverse_lazy('main')
 #주소에서 폴더 개념은 : 을 써야한다.  
 LOGIN_URL = reverse_lazy("cl:signin")
 
+
+#이 변수를 설정해주면 로그인 후 main 페이지 127.0.0.1:8000/vote로 넘어간다. 
+
