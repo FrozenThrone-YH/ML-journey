@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'customlogin',
     #소셜로그인처리하는 어플리케이션
     #social-auth-app-django 모듈을 pip로 설치해야 사용가능
+    #우리 사이트에 꼭 회원가입을 하지 않더라도 사용할 수 있게하는 라이브러리
     'social_django',  
 ]
     #INSTALLED_APPS에 'social_django' 추가 언더바임! 중요! 그냥 하이픈 하면 에러남 
