@@ -1,7 +1,40 @@
+from django.shortcuts import render
+from django.views.generic.list import ListView
+from blog.models import Post
+from django.views.generic.detail import DetailView
+
+# Create your views here.
+
 
 #글 목록이 뜨는 페이지
+#ListView 자동완성 더블클릭하여 import 
+#generic view - django에서 제공하는 여러가지 뷰 기능을 구현한 클래스 모음
+#ListView : 특정 모델클래스의 객체들을 목록화할 수 있는 기능이 구현된 뷰  
+class Main(ListView):
+    #사용자에게 전달할 HTML파일의 경로
+    #template_name은 지정된 변수 이름임 
+    template_name = 'blog/main.html'
+    
+    #리스트로 뽑을 모델클래스 등록
+    #Post 더블클릭해서 자동import 시키기
+    model = Post
+    
+    #리스트로 추출한 객체를 HTML파일로 전달할때 사용할 이름
+    context_object_name = 'list'
+    
+    #한페이지에 몇개의 객체가 보여질지 설정
+    paginate_by = 5
+
 
 #글 상세보기 페이지
+#DetailView 더블클릭하여 자동 import
+#DetailView : 특정 모델클래스의 특정 객체 한개를 추출할때 사용하는 뷰 
+class Detail(DetailView):
+    #사용자에게 전달할 HTML파일의 경로
+    template_name = 'blog/detail.html'
+    #리스트로 뽑을 모델클래스 등록
+    model = Post
+    #리스트로 추출한 객체를 HTML파일로 전달할때 사용할 이름
+    context_object_name = 'obj'
 
-#글 작성 페이지
 
