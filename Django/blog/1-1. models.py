@@ -73,7 +73,7 @@ class PostImage(models.Model):
     
 
 #글에 포함된 파일
-class PostFlie(models.Model):
+class PostFile(models.Model):
     post = models.ForeignKey(Post,on_delete=models.CASCADE)
     
     #클라이언트가 업로드한 파일들은 서버의 files/년/월/일 폴더에 저장됨
