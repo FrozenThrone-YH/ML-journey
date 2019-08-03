@@ -80,4 +80,5 @@ class PostFlie(models.Model):
     file = models.FileField('파일',upload_to='files/%Y/%m/%d')
 
 #다 끝나면 상위폴더 mysite7 오른쪽 클릭 - Django - make migration - blog 이름으로 생성 
+ #migrations 폴더에 0001_initial.py 파일 생성됐는지 확인 
 #그리고 mysite7 오른쪽 클릭 - Django - migrate
