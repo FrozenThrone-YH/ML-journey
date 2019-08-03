@@ -26,3 +26,7 @@ download href로 한다. -->
 	<img src="{{ pi.image.url }}" width="40%">
 	<br>
 {% endfor %}
+
+<a href="{% url 'blog:main' %}">메인으로 돌아가기 </a>
+
+{% endblock %}
