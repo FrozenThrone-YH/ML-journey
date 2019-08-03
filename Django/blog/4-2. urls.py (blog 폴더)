@@ -1,0 +1,13 @@
+'''
+Created on 2019. 8. 3.
+
+@author: 405-3
+'''
+
+app_name = 'blog'
+urlpatterns =[
+    
+    ]
+    
+    
+ 이렇게 셋팅 후 저장
