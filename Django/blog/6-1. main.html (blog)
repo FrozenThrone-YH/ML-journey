@@ -22,7 +22,7 @@
 	<a>다음페이지</a>
 {% endif %}
 <!-- 테이블로 글 목록 띄우기 -->
-<table>
+<table width = 85%>
 	<tr>
 		<th>글번호</th>
 		<th>카테고리</th>
@@ -35,7 +35,12 @@
 		<tr>
 			<th>{{ post.id }}</th>
 			<th>{{ post.category }}</th>
-			<th>{{ post.title }}</th>
+			<!-- 글제목 누르면 그 글의 디테일로 넘어가는 링크 추가 -->
+			<th>
+				<a href="{% url 'blog:detail' post.id %}"> 
+					{{ post.title }}
+				</a>
+			</th>
 			<th>{{ post.user }}</th>
 			<th>{{ post.pub_date }}</th>
 		</tr>
