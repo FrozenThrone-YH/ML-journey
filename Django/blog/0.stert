@@ -1,0 +1,20 @@
+#1. 상위 폴더 mysite7에서 오른쪽 클릭 django - create application 
+#2. blog 파일 만들어 주고 F5(새로고침)
+#3. 하위 mysite7 폴더 settings.py 에서 installed_apps에 'blog'추가 
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'vote',
+    'customlogin',
+    #소셜로그인처리하는 어플리케이션
+    #social-auth-app-django 모듈을 pip로 설치해야 사용가능
+    #우리 사이트에 꼭 회원가입을 하지 않더라도 사용할 수 있게하는 라이브러리
+    'social_django',
+    'blog',
+    
+]
