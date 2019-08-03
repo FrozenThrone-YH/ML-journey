@@ -1,0 +1,10 @@
+{# main.html #}
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- 이전페이지 버튼 & 다음페이지 버튼 -->
+
+<!-- 테이블로 글 목록 띄우기 -->
+
+
+{% endblock %}
