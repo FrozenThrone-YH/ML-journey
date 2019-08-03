@@ -5,7 +5,7 @@ Created on 2019. 8. 3.
 '''
 from django.forms.models import ModelForm
 from blog.models import Post
-from django.forms.fields import ImageField
+from django.forms.fields import ImageField, FileField
 from django import forms
 from django.forms.widgets import ClearableFileInput
 
@@ -24,5 +24,11 @@ class PostingForm(ModelForm):
     #forms.ImageField()로 해도 된다. 
     #더블클릭해서 ClearableFileInput import
     
+    #form class에 있는 FileField import 
+    files = FileField(required = False,
+                      widget=ClearableFileInput(attrs={'multiple':True}))
     
     class Meta :
+        model = Post
+        fields = ['category','title','content'] #사용자에게 입력 받을 것들 
+
