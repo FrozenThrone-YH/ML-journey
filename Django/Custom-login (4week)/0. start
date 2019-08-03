@@ -35,11 +35,14 @@ INSTALLED_APPS = [
 ]
     #INSTALLED_APPS에 'social_django' 추가 언더바임! 중요! 그냥 하이픈 하면 에러남 
 
+#social-django에서 인증절차에 사용되는 클래스 등록
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.open_id.OpenIdAuth',
+    #구글 로그인 기능을 사용하기 위한 클래스 등록
     'social_core.backends.google.GoogleOpenId',
     'social_core.backends.google.GoogleOAuth2',
     'social_core.backends.google.GoogleOAuth',
+    # 구글 로그인 정보를 django User 모델클래스에 연동하기 위한 클래스 등록 
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -59,6 +62,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 #social.django기능을 사용하기 위한 설정
+                #
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
             ],
