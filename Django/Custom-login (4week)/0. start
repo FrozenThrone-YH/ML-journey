@@ -1,0 +1,48 @@
+'''
+다른 개발자의 라이브러리를 다운 받기
+1) 소셜아이디로 로그인 하기 
+1. windows - preferences - PyDev - Interpreters - Python interpreters
+2. 오른쪽에 manage with pip -> 팝업창
+3. 팝업창 -> Command to execute : install social-auth-app-django -> run 버튼 고고
+  
+ 안될시? (어세스 거부시)
+
+1. 윈도우키 + R -> cmd -> pip install social-auth-app-django 
+
+2) 필로우
+1. windows - preferences - PyDev - Interpreters - Python interpreters
+2. 오른쪽에 manage with pip -> 팝업창
+3. 팝업창 -> Command to execute : pillow ※이미지 처리 기능
+
+'''
+
+#라이브러리 추가 후 
+#mysite7 - settings.py로 간다. 
+#https://python-social-auth-docs.readthedocs.io/en/latest/configuration/django.html 사이트에서
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'vote',
+    'customlogin',
+    #소셜로그인처리하는 어플리케이션
+    #social-auth-app-django 모듈을 pip로 설치해야 사용가능
+    'social_django',  
+]
+    #INSTALLED_APPS에 'social_django' 추가 언더바임! 중요! 그냥 하이픈 하면 에러남 
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.open_id.OpenIdAuth',
+    'social_core.backends.google.GoogleOpenId',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.google.GoogleOAuth',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+#윗줄 복사 후 추가 
+
+#다하면 맨 상위폴더 (mysite7)에 오른쪽 클릭 후 Django - migrate 하기 
