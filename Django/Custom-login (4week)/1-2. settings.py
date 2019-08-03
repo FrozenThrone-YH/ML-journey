@@ -1,0 +1,14 @@
+#1-1 settings.py 맨 끝에 추가 
+
+#소셜 로그인이 끝난뒤에 이동할 메인페이지 주소를 저장하는 변수
+#settings.py 와 같은 웹서버 로드가 완전히 되지 않은 공간에서
+#별칭 기반의 url 검색을 사용하려면 reverse_lazy 함수를 사용해야함
+#자동완성으로 import 시키기
+LOGIN_REDIRECT_URL= reverse_lazy('main')
+
+#비로그인상태에서 로그인이 필요한 기능을 사용했을때 로그인페이지를 
+#띄우기 위해 로그인페이지의 url을 등록하는 변수
+#ex_ 비로그인상태에서 글을 쓰려한다. 하고 하면 접근을 제한하는 기능
+#주소에서 폴더 개념은 : 을 써야한다.  
+LOGIN_URL = reverse_lazy("cl:signin")
+
