@@ -1,0 +1,9 @@
+"""
+models.py 작성후 migration 하고 migrate 했다가 
+mdoels.py에 있는 class 이름 변경했을 시 migration을 새로해줘야한다. 
+
+
+마이그레이션 새로하면 class이름을 바꿀건지 물어본다. [y/n] y쳐주고 enter 쳐주고 
+마이그레이트 하면 된다. 
+
+"""
