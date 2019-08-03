@@ -1,8 +1,11 @@
-#추가내용 : 77번째 줄 이후 
+#추가내용 : 80번째 줄 이후 
 """
-   #127.0.0.1:8000/auth/로 시작하는 요청들을
+    #127.0.0.1:8000/auth/로 시작하는 요청들을
     #social_django 어플리케이션의 urls.py에서 처리
-    path('auth/', include('social_django.urls')),
+    #include함수의 namespace 매개변수 : 해당 urls.py에
+    #지정된 app_name 값을 사용하지 않고 새로운 그룹명을 지정 (별칭으로 찾기 위해 별칭을 지정)
+    #social_django.urls의미 - social_django 폴더 안에 있는 urls.py 파일 불러온다.
+    path('auth/', include('social_django.urls',namespace='social')),
 """
 
 
@@ -76,6 +79,9 @@ urlpatterns = [
     
     #127.0.0.1:8000/auth/로 시작하는 요청들을
     #social_django 어플리케이션의 urls.py에서 처리
-    path('auth/', include('social_django.urls')),
+    #include함수의 namespace 매개변수 : 해당 urls.py에
+    #지정된 app_name 값을 사용하지 않고 새로운 그룹명을 지정 (별칭으로 찾기 위해 별칭을 지정)
+    #social_django.urls의미 - social_django 폴더 안에 있는 urls.py 파일 불러온다.
+    path('auth/', include('social_django.urls',namespace='social')),
     
 ]
