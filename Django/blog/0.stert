@@ -18,3 +18,8 @@ INSTALLED_APPS = [
     'blog',
     
 ]
+
+#4. blog 오른쪽 클릭 new - pydev module - forms 만들기 
+#5. blog 오른쪽 클릭 new - pydev module - urls 만들기 
+#6. blog 오른쪽 클릭 new - folder - templates 만들기 
+#7. blog하위 templates폴더 오른쪽 클릭 new - folder - blog 만들기 
