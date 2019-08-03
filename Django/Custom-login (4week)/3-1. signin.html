@@ -1,0 +1,31 @@
+<!--추가 된 사항 : 23번째 줄 -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h3>로그인 페이지</h3>
+<form action='' method='post'>
+	{% csrf_token %}
+
+	<table>
+		{{ result }}
+	</table>
+	<input type='submit' value='로그인'/>
+
+</form>
+
+<a href="{% url 'main' %}"> 설문조사 페이지로 가기 </a></body>
+<a href="{% url 'social:begin' 'google-oauth2' %}"> 구글 아이디로 로그인 하기 </a>
+</html>
+
+
+
+
+<!-- http://127.0.0.1:8000/cl/signin으로 들어가서 구글 아이디로 로그인하기 해서
+로그인하면 다른 쪽 사이트로 가는 주소가 생성 된다. http://127.0.0.1:8000/accounts/profile/ 
+지금은 page not found -->
