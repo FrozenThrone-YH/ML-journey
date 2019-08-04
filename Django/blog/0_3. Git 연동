@@ -13,5 +13,10 @@
   - ID / PW 넣고 넘기기 
   - Directory 파일을 넣고 git에 업로드 된다. - finish로 끝 (연동 끝) 
   - 다시 PyDev로 넘어온다. 
+  
+  - project (mysite7) 오른쪽 클릭 - team - share project
+  - 팝업창에서 Repository 클릭하면 온라인과 연동된 local 주소가 뜬다. 
+    선택하고 finish
+  - finish 누르면 폴더에 물음표가 떠 있다 
 
 """
