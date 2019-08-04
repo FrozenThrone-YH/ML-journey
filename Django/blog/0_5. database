@@ -1,0 +1,31 @@
+  - database tap으로 들어간다.
+  - 비밀번호는 settings.py 에 노출이 되므로 
+  - files tap에서 settings.py 로들어간다. 
+  - DATABASES 변수를 주석처리
+  
+  DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD' : '',
+        'HOST' : '',
+        
+    }
+}
+
+이렇게 수정해준다.
+
+database tap에서 create database에서 이름 mysite로 한다음 생성
+your database에 FrozenThrone$mysite가 추가된다. 이것이 아래 name이 된다. 
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'FrozenThrone$mysite',
+        'USER': 'FrozenThrone',
+        'PASSWORD' : 'qwerasdf',
+        'HOST' : 'FrozenThrone.mysql.pythonanywhere-services.com',
+
+    }
+}
