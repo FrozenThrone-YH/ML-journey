@@ -61,6 +61,6 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite7.settings'
 # then:
 from django.core.wsgi import get_wsgi_application
 from django.contrib.staticfiles.handlers import StaticFilesHandler #파일 업로드 / 다운로드 할 수 있게 해주는 클래스 
-application = get_wsgi_application()
+application = StaticFilesHandler(get_wsgi_application())
 
 """
