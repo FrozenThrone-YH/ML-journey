@@ -1,0 +1,7 @@
+"""
+
+python manage.py createsuperuser     
+
+이것으로 관리자 계정 만들기 
+
+"""
