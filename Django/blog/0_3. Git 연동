@@ -25,5 +25,6 @@
     - unstaged changes - 아무거나 하나 클릭 후 ctrl + a(전체선택) 
     - staged change에 드래그 & drop
   - commit message에 아무말이나 써줘야함. (안쓰면 진행 안됨)
+  - 트리 그대로 복사가 된다. 
   
 """
