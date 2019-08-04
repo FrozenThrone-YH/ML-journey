@@ -35,5 +35,31 @@
   - Virtualenv : 
     /home/FrozenThrone/myvenv 입력 
               사용자이름    /등록한 개발 환경 
+              
+    - code : 의 WSGI configuration file : 옆에 주소를 새탭으로 열기 ※ 한글쓰면 안된다. 
+    HELLO_WORLD = 는 HTML 형식으로 되어 있다. 
+    HELLO_WORLD 부터 함수까지 삭제 
+    Django 라는 주석이 있다. 주석을 하나씩 다 풀어준다. FLASK전까지 
+
+   os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite7.settings' 
+                                                               이부분이 프로젝트 이름
+                                                               
+아래 코드 처럼 만들어준다.                                                                
+# +++++++++++ DJANGO +++++++++++
+# To use your own django app use code like this:
+import os
+import sys
+
+# assuming your django settings file is at '/home/FrozenThrone/mysite/mysite/settings.py'
+# and your manage.py is is at '/home/FrozenThrone/mysite/manage.py'
+path = '/home/FrozenThrone/mysite7/mysite7/src' #여기는 주소 (실제로는 한글쓰면 안됨)
+if path not in sys.path:
+    sys.path.append(path)
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite7.settings'
+
+# then:
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
 
 """
