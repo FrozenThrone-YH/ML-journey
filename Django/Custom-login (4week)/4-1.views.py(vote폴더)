@@ -1,4 +1,4 @@
-#추가된 내용 vote / registe / update / delete 함수 위에 @login_required추가
+#추가된 내용 vote / registe / update / delete 함수 위에 @login_required추가 (데코레이터)
 #@login_required 할때 자동완성으로 import 시켜주기,
 #사용할때는 함수 바로 윗줄에 쓰기 
 #registe/update 함수를 사용하려하면 로그인 화면으로 넘어간다. 
