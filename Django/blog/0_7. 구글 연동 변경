@@ -1,0 +1,14 @@
+"""
+
+# 구글 연동 수정 
+
+OAuth 동의 화면으로 가서 
+
+승인된 도메인 발급받은 도메인 주소 넣어준다. 
+FrozenThrone.pythonanywhere.com
+
+웹클라이언트1 눌러서 승인된 리디렉션 URI를
+http://127.0.0.1:8000/auth/complete/google-oauth2/ 이거를 복사해서
+http://FrozenThrone.pythonanywhere.com/auth/complete/google-oauth2/ 이렇게 수정 
+
+"""
