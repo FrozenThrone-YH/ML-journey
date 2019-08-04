@@ -24,5 +24,16 @@
   WSGI를 수정하라고 뜸 - next - 인터넷주소가 뜨는데, 새탭으로 열기 
 
   - run until 3 months from today 3개월까지 허용을 해준다. 3개월 뒤 다시 눌러주면 된다. 
+  
+   - 오른쪽 상단 files를 새탭으로 열기 
+   - mysite7로 들어가서 mysite7로 들어가서 src폴더까지 그러면 manage.py가 있다. ※ manage.py가 있을때까지 들어가기 
+     그러면 왼쪽 상단에 
+   /home/FrozenThrone/mysite7/mysite7/src 라고 써있는것을 복사 
+
+  - web tap으로 들어가서 code : 의 source에 붙여주고 체크! 
+
+  - Virtualenv : 
+    /home/FrozenThrone/myvenv 입력 
+              사용자이름    /등록한 개발 환경 
 
 """
