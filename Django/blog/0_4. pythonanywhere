@@ -1,0 +1,20 @@
+"""
+  - 무료버전으로 깔면 구리다. 늦게 반응을 한다. ㅋㅋㅋ
+  - console GUI화면을 제공하지 않는다. 오로지 text로만 입력할 수 있는 환경 
+  - files - 어떤 파일이 있는지 확인 가능 
+  - web - 어플리케이션 등록
+  - databases - upgrade해서 등록 (여기서는 mysql을 제공한다) 
+
+  - 가상 컴퓨터 켜기 - $bash
+  - source myvenv/bin/activate 엔터키를 누르면 앞이 바뀐다.
+    - (myvenv) 02:46 ~ $   (python 환경이 된 것이다.) 
+  - pip install django
+  - pip install pillow
+  - pip install social-auth-app-django
+  - pip install mysqlclient
+  
+  명령어 쳐서 라이브러리 깔아주기 
+  
+
+
+"""
