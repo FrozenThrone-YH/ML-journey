@@ -14,7 +14,15 @@
   - pip install mysqlclient
   
   명령어 쳐서 라이브러리 깔아주기 
-  
+  다 깔리면 github와 연동 
+  - git clone https://github.com/FrozenThrone-YH/mysite7.git 
+    이걸로 다운 로드 한다. 
+  - tree mysite7로 tree잘있나 확인 
+  - 오른쪽 상단 햄버거 모양 클릭 - web - 오른쪽 클릭 - 새탭으로 열기
 
+  add a new web app -> next -> manual configuration - python 3.6 - next
+  WSGI를 수정하라고 뜸 - next - 인터넷주소가 뜨는데, 새탭으로 열기 
+
+  - run until 3 months from today 3개월까지 허용을 해준다. 3개월 뒤 다시 눌러주면 된다. 
 
 """
