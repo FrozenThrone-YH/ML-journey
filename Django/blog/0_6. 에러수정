@@ -1,0 +1,14 @@
+"""
+
+# mysite7 - urls.py에서 
+
+urlpatterns = [
+    path('a1/', admin.site.urls),
+    path('',main),]
+    
+#path('',test)로 되어 있어서 test할때 떳던 화면이 나온다.
+이 말은 도메인만 쳤을때 뜨는 제일 처음 화면에 대한 정의로 
+path('',main) main으로 해줘야한다. 
+    
+    
+"""
