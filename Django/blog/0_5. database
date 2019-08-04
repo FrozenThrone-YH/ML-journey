@@ -29,3 +29,8 @@ DATABASES = {
 
     }
 }
+
+Bash 화면으로 넘어간다. 설정을 다시 해야한다 
+cd /home/FrozenThrone/mysite7/mysite7/src로 manage.py로 접근 
+
+python manage.py migrate 이렇게 
