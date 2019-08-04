@@ -1,0 +1,11 @@
+#1. mysite7 - settings.py
+
+
+# DEBUG = False 로 변경한다. 개발 중일때는 True로 된다. 
+#외부 웹 클라이언트가 웹서버에게 요청할때 허용되는 도메인주소를
+#저장하는 변수 
+#웹서버에 접근할 수 있는 도메인 주소는 127.0.0.1과 
+#xxx.pythonanywhere.com으로만 요청할 수 있다. 
+ALLOWED_HOSTS = ['127.0.0.1','.pythonanywhere.com']
+
+#업로드했던 file 삭제 - Files 폴더 삭제 등 불필요한 파일 삭제로 업로드 시간 최소화 
