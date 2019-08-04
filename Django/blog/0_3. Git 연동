@@ -19,4 +19,11 @@
     선택하고 finish
   - finish 누르면 폴더에 물음표가 떠 있다 
 
+  - 다시 team 메뉴로 들어가면 메뉴가 많아 진다. 
+  - push 보내기 / pull 다운 받기 
+  - 여기서는 commit 누른다. - 밑에 창이 뜬다. 
+    - unstaged changes - 아무거나 하나 클릭 후 ctrl + a(전체선택) 
+    - staged change에 드래그 & drop
+  - commit message에 아무말이나 써줘야함. (안쓰면 진행 안됨)
+  
 """
