@@ -281,7 +281,163 @@
     {
      x[i]=i*i
     } 결과물 : 1 4 9 16 25 36 49 64 81
-         R기초와 데이터마트-5 8분 부터 
+       
+     i = 1
+     while(i<10) 조건이 해당되면 계속 돈다.
+     {
+      i=i+1
+      print(i)
+     }
+     
+     # if - else, if
+        == 같다, != 같지 않다, >= 크거나 같다. > 크다 < 작다, <=작거나 같다 
+       
+       x<-c(1,2,3,4,5)
+       x
+       y<-x+5
+       y
+       if(sum(x) < sum(y)) 
+       {
+        print(x)
+       }
+       else
+       {
+       }
+       
+       
+       #문자열 통합 
+        paste 함수 - 문자열을 합치는 함수 
+        number <- 1:5 수열 
+        str <-c("aa","bb","cc")
+        
+        paste(number, str) "1 aa", "2 bb" , "3 cc" "4 aa" "5 bb"
+        
+        paste(number, str, sep="/") 1/aa", "2/bb" , "3/cc" "4/aa" "5/bb"
+        
+        x<-data.frame(x1=c("A","B","C","D","E"), X2=C("F","G","H","I","J")
+        
+        y<-paste(x$x1, x$x2)
+        "A F" "B G" "C H"
+        
+        y<-paste($x1, x$x2, sep="") 공백없이 합친다.
+        
+        z<-paste(x$x1, collapse="") -> "ABCBE" x1을 하나로 합친다. 
+        
+        substr 함수 문자열 추출 
+        
+        substr("2018-08-08",6,7)
+        "08" 6번째 부터 7번째까지 추출 
+        substr("2018-08-08",5,9)
+        "-08-0" 
+        
+        aa <- c("Good", "Morning")
+        substr(aa, 1,2)
+        "Go","Mo" 각각 단어를 추출해준다.
+        
+        nchar : nchar(x) 문자형 벡터의 x의 구성요소 개수를 구한다.
+        x<- c("seoul", "new york", "london","1234")
+        nchar(x) 5 8 6 4 공백 포함 글자 갯수를 카운트 한다.
+        
+        strsplit함수 : strsplit(x, split=",") : 문자형 벡터 x를 split 기준으로 나누기 
+        name <-c("Kim, Gildong", "lee, minsu", "park, namgil")
+        name_split<-strsplit(name, split=",")
+        [[1]] [1]"kim" "gildong" [[2]][1] "lee" "minsu" [[3]][1] "park" "namgil"
+        
+        sub함수 " sub(old, new, x) 문자형 벡터x에서 나오는 old 문자를 new문자로 한번만 바꿈
+        z<- c("My name is Gildong, What's your name?"
+        sub("name", "first name", z)
+        name이 First name으로 바뀐다. 첫번째 문자만 바뀐다.
+        
+        gsub(old, new, x) : 모든 글자를 바꾼다. 
+        
+        sub("name", "", z) - name을 삭제할때
+        
+        # ★ 데이터 구조 변환
+        numeric type : 실수까지 표현 가능한 타입
+        integer type : 정수값을 표현하는 데이터 타입
+        factor type : 범주형 타입 (순서를 갖는 타입) 
+        character type : 문자열을 나타내는 데이터 타입 
+        
+        자료형 변환  as.원하는 자료형 
+        
+        as.character() : 문자형으로 바꾼다.
+        as.numeric() : 실수형으로 바꾼다.
+        as.complex() : 복소수형으로 바꾼다.
+        as.logical() : TRUE나 FALSE타입으로 바꾼다.
+        
+        #자료구조 변환
+        as.data.frame() / as.list() / as.matrix() / as.vector 
+        as.factor 
+        
+        x<-0:5 0부터 5사이 수열 만듬
+        str(객체) : 데이터 구조, 데이터 타입, 변수 확인 가능 python의 type() 
+        str(x) -> 결과 값 str(x) int[1:6] 0 ~ 5 
+        
+        x<-as.character(x) -> 결과값 chr [1:6] "0" "1" "2" ----
+        
+        x<-as.numeric(x) -> 결과값 num[1:6] 0 1 2 3 4 5 (정수도 가능하고,실수도 가능)
+        
+        x<-as.complex(x) ->결과값 cplx[1;6] 0+0i 1+0i 
+        
+        x<-as.double(x) -> num[1:6] 실수형으로 바꾸는 건 두개 numeric/double
+        
+        #TRUE or FALSE
+        0 : FALSE, 0을 제외한 나머지는 TRUE
+        
+        x<-as.character(x)
+        
+        x<-as.integer(x) int[1:6] 0 1 2 3 4 5 
+        
+        x<-as.logical(x) logi[1:6] False true true 
+        
+        logical --> integer TRUE는 1 FALSE는 0 
+        
+        x<-as.integer(x) int[1:6] 0 1 1 1 1 1 
+        
+        x<-c("aa","bb","cc")
+        x<-as.integer(x) 에러 발생
+        
+        x<-as.numeric(x) NA NA 읽을 수 없는 형태로 바뀐다.
+        
+        #자료구조 변환
+        x<-0:5
+        str(x)
+        x<-as.data.frame(x)
+        'data.frame': 6obs of 1variable 
+        $x : int 0 1 2 3 4 5 
+        
+        x<-as.list(x)
+        list of 1
+        
+        
+        x<-as.matrix(x)
+        
+           [1]
+        [1] 0
+        [2] 1 
+         . .. . 
+         
+        Bloodtype <- C("a","ab","o")
+        bloodtype <-factor(bloodtype) 
+        
+        levels : A AB B O 이 범주안에 들어 있는 데이터다 범주가 표현된다. factor 형 
+        
+        nlevels(bloodtype) 범주의 갯수를 센다. 
+        
+        x<-c("m","m","f","m","f"
+        x<-factor(x)
+        
+        str(x) 결과 Factor W/ 2 levels "F","M" : 2 2 1 2 1 
+        x<-as.integer(x)
+        
+        int[1:5] 2 2 1 2 1 
+        
+        데이터 마트 8부터 보기 
+        
+       
+        
+        
+        
     
 [7] 그래픽 기능
   1) 산점도 
