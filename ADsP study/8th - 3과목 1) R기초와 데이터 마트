@@ -432,23 +432,164 @@
         
         int[1:5] 2 2 1 2 1 
         
-        데이터 마트 8부터 보기 
-        
+       #날짜 데이터 
+       today<-Sys.Date() 2018-10-18
+       now<-Sys.time() 2018-*10-18 23:20:26 KST
        
-        
-        
+       date() Thu OCT 18 23 24 26 2018
+       
+       #문자열 날짜를 date type으로 변환하기 
+       #ad.date(), strptime()
+       
+       x1>-"2018-10-10"
+       as.Date(x1)
+       
+       as.Date(x,1 format="%Y-%m-%d")
+       
+       as.Date("02/05/2018", "%m/%d/%Y")
+       2018-02-05
+       
+       as.Date("2018-05-05")
+       
+       as.Date("2018년 10월 10일","%Y년%m월%일") -> 2018-10-10
+       
+       as.Date("20181010", "%Y%m%d") format으로 앞 데이터가 어떻게 구성되어있는지 알려준다. 
+       
+       format(today, format="%Y년 %m월 %d일") -> 2018년 10월 18일 
+       
+       as.Date("081010", "%y%m%d") 년도가 2글자니까 소문자 y로 4글자는 대문자 Y 
+       
+       format(Sys.Date(), '%a') 목 
+         
         
     
 [7] 그래픽 기능
-  1) 산점도 
+  1) 산점도 (sactter plot)
+    # X축과 Y축으로 이루어진 그래프에 두변수의 값을 점으로 나타낸 그래프 
     plot(x,y)
+    
+    #R에서 확인 
+    group<-c(1,1,1,2,2,2,2,2,1,1,2,1)
+    age<-c(12,15,28,22,40,33,31,38,12,30,25,19)
+    weight<-c(30,45,58,50,61,65,50,51,28,62,50,40)
+    
+    dat<-cbind(group,age,weight) : 행렬화됨
+    
+    plot(x=age,y=weight) : 이렇게 하면 산점도 그래프가 생성된다. 
+    
+    plot(formula=weight~age, date=dat) - 축이름 설정됨?
+    
+    plot(formula=weight~age, date=dat, main="scatter plot") 표의 제목 생성됨 
+    
+    plot(formula=weight~age, date=dat, main="scatter plot", xlab="age(seoul), ylab="weight()) : y축과 x축의 이름 추가 
+    
+    plot(formula=weight~age, date=dat, col=c("red","blue")[group]) 그룹별 색상을 나타낼 수 있음 
+    
   2) 산점도 행렬 
     pairs(x,...)
+    
+    #각각의 산점도를 한눈에 살펴 볼 수 있도록 확장한 산점도 행렬
+    #pairs() 함수 
+    
+    pairs(dat) 하면 총 9칸이 나오고 6개의 그래프가 나오고 다양한 각도로 산점도를 볼 수 있다.    
+       
+    
   3) 히스토그램과 상자그림 
     hist(x) / boxplot(x)
     
-[8]
-  1)
-  2)
+    #R에서 확인
+    #hist(x)
+    
+    height<-c(182,160,165,170,163,160,181,166,159,145,175)
+    hist(height) 히스토그램 생성됨 
+    
+    #상자그림 
+    #boxplot(x) 
+    
+    boxplot(height) 4분위 표시 윗부분 최대값/ 아랫부분 최소값 가운데 선 - median /  1사분위수 / 3사분위수 표현됨 
+    
+    
+[8] ★ 데이터마트 (2문제 이상 출제 - reshape 한문제 / plyr한문제)
+  1) R reshape의 활용
+    - reshape 패키지에는 melt()와 cast()라는 2개의 핵심 함수 사용 
+      install.packages("reshape2")
+      library(reshape2)
+      head(airquality)
+      
+      melt(airquality, id=c("Month", "Day"), na.rm=T)※ 결측치값을 없애고 재구성할 것이냐? - na.rm
+      cast()
+      
+      #R에서 확인 
+       install.package("reshape2") 
+       Library(reshape) # 라이브러리 불러오기
+       data(airquality) #데이터 불러오기
+       head(airquality) # 어떤 변수가 있는지 확인하기 
+       names(airquality) #변수명을 알고 싶을 때 사용하는 명령어 
+       names(airquality)<-tolower(names(airqulaity) 전부 소문자로 바꾸는 명령어 
+       
+       T<-melt(airquality, id=c("month", "day"), na.rm=T) 결측값은 제거 하겠다. 
+       month와 day를 기준으로 정렬해준다. 오존부터 쭉 나온다. 
+       
+       #cast(데이터, 행레이블~열레이블~값) 
+        cast(T, day~month~variable)
+        Ozone에 해당하는 것을 행렬로 보여준다. 
+          ozone
+          5  6 7 8 
+         1
+         2
+         3
+      
+         acast(T, day~month~variable)
+         
+         aqm<-acast(T,month~variable, mean)
+         월에 해당하는 베리어블의 평균값을 볼 수 있다. 
+         
+         f<-cast(T, month~variable, range)
+         해당 베리어블의 최대 최소값을 구할 수 있다. x1은 최소치 x2는 최대값 
+         
+         #sqldf 분석 SQ에서 시퀄문을 이용한 분석 방법 
+          - 마트 9 27분 부터 다시 보기 
+      
+  2) plyr
+     - apply 함수에 기반해 데이터와 변수를 동시에 배열로 치환하여 처리하는 패키지다.
+     split-apply-combine ; 데이터를 분리-처리-다시결합하는 등 필수적인 데이터 처리기능 제공
+     데이터 처리 함수 (입력데이터형식)(출력데이터형식) ply
      
+[9] 데이터 테이블
+  1) R의 기본 데이터구조인 데이터 프레임을 대신하여 사용할 수 있다.
+  2) 기존 data.frame 방식보다 월등히 빠른 속도 (최소 20배) 
+    - 특정 colum 을 key값으로 색인을 지정한 후 데이터를 처리하기 때문
+    - 빠른 그루핑과 정렬, 짧은 문장 지원 측면에서 데이터 프레임보다 유용하다.
+    
+[10] 결측값 처리와 이상값 검색
+  1) 결측값의 표현 : NA, ., 99999999, '', Unknown, Not Answer 등 결측값 표현
+  2) NaN은 Not A Number로 결측값이 아니라 숫자형 데이턴데 숫자 외의 문자가 오는 경우 
+  3) 결측값에 너무 시간낭비하지 말기!
+  4) 결측값 자체가 의미있는 경우도 있다. 
+     - 쇼핑몰 가입자 중 거래가 아예 없는 경우
+     - 인구 통계학적 데이터에서, 아주 부자이거나 아주 가난한 군집의 데이터가 없는 경우
+  5) 결측값 처리가 전체 작업속도에 많은 영향을 준다. 
+    - 이상값 검색 > 꼭 제거하는 것은 아님, 분석의 목적/종류에 따라 적절히 변환/제거 등 
+  6) 결측값이 있는 자료의 평균 구하기 
+    - mean(c(1,2,3,NA)) 이렇게하면 평균 자체가 NA
+    - mean(c(1,2,3,NA), na.rm=T) 결측값을 제거해버리고 3개로 평균을 계산함 
+  7) 결측값 처리 방법
+     - 단순 대치법
+      a. 평균대치법
+      b. 단순확률 대치법
+     - 다중 대치법
+  8) 이상값(Outlier) 찾기와 처리
+     - 이상값(Outlier) 
+       - 실수로 잘못 입력한 경우
+       - 의도하지 않게 입력되었으나 분석 목적에 부합하지 않아 제거해야하는 경우
+          --------여기까진 bad data로, 삭제하는 것이 바람직--------------\
+       - 의도하지 않은 현상이지만, 분석에 포함해야하는 경우
+       - 의도된 이상값인 경우 (fraud, 불량)
+       
+  9) 이상값의 인식방법
+    - ESD(Extreme Studentized Deviation) : 평균에서 3표준편차 떨어진 값(3시그마) 
+    - 기하평균 - 2.5x 표준편차 <data <기하평균 + 2.5 x 표준편차인 경우 
+    - 사분위수의 Q1,Q3로부터 2.5*IQR 이상 떨어져있는 데이터
+    
+  10) 극단값 절단(Trimming) 방법
 """
