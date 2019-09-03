@@ -11,7 +11,7 @@
      python list - 연속되지 않은 메모리 명시적인 loop사용 
      
 3. numpy 설치 확인 
-  - Anaconda navigator 
+  - Anaconda navigator - Environments - 솔팅을 all로 한다음 numpy 검색 체크 / matplotlib 검색 체크 
   
   
   
@@ -20,3 +20,9 @@
 #실습코드1
 import numpy as np
 import matplotlib.pylpot as plt
+
+x = np.array([1,2,3])
+y = np.array([2,4,6])
+
+plt.plot(x,y)
+# 그래프가 결과로 도출 
