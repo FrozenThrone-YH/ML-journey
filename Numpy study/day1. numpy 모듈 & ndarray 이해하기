@@ -1,0 +1,22 @@
+"""
+1. Numpy를 사용하는 이유 
+  1) 성능 : 파이썬 리스트보다 빠름
+  2) 메모리 사이즈 : 파이썬 리스트보다 적은 메모리 사용
+  3) 빌트인 함수 : 선형대수, 통계관련 여러 함수 내장 
+     ※ 쉽게 연산 적용
+  
+2. ndarray : C언어로 구성되어 있음
+  1) numpy에서 사용되는 다차원 리스트를 표현할 때 사용되는 데이터 타입 
+  2) ndarray 연속된 메모리 Vectorization 사용 ※Vectorization 개념이 굉장히 중요 1부터 100까지 ndarray를 한덩어리로 생각한다. 
+     python list - 연속되지 않은 메모리 명시적인 loop사용 
+     
+3. numpy 설치 확인 
+  - Anaconda navigator 
+  
+  
+  
+"""
+
+#실습코드1
+import numpy as np
+import matplotlib.pylpot as plt
