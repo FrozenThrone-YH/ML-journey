@@ -1,0 +1,107 @@
+#Chapter 02. 02 볼차례 
+
+#axis는 차원을 의미한다. 축이 없으면 전체 데이터, 축이 있으면 그 축을 따라 연산 
+# 핵심 : axis에 값이 있으면, 그 axis를 따라서 연산을 한다.
+
+#sum
+x = np.arange(15)
+print(x)
+
+# [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14] 1차원 배열
+
+np.sum(x)   #결과값 105
+np.sum(x,axis=0)  #결과값 105
+np.sum(x,axis=0)  #결과값 : error
+
+"""
+AxisError                                 Traceback (most recent call last)
+<ipython-input-22-2cca5050ee5e> in <module>
+----> 1 np.sum(x,axis=1)
+
+C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py in sum(a, axis, dtype, out, keepdims, initial)
+   2074 
+   2075     return _wrapreduction(a, np.add, 'sum', axis, dtype, out, keepdims=keepdims,
+-> 2076                           initial=initial)
+   2077 
+   2078 
+
+C:\ProgramData\Anaconda3\lib\site-packages\numpy\core\fromnumeric.py in _wrapreduction(obj, ufunc, method, axis, dtype, out, **kwargs)
+     84                 return reduction(axis=axis, out=out, **passkwargs)
+     85 
+---> 86     return ufunc.reduce(obj, axis, dtype, out, **passkwargs)
+     87 
+     88 
+
+AxisError: axis 1 is out of bounds for array of dimension 1
+
+axis가 1이려면 최소 축이 2개여야 한다. (2차원 배열이어야 한다.)  
+"""
+
+y=x.reshape(3,5)
+print(y)
+
+"""
+[[ 0  1  2  3  4]
+ [ 5  6  7  8  9]
+ [10 11 12 13 14]]
+ 행이 증가하는 방향이 0번이고, 열이 증가하는 방향이 1번이다. 
+"""
+
+np.sum(y) #결과값 105
+np.sum(y,axis=0) #결과값 : array([15, 18, 21, 24, 27]) 행 축 기준으로 더함 
+np.sum(y,axis=1) #결과값 : array([10, 35, 60]) 열 축 기준으로 더함 
+
+z=np.arange(36).reshape(3,4,3)
+print(z)
+
+"""
+[[[ 0  1  2]
+  [ 3  4  5]
+  [ 6  7  8]
+  [ 9 10 11]]
+
+ [[12 13 14]
+  [15 16 17]
+  [18 19 20]
+  [21 22 23]]
+
+ [[24 25 26]
+  [27 28 29]
+  [30 31 32]
+  [33 34 35]]]
+"""
+
+np.sum(z) #결과값 630
+np.sum(z,axis=0) #4행 3열만 남는다. 0 / 12 / 24를 더하고 1 / 13 /25를 더한다. reshape ("3",4,3) 앞에 기준으로 더한다. 
+"""
+array([[36, 39, 42],
+       [45, 48, 51],
+       [54, 57, 60],
+       [63, 66, 69]])
+"""
+
+np.sum(z,axis=1) #3행 3열만 남는다. 0/3/6/9 12/15/18/21/24/27/30/33으로 더한다. reshape(3,"4",3) 2번째 기준으로 더한다. 
+"""
+array([[ 18,  22,  26],
+       [ 66,  70,  74],
+       [114, 118, 122]])
+"""
+
+np.sum(z,axis=2) #3행 4열이 남는다. 
+
+"""
+array([[  3,  12,  21,  30],
+       [ 39,  48,  57,  66],
+       [ 75,  84,  93, 102]])
+
+"""
+
+#axis가 있는 모든 함수는 동일한 방식으로 진행 된다. 
+
+np.sum(z,axis=-1) #거꾸로 간다. -1은 2와 같다. 
+
+#axis가 튜플이 오는 경우 
+np.sum(z,axis=(0,1)) #축을 2개를 이용해서 연산을 한다. 
+"""
+array([198, 210, 222])
+"""
