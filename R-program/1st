@@ -1,2 +1,24 @@
 """
+#설치
+ 1) R다운로드 - R플랫폼 사용
+     https://www.r-project.org
+     download r 클릭 
+     korea에서 아무거나 클릭 
+     download for windows(바로 실행하지 말고, 저장을 따로 하고 실행)
+ 
+ 2) R studio 다운로드
+     https://rstudio.com/products/rstudio/download/
+     download - free
+     
+
+ 3) JAVA JDK 다운로드
+     https://www.oracle.com/technetwork/java/javase/downloads/index.html
+     java se - java se 8 - javase 8u231 - accept license 체크 하고 64비트를 다운로드 
+     - 오라클 로그인 뜬다. 오라클 아이디 만들어놓는 것이 좋다. 
+
+ 
+c드라이브에 r_data 폴더를 생성후(바로 폴더 만들기) 다운로드 받은 data파일을 압축풀어서 폴더를 제외한 파일만 복사 붙여넣기
+
+data 파일을 쓰기 위한 경로 설정을 C://r_data 로할 것 
+
 """
