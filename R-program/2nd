@@ -908,3 +908,191 @@ rbind (칼럼 이름을 같이 쓰는 경우) - 칼럼 이름이 같아야지만
 
 ------------------------------------------------------------------------------
 5교시
+
+#데이터프레임의 행과 열을 추가 cbind/rbind 이용하기 
+ 
+> df11
+    name price
+1  apple   300
+2 banana   200
+3 cherry   100
+
+> new=data.frame(name="mango",price=400)
+> df44=rbind(df11,new)
+> df44
+    name price
+1  apple   300
+2 banana   200
+3 cherry   100
+4  mango   400
+
+> df44=rbind(df44,data.frame(name="berry",price=400))
+> df44
+    name price
+1  apple   300
+2 banana   200
+3 cherry   100
+4  mango   400
+5  berry   400
+
+> df55=cbind(df44,data.frame(qty=c(10,20,30,40,50)))
+> df55
+    name price qty
+1  apple   300  10
+2 banana   200  20
+3 cherry   100  30
+4  mango   400  40
+5  berry   400  50
+
+#데이터프레임에서 특정 컬럼만 골라내서 새로운 형태 만들기 
+> no11=c(1,2,3,4,5)
+> name11=c('홍길동','유관순','김유신','이순신','강감찬')
+> addr11=c('서울','대전','대구','부산','광주')
+> tel11=c(111,222,333,444,555)
+> hobby11=c('독서','영화','미술','자기','먹기')
+> member=data.frame(No=no11,NAME=name11,ADDR=addr11,TEL=tel11,HOBBY=hobby11)
+
+> member
+  No   NAME ADDR TEL HOBBY
+1  1 홍길동 서울 111  독서
+2  2 유관순 대전 222  영화
+3  3 김유신 대구 333  미술
+4  4 이순신 부산 444  자기
+5  5 강감찬 광주 555  먹기
+
+> member2=subset(member,select=c(No,NAME,TEL))
+> member2
+  No   NAME TEL
+1  1 홍길동 111
+2  2 유관순 222
+3  3 김유신 333
+4  4 이순신 444
+5  5 강감찬 555
+
+> member3=subset(member,select=-TEL)  ※TEL만 제외하고 가져오
+> member3
+  No   NAME ADDR HOBBY
+1  1 홍길동 서울  독서
+2  2 유관순 대전  영화
+3  3 김유신 대구  미술
+4  4 이순신 부산  자기
+5  5 강감찬 광주  먹기
+
+> colnames(member3)=c("번호","이름","주소","취미")
+> member3
+  번호   이름 주소 취미
+1    1 홍길동 서울 독서
+2    2 유관순 대전 영화
+3    3 김유신 대구 미술
+4    4 이순신 부산 자기
+5    5 강감찬 광주 먹기
+
+> sales1
+  NO   NAME PRICE QTY
+1  1  apple   500   5
+2  2  peach   200   2
+3  3 banana   120   4
+4  4 orange    50   7
+> nrow(sales1)        ※소문자 nrow는 dataframe에서 사용 대문자 NROW도 됨 
+[1] 4
+> ncol(sales1)
+[1] 4
+
+> names(sales1)
+[1] "NO"    "NAME"  "PRICE" "QTY"  
+
+> rownames(sales1)
+[1] "1" "2" "3" "4"
+
+> rownames(sales1)=c('a','b','c','d')
+> sales1
+  NO   NAME PRICE QTY
+a  1  apple   500   5
+b  2  peach   200   2
+c  3 banana   120   4
+d  4 orange    50   7
+
+> sales1[c(3,1,2),] 행을 바꿔서 출력 
+  NO   NAME PRICE QTY
+c  3 banana   120   4
+a  1  apple   500   5
+b  2  peach   200   2
+
+> sales1[,c(3,1,2)] 열을 바꿔서 출력 
+  PRICE NO   NAME
+a   500  1  apple
+b   200  2  peach
+c   120  3 banana
+d    50  4 orange
+
+문제 Q1. data.frame()과 c()를 조합해서 
+표의 내용을 데이터 프레임으로 만들어 출력해보세요
+
+Q2. 앞에서 만든 데이터프레임을 이용해서 
+과일 가격 펴균, 판매량 평균을 구해보세요 
+
+
+나의 답 
+Q1
+task1=data.frame(c('사과',"딸기",'수박'),c(1800,1500,3000),c(24,38,13))
+task1
+names(task1)=c('제품','가격','판매량')
+task1
+
+> task1=data.frame(c('사과',"딸기",'수박'),c(1800,1500,3000),c(24,38,13))
+> task1
+  c..사과....딸기....수박.. c.1800..1500..3000. c.24..38..13.
+1                      사과                1800            24
+2                      딸기                1500            38
+3                      수박                3000            13
+> names(task1)=c('제품','가격','판매량')
+> task1
+  제품 가격 판매량
+1 사과 1800     24
+2 딸기 1500     38
+3 수박 3000     13
+
+Q2
+
+avr1=sum(task1$가격)/3
+avr1
+avr2=sum(task1$판매량)/3
+avr2
+
+> avr1=sum(task1$가격)/3
+> avr1
+[1] 2100
+> avr2=sum(task1$판매량)/3
+> avr2
+[1] 25
+
+
+강사님 답
+
+> sales<-data.frame(제품=c('사과','딸기','수박'),가격=c(1800,1500,3000),수량=c(24,38,13))
+> sales
+  제품 가격 수량
+1 사과 1800   24
+2 딸기 1500   38
+3 수박 3000   13
+
+> mean(sales$가격)
+[1] 2100
+
+> mean(sales$수량)
+[1] 25
+
+> sales2<-data.frame(제품=c('사과','딸기','수박'),가격=c(1851,1577,3099),수량=c(24,38,13))
+> sales2
+  제품 가격 수량
+1 사과 1851   24
+2 딸기 1577   38
+3 수박 3099   13
+> mean(sales2$가격)
+[1] 2175.667       ※소숫점이 나올 경우 
+
+> round(mean(sales2$가격),digit=0) ※반올림? / digit은 소숫점 없애는?
+[1] 2176
+
+------------------------------------------------------------------------------
+추가 진도 
