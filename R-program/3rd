@@ -9,10 +9,10 @@
 #SQL쿼리
   ※library "googleVis" "sqldf" / ※함수 : write.csv / read.csv.sql
   ※write.table
-#
-#
-#
-#
+#많이 사용되는 기본 함수들 - 22개 
+ #aggregate() : 데이터프레임 상대로 주어진 함수 값 구하기
+ #실습과제 
+ #apply() : 
 #
 #
 #
@@ -288,6 +288,187 @@ write.csv(Fruits,"Fruits_sql.csv",quote=F,row.names=F)
 
 ----------------------------------------------------------------------------------------------------------------
 2교시
+
+불러오는 함수 비교하기
+
+txt1=read.csv("csv_test.txt")
+txt2=readLines("csv_test.txt")
+txt3=read.table("csv_test.txt")
+txt4=read.table("csv_test.txt",sep=",",header=T)
+
+> txt1
+  번호 이름 가격
+1    1 사과 1000
+2    2   배 2000
+3    3   귤 3000
+> txt2
+[1] "번호,이름,가격" "1,사과,1000"    "2,배,2000"      "3,귤,3000"     
+> txt3
+              V1
+1 번호,이름,가격
+2    1,사과,1000
+3      2,배,2000
+4      3,귤,3000
+> txt4
+  번호 이름 가격
+1    1 사과 1000
+2    2   배 2000
+3    3   귤 3000
+
+
+> txt1=readLines("write_test.txt")
+> txt1
+[1] "이 문장은 write 연습하는 문장인데" "별로 어렵지 않아요"               
+[3] "열심히 해주세요"                  
+> write(txt1,"write_test2.txt")
+> txt2
+[1] "번호,이름,가격" "1,사과,1000"    "2,배,2000"      "3,귤,3000"     
+> write.table(txt2,"table_test2.txt")
+
+
+> txt3=tead.csv("csv_test.txt")
+Error in tead.csv("csv_test.txt") : could not find function "tead.csv"
+> txt3
+              V1
+1 번호,이름,가격
+2    1,사과,1000
+3      2,배,2000
+4      3,귤,3000
+> write.table(txt3,"csv_test2.txt")
+> txt4=read.csv("csv_test2.txt")
+> txt4
+                V1
+1 1 번호,이름,가격
+2    2 1,사과,1000
+3      3 2,배,2000
+4      4 3,귤,3000
+
+#많이 사용되는 기본 함수들 
+ 1) aggregate() : 다양한 함수를 사용하여 계산결과를 출력함
+ 2) apply() : 다양한 기능이 있어서 나올때마다 봐야한다.
+ 3) cor() : 상관함수 
+ 4) cumsum() : 누적합 
+ 5) cumprom() : 누적곱
+ 6) diff() : 차이나는 부분을 찾아냄 
+ 7) length() : 요소갯수를 구해서 출력 
+ 8) max() : 최대값
+ 9) min() : 최소값 
+ 10) mean() : 평균값
+ 11) median() : 중앙값 - 가운데 값
+ 12) order() : 각 요소의 원래 위치 ??
+ 13) prod() : 누적 곱 
+ 14) range() : 범위값 
+ 15) rank() : 순위 
+ 16) rev() : 리버스 - 연순위
+ 17) sd() : 표준편차
+ 18) sort() : 정렬
+ 19) summary() : 요약 통계
+ 20) sweep() : 일괄적으로 주어진 데이터를 뺌
+ 21) tapply() : 벡터에서 주어진 함수연산 수행 
+ 22) var() : 분산값
+ 
+> vec1=c(1,2,3,4,5)
+> vec2=c('a','b','c','d','e')
+> max(vec1)
+[1] 5
+> mean(vec1)
+[1] 3
+> mean(vec2)
+[1] NA
+Warning message:
+In mean.default(vec2) :
+  인자가 수치형 또는 논리형이 아니므로 NA를 반환합니다
+> min(vec1)
+[1] 1
+> sd(vec1)
+[1] 1.581139
+> sum(vec1)
+[1] 15
+> cumsum(vec1)      ※sum과 cumsum의 차이 
+[1]  1  3  6 10 15
+> var(vec1)
+[1] 2.5
+
+#aggregate() : 데이터프레임 상대로 주어진 함수 값 구하기 
+ ※문법 : aggregate(계산될 컬럼~ 기준컬럼, 데이터, 함수)
+
+연도별로 판매한 합계를 나타내라 
+
+> Fruits
+    Fruit Year Location Sales Expenses Profit       Date
+1  Apples 2008     West    98       78     20 2008-12-31
+2  Apples 2009     West   111       79     32 2009-12-31
+3  Apples 2010     West    89       76     13 2010-12-31
+4 Oranges 2008     East    96       81     15 2008-12-31
+5 Bananas 2008     East    85       76      9 2008-12-31
+6 Oranges 2009     East    93       80     13 2009-12-31
+7 Bananas 2009     East    94       78     16 2009-12-31
+8 Oranges 2010     East    98       91      7 2010-12-31
+9 Bananas 2010     East    81       71     10 2010-12-31
+> aggregate(Sales~Year,Fruits,sum) 연도별로 판매량을 합계한 결과 
+  Year Sales
+1 2008   279
+2 2009   298
+3 2010   268
+
+
+#실습과제  
+ - 과일별로 판매된 수량을 합계한 결과 
+
+> aggregate(Sales~Fruit,Fruits,sum)
+    Fruit Sales
+1  Apples   298
+2 Bananas   260
+3 Oranges   287
+
+ - 과일별로 가장 많이 판매된 수량 
+
+> aggregate(Sales~Fruit,Fruits,max)
+    Fruit Sales
+1  Apples   111
+2 Bananas    94
+3 Oranges    98
+
+ - 과일별 최대판매량에 연도를 추가해서 과일별 연도별 최대판매량
+
+> aggregate(Sales~Fruit+Year,Fruits,max)
+    Fruit Year Sales
+1  Apples 2008    98
+2 Bananas 2008    85
+3 Oranges 2008    96
+4  Apples 2009   111
+5 Bananas 2009    94
+6 Oranges 2009    93
+7  Apples 2010    89
+8 Bananas 2010    81
+9 Oranges 2010    98
+
+#apply() : 행이나 열을 대상으로 작업을 하기 때문에 matrix에 유용하게 사용 
+ ※문법 : apply(대상, 행/열, 적용함수) 
+ 
+> mat1=matrix(c(1,2,3,
++               4,5,6),nrow=2) ※ 열우선 법칙 
+> mat1
+     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    6
+
+> mat1=matrix(c(1,2,3,
++               4,5,6),nrow=2,byrow=T) ※ 행우선으로 하려면 byrow 옵션 걸어줘야함 
+> mat1
+     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    4    5    6
+
+> apply(mat1,1,sum) mat1에서 각행에 대한 합계 
+[1]  6 15
+> apply(mat1,2,sum) mat1에서 각열에 대한 합계  ※1은 행, 2는 열 
+[1] 5 7 9
+
+#실습과제 
+2열과 3열의 최대값 
+> apply(mat1[,c(2,3)],2,max)
+[1] 5 6
 
 
 
