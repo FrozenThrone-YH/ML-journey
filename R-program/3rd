@@ -1,3 +1,295 @@
 """
+#목차
+
+#파일 조회 ※함수 list.files()
+#파일 열기 및 입력값 받기 
+  ※함수 scan("파일명") / readline() / readLines("파일명") / read.table("파일명") 
+#CSV파일 
+  ※함수 read.csv("파일명")
+#SQL쿼리
+  ※library "googleVis" "sqldf" / ※함수 : write.csv / read.csv.sql
+  ※write.table
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+
+
+----------------------------------------------------------------------------------------------------------------
+1교시
+setwd("C:\\r_data")
+
+#파일 조회 
+list.files()   - 폴더에 있는 파일들이 다 나온다. 
+list.files(recursive=T) recursive를 넣으면 폴더 하위디렉토리의 파일까지 조회가 가능하다. 
+recursive가 없으면 폴더까지만 조회 그 아래 파일 조회 불가 
+list.files(all.files=T) "." ".." ".Rhistory" 숨김파일까지 조회가능하다.
+
+#파일 열기 / 입력값 받기 
+> sc1=scan("scan_1.txt")
+Read 4 items
+> sc1
+[1] 111 222 333 444
+> sc2=scan("scan_2.txt")
+Read 4 items
+> sc2
+[1] 1 2 3 4
+
+※ 텍스트 파일을 읽어서 배열로 저장했다. 
+
+> sc2=scan("scan_2.txt",what="") ※문자나 실수일 경우에는 옵션 what을 줘야한다.
+Read 4 items
+> sc2
+[1] "1.00" "2.00" "3.00" "4.00"
+> sc3=scan("scan_3.txt", what="")
+Read 4 items
+> sc3
+[1] "aaa" "bbb" "ccc" "ddd"
+
+그럼 정수 실수가 모두 섞여 있다면?
+
+> sc4=scan("scan_3.txt", what="")
+Read 4 items
+> sc5=scan("scan_3.txt")
+Error in scan("scan_3.txt") : scan() expected 'a real', got 'aaa'
+
+what이 없다면 에러가 뜬다. 
+
+scan은 사용자로부터 숫자를 입력 받을 수 있다.
+
+> input=scan()
+1: 1           ※입력은 콘솔에서 해야한다. 
+2: 2
+3: 3
+4: 
+Read 3 items
+> input
+[1] 1 2 3
+
+> input2=scan(what="") ※문자 입력 
+1: a
+2: b
+3: c
+4: 
+Read 3 items
+> input2
+[1] "a" "b" "c"
+
+
+> input2=scan(what="")
+1: aaa bbbb
+3: 
+Read 2 items
+
+띄어쓰기를 하면 2개로 인식한다. 
+
+그럼 띄어쓰기를 포함한 문자를 인식하려면?
+
+> input3=readline()  ※ readline()이라는 함수를 쓴다. 띄어쓰기를 포함한 한줄을 읽을때
+R is very fun!
+> input3
+[1] "R is very fun!"
+
+경험하지 못한 사람은 어디에 메세지를 넣는지 모른다. 
+Readline()안에 문자를 써주면 안내글이 뜬다. 
+
+> input3=readline("R U ok? : ")
+R U ok? : no
+
+
+> input3
+[1] "no"
+
+
+> input5=readLines("scan_4.txt") ※파일을 읽어드려서 배열에 저장한다. L 대문자 주의 
+> input5
+[1] "aaa"  "bbb"  "111"  "2.34"
+
+
+> fruits=read.table("fruits.txt") ※파일에서 테이블을 읽어 들일때 read.table("파일명")
+> fruits
+  V1     V2    V3  V4 헤더가 없는줄 알고 헤더를 붙여 줬다,
+1 no   name price qty
+2  1  apple   500   5
+3  2 banana   200   2
+4  3  peach   200   7
+5  4  berry    50   9
+
+
+> fruits2=read.table("fruits.txt",header=T) 헤더가 있다면 옵션으로 헤더=T를 붙여주면 첫째줄을 헤더로 인식 
+> fruits2
+  no   name price qty
+1  1  apple   500   5
+2  2 banana   200   2
+3  3  peach   200   7
+4  4  berry    50   9
+
+※read.table을 통해서 데이터를 불러들여 데이터 프레임 형태로 받는다. 
+  조심해야할 것은 헤더가 포함 되었느냐 안되었느냐 안그러면 헤더 자체도 데이터로 읽는다.
+
+read.table의 장점은 주석이나 공백이 있으면 자동으로 제거해준다
+※fruits_2.txt에 임의의 공백 설정
+
+> fruits3=read.table("fruits_2.txt")
+> fruits3
+  V1     V2  V3 V4
+1  1  apple 500  6
+2  2 banana 200  2
+3  3  peach 200  7
+4  4  berry  50  9
+
+원래 파일은 아래와 같다. 
+
+# Fruits Test Data - 주석입니다
+1   apple   500     6  
+2   banana  200     2 
+# Null test row - 주석입니다
+3   peach   200     7  
+4   berry    50     9   
+
+
+※★중요! 파일 가공할때 공백이 생기는데, read.table을 사용하면 공백을 제거해서 사용가능.
+
+> fruits3=read.table("fruits_2.txt",skip=2) ※스킵 옵션을 건너뛸 줄 수를 말한다. 
+> fruits3 
+  V1     V2  V3 V4
+1  2 banana 200  2
+2  3  peach 200  7
+3  4  berry  50  9
+
+> fruits3=read.table("fruits_2.txt",nrows=2) ※nrow는 출력할 줄의 갯수를 지정할 수 있다. - 일부만 가져오기 
+> fruits3
+  V1     V2  V3 V4
+1  1  apple 500  6
+2  2 banana 200  2
+
+
+> fruits4=read.table("fruits.txt",header=T, skip=1, nrows=2)
+> fruits4
+  X1  apple X500 X5  ※데이터가 헤더가 될때는 숫자 앞에 x가 붙는다. 
+1  2 banana  200  2
+2  3  peach  200  7
+> fruits4=read.table("fruits.txt",header=F, skip=1, nrows=2)
+> fruits4
+  V1     V2  V3 V4
+1  1  apple 500  5
+2  2 banana 200  2
+
+header가 있지만, skip옵션때문에 헤더가 날라간다. 그 다음 데이터가 헤더가 되버린다. 
+헤더가 있는 파일에 skip과 nrow를 써줄때, header = F 해줘야한다.
+
+#csv파일 
+메모장으로 열면 구분자가 ','쉼표로 되어 있다.
+엑셀로 열면 엑셀 표 처럼 열린다.
+예전 2G폰의 연락처는 CSV파일처럼 되어 있었다. 폰 번호 옮길때 CSV파일을 복사 붙여넣기 했으면 됐었다.
+
+> fruits5=read.csv("fruits_3.csv")
+> fruits5
+  no   name price qty
+1  1  apple   500   6
+2  2 banana   200   2
+3  3  peach   200   7
+4  4  berry    50   9
+
+> fruits6=read.csv("fruits_4.csv")
+> fruits6
+  X1  apple X500 X6
+1  2 banana  200  2
+2  3  peach  200  7
+3  4  berry   50  9
+
+※csv파일은 자동으로 헤더 지정이 되기 때문에 라벨이 없는 경우 csv파일에 수동으로 헤더 지정해줘야한다. 
+
+> fruits6=read.csv("fruits_4.csv", header=F)
+> fruits6
+  V1     V2  V3 V4
+1  1  apple 500  6
+2  2 banana 200  2
+3  3  peach 200  7
+4  4  berry  50  9
+
+아니면 header=F로 옵션을 걸어줘야 라벨이 자동 생성된다. 
+
+> label=c("No","Name","Price","QTY")
+> fruits6=read.csv("fruits_4.csv", header=F,col.names=label) ※col.names옵션으로 라벨명 지정 가능
+> fruits6
+  No   Name Price QTY
+1  1  apple   500   6
+2  2 banana   200   2
+3  3  peach   200   7
+4  4  berry    50   9
+
+#SQL쿼리? - 크게 4가지가 있다. 
+※빅데이터를 하려면 SQL쿼리문을 반드시 하게 된다. 안하고서는 못한다. 
+
+ 1)조회
+  : select 컬럼명 from 테이블명 where 조건
+    ※모든은 * 아스트릭(?)
+ 2)삽입
+  : insert into 테이블명(테이블에 컬럼들이 있을 것이다.컬럼1,컬럼2,) values(컬럼1에 들어갈 값1, 컬럼2에 들어갈 값2) 
+ 3)갱신
+  : update(테이블명) set 컬럼1 = 값1,컬럼2 = 값2 ... where 조건 
+ 4)삭제
+  : delete from 테이블명 where 조건 
+    ※테이블에서 삭제할건데, 어떻게 삭제할것인지?
+
+※★중요! 갱신과 삭제의 조건을 설정하지 않으면, 모든 데이터가 다 갱신 또는 삭제된다. 
+
+install.packages("googleVis") ※빅데이터 분석을 할수 있는 데이터 들이 들어 있다. 
+library(googleVis)
+install.packages("sqldf")
+library(sqldf)
+
+> Fruits
+    Fruit Year Location Sales Expenses Profit       Date
+1  Apples 2008     West    98       78     20 2008-12-31
+2  Apples 2009     West   111       79     32 2009-12-31
+3  Apples 2010     West    89       76     13 2010-12-31
+4 Oranges 2008     East    96       81     15 2008-12-31
+5 Bananas 2008     East    85       76      9 2008-12-31
+6 Oranges 2009     East    93       80     13 2009-12-31
+7 Bananas 2009     East    94       78     16 2009-12-31
+8 Oranges 2010     East    98       91      7 2010-12-31
+9 Bananas 2010     East    81       71     10 2010-12-31
+
+구글비스에서 제공하는 Fruits라는 데이터 
+
+
+write.csv(Fruits,"Fruits_sql.csv",quote=F,row.names=F)
+
+> fruits_2=read.csv.sql("Fruits_sql.csv",sql="select * from file where Year=2008")
+> fruits_2
+    Fruit Year Location Sales Expenses Profit       Date
+1  Apples 2008     West    98       78     20 2008-12-31
+2 Oranges 2008     East    96       81     15 2008-12-31
+3 Bananas 2008     East    85       76      9 2008-12-31
+
+함수 설명 ※Fruits_sql.csv 에서 year가 2008년인것만 조회해라.
+
+> fruits_2=read.csv.sql("Fruits_sql.csv",sql="select * from file where Year>2008") ※2008년 이후 조회 
+> fruits_2
+    Fruit Year Location Sales Expenses Profit       Date
+1  Apples 2009     West   111       79     32 2009-12-31
+2  Apples 2010     West    89       76     13 2010-12-31
+3 Oranges 2009     East    93       80     13 2009-12-31
+4 Bananas 2009     East    94       78     16 2009-12-31
+5 Oranges 2010     East    98       91      7 2010-12-31
+6 Bananas 2010     East    81       71     10 2010-12-31
+
+----------------------------------------------------------------------------------------------------------------
+2교시
+
+
+
 
 """
