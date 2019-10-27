@@ -20,6 +20,15 @@
 #sqldf package
  #Fruits 조건별 조회 
  #실습과제 
+ 
+ #조건문과 반복문
+ #비교조건에 사용되는 연산자 
+ #IF조건문 
+ #ifelse(a,b,c) : a가 참이면 b를 출력 거짓이면 c출력
+ #While
+ #break / next (continue)
+ #for
+ #!(not), &&(and), \\(or)
 #
 #
 #
