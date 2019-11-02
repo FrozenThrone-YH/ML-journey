@@ -1,6 +1,19 @@
 
 #목차
 
+#plot() : 분포도나 꺽은선 그릴 수 있다.
+ #plot.new()
+ #dev.new()
+ #응용하기 
+
+#par(mfrow=c(nr,nc)) : nr:행의 갯수, nc:열의 갯수 / 그래프의 배치 조정하기 
+ 
+#par(mgp=c(제목위치, 지표값위치, 지표선위치) 그래프 여백 조정
+
+#oma(bottom,left,top,right)그래프 전체 여백 조정 
+
+#par(new=T) / 여러개의 그래프를 중첩으로 그리기 
+#legend(x축 위치, y축 위치, 내용, cex=글자크기,col=색상, pch=크기, lty=선모양) / 범례 추가 
 #
 #
 #
@@ -8,9 +21,130 @@
 #
 #
 #
-#
-#
-#
-#
-#
-#
+
+---------------------------------------------------------------------------------------------
+1교시
+#기본설정
+setwd("C:\\r_data")
+
+install.packages("dplyr")
+library(dplyr)
+install.packages("reshape2")
+library(reshape2)
+install.packages("plyr")
+library(plyr)
+install.packages("stringr")
+library(stringr)
+
+#plot() : 분포도나 꺽은선 그릴 수 있다.
+
+> library(stringr)
+> v1=c(2,2,2)
+> plot(v1)
+> x=1:3
+> y=3:1
+> plot(x,y,xlim = c(1,10),ylim=c(1,5)) ※x와 y의 축 값이 설정된다.
+> plot(x,y,xlim = c(1,10),ylim=c(1,5),xlab="x축 값",ylab="y축값",main="Plot Test")
+  ※각 축의 이름과 그래프의 이름을 설정
+
+  #plot.new() : 그래프를 지우고 다시 그릴때 사용한다. 
+  #dev.new() : 새로운 창이 하나뜨고, 창에 그림이 그려진다.
+
+> v1=c(100,130,120,160,150)
+> plot(v1)
+  ※이렇게만 하면 산점도만 나온다.
+  > plot(v1,type='o') 이렇게하면 데이터를 잇는 선이 나타난다.
+  > plot(v1,type='o',col='red',ylim=c(0,200)) ※칼라 지정 / y축값 설정
+  > plot(v1,type='o',col='red',ylim=c(0,200),axes=FALSE) 이렇게하면 축이 없어 진다. 
+  > plot(v1,type='o',col='red',ylim=c(0,200),axes=FALSE, ann=FALSE) 이렇게하면 x축 y축 제목도 사라진다. 
+    -> 그래프만 남는다. 
+  > axis(1)  ※1은 x축
+    이렇게하니 x축이 생긴다. 
+  > axis(1,at=1:5,lab=c("MON","TUE","WED","THU","FRI")) ※축 범위 지정 /  라벨지정
+     but 라벨이 겹친다.
+  > axis(2) ※2는 y축
+  > title(main="FRUIT",col.main='red',font.main=4) ※ 축제목/축제목색깔/축제목크기
+  > title(xlab="DAY",col.lab='black')
+  > title(ylab="PRICE",col.lab='blue')
+
+  ※ 기존의 출력된 그래프위에 겹쳐서 출력이 가능하다. 
+  ※ 전체를 선택한후 한번에 실행하면 겹쳤던 x축 name이 하나만 나타난다.
+
+#mfrow (그래프의 배치 조정하기 - multi frow로 생각하면 됨)
+#par(mfrow=c(nr,nc)) : nr:행의 갯수, nc:열의 갯수 
+
+> v1
+[1] 100 130 120 160 150
+> plot.new()
+> par(mfrow=c(1,3)) ※plot.new()를 하기 전에 계속 1행 3열로 그래프가 나온다. 
+> plot(v1,type='o')
+> plot(v1,type='s')
+> plot(v1,type='l')
+
+#type : p,l,b,c,o,h,s,S,n  
+h는 히스토그램 
+
+> pie(v1) #원형그래프
+> barplot(v1) #바그래프
+
+> par(mfrow=c(1,1))  ※ 다시 창에 하나의 그래프만 뜨도록 설정
+> a=c(1,2,3)
+> plot(a,xlab='aaa')
+
+#그래프 여백 조정
+#par(mgp=c(제목위치, 지표값위치, 지표선위치) 
+ ※제목위치 : 각 축의 제목의 위치- 그래프로 부터 떨어진 정도
+   지표값 : x/y축 지표의 위치 
+
+> par(mgp=c(0,1,0)) 
+> plot(a,xlab='aaa')
+> par(mgp=c(3,1,0))
+> plot(a,xlab='aaa')
+> par(mgp=c(3,2,2))
+> plot(a,xlab='aaa')
+
+#그래프전체여백조정
+#oma(bottom,left,top,right)
+  ※끝에서 부터 크기가 줄어든다. 0이 제일 크고, 숫자가 갈수록 축소 된다.
+
+
+#여러개의 그래프를 중첩해서 그리기 (명령어를 나눠서 치면 그려진 그래프에 계속 추가 되기 때문)
+ - 하나의 그래프에 3개를 겹쳐서 그릴 수 있다. 
+
+#par(new=T)
+
+> v1=c(1,2,3,4,5)
+> v2=c(5,4,3,2,1)
+> v3=c(3,4,5,6,7)
+> plot(v1,type='s',col='red',ylim=c(1,5))
+> par(new=T)  ※중복을 허용하겠다는 의미
+> plot(v2,type='o',col='blue',ylim=c(1,5))
+> par(new=T)
+> plot(v3,type='l',col='green') ※3,4,5,6,7 이 겹치니 표 지표값이 겹친다. 
+  ※ 리미트의 영역이 다르니, 표가 지저부해지고, 명확성이 떨어진다.
+
+plot으로 중첩으로 그래프를 그릴때 지표값이 겹치니 이렇게해서는 안된다.
+처음에 경향성 확인할때만 plot으로 그린다. 
+
+> plot.new()
+> v1=c(1,2,3,4,5)
+> v2=c(5,4,3,2,1)
+> v3=c(3,4,5,6,7)
+> plot(v1,type='s',col='red',ylim=c(1,10))
+
+여기까지하고, lines라는 함수로 사용한다.
+
+> lines(v2,type='o',col='blue',ylim=c(1,5)) ※겹쳐지지도 않고, 자기가 그리는 영역내에서 그림이 그려진다.
+> lines(v3,type='l',col='green',ylim=c(1,15))
+
+#범례 추가 
+#legend(x축 위치, y축 위치, 내용, cex=글자크기,col=색상, pch=크기, lty=선모양)
+0은 블랭크 1은 실선 2는 점선, 3은 더 촘촘한 점선, 4는 - ㅡ- ㅡ- 5  ㅡㅡㅡ 6  - ㅡ- ㅡ-
+
+> legend(4,9,c('v1','v2','v3'),cex=0.9,col=c('red','blue','green'),lty=1)
+> lines(v2,type='o',col='blue',ylim=c(1,5),lty=3) 선타임은 lines에도 적용된다. 
+
+---------------------------------------------------------------------------------------------
+2교시
+#막대그래프
+
