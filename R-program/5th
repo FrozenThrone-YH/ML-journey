@@ -15,7 +15,8 @@
 #par(new=T) / 여러개의 그래프를 중첩으로 그리기 
 #legend(x축 위치, y축 위치, 내용, cex=글자크기,col=색상, pch=크기, lty=선모양) / 범례 추가 
 #
-#
+##barplot() : 막대그래프
+ #t()함수 : 전치행렬
 #
 #
 #
@@ -147,4 +148,131 @@ plot으로 중첩으로 그래프를 그릴때 지표값이 겹치니 이렇게�
 ---------------------------------------------------------------------------------------------
 2교시
 #막대그래프
+#barplot() : 막대그래프
 
+> x=c(1,2,3,4,5)
+> barplot(x)
+> barplot(x, horiz=T) ※이렇게하면 x축과 y축이 바뀐다.
+
+> x=matrix(c(5,4,3,2),2,2)
+> x
+     [,1] [,2]
+[1,]    5    3
+[2,]    4    2
+> barplot(x) ※ 이렇게하면 겹쳐 보인다.
+> barplot(x,beside=T) ※ 이렇게하면 분리되서 보인다.
+
+> barplot(x,beside=T,names=c(5,3),col=c('green','yellow'))
+> barplot(x,beside=T,names=c(5,3),col=c('green','yellow'),ylim=c(0,12))
+  ※리미트를 설정해줘야 넘어가는 걸 방지할 수 있다. 
+
+> barplot(x,beside=T,names=c(5,3),horiz=T,col=c('green','yellow'),ylim=c(0,12))
+
+> barplot(x,beside=T,names=c(5,3),horiz=T,col=c('green','yellow'),xlim=c(0,12))
+   ※ 축을 변환했을때, x축 리미트로 설정을 해줘야한다.
+
+> v1=c(100,120,140,160,180)
+> v2=c(120,130,150,140,170)
+> v3=c(140,170,120,110,160)
+> qty=data.frame(BANANA=v1,CHERRY=v2,ORANGE=v3)
+> qty
+  BANANA CHERRY ORANGE
+1    100    120    140
+2    120    130    170
+3    140    150    120
+4    160    140    110
+5    180    170    160
+
+> barplot(as.matrix(qty))
+ ★barplot을 그룹으로 묶어서 그릴때는 반드시 출력대상이 matrix여야한다.!! 중요중요
+   그래서 as.matrix로 처리 
+
+> barplot(as.matrix(qty),main="FRUIT SALES QTY",beside=T,ylim=c(0,300),col=rainbow(nrow(qty)))
+  ※무지개색 중 몇개를 가져와서 표현한다. 
+> legend(16,300,c("MON","TUE","WED","THU","FRI"),cex=0.8,fill=rainbow(nrow(qty)))
+
+x축을 요일로 표현하고, 범례를 바나나,체리, 오렌지로 하고 싶으면 어떻게 해야할까?
+#t()함수 : 전치행렬
+
+> barplot(t(qty))
+
+> barplot(t(qty), main="FRUIT SALES QTY",ylim=c(0,900),col=rainbow(length(qty)),space=1)
+ ※ space는 막대의 간격
+> barplot(t(qty), main="FRUIT SALES QTY",ylim=c(0,900),col=rainbow(length(qty)),space=1,cex.axis=0.8)
+ ※ cex.axis -> 지표값 글자 크기
+> barplot(t(qty), main="FRUIT SALES QTY",ylim=c(0,900),col=rainbow(length(qty)),space=1,cex.axis=0.8,las=1)
+ ※las=0이면 글자가 누워있고, 1이면 글자가 똑바로 
+> barplot(t(qty), main="FRUIT SALES QTY",ylim=c(0,900),col=rainbow(length(qty)),space=1,cex.axis=0.8,las=1,
+          names.arg=c("MON","TUE","WED","THU","FRI"),cex=0.8)
+> legend(2,800,names(qty),cex=0.7,fill=rainbow(length(qty)))
+
+> qty
+  BANANA CHERRY ORANGE
+1    100    120    140
+2    120    130    170
+3    140    150    120
+4    160    140    110
+5    180    170    160
+> t(qty)
+       [,1] [,2] [,3] [,4] [,5]
+BANANA  100  120  140  160  180
+CHERRY  120  130  150  140  170
+ORANGE  140  170  120  110  160
+
+#조건을 주고 그래프 그리기 
+ peach값이 200이상일 경우는 "red", 180-199는 "yellow", 그 이하는 "green"색으로 출력
+
+강사님 답
+
+> peach=c(180,200,250,198,170)
+>     colors=c(colors,'green')
+> for (i in 1:length(peach)) {
++   if (peach[i]>=200) {
++     colors=c(colors,'red')
++   } else if (peach[i]>=180){
++     colors=c(colors,'yellow')
++   } else {
++     colors=c(colors,'green')
++   }
++ }
+
+내가 좀 수정한거
+
+peach=c(180,200,250,198,170)
+for (i in 1:length(peach)) {
+  if (peach[i] >= 200) {
+    colors[i]='red'
+  } else if (peach[i] >= 180){
+    colors[i]='yellow'
+  } else {
+    colors[i]='green'
+  }
+}
+barplot(peach,main="PEACH SALES QTY",names.arg=c("MON","TUE","WED","THU","FRI"),col=colors)
+
+
+그렇다면 함수식으로는?
+
+> f1=function(fruits){
++   colors=NULL
++   for (i in 1:length(fruits)){
++     if (fruits[i] >= 200){
++       colors[i]='red'
++     } else if (fruits[i] >= 180){
++       colors[i]='yellow'
++     } else {
++       colors[i]='green'
++     }
++   }
++   return(colors)
++ }
+> f1(peach)
+[1] "yellow" "red"    "red"    "yellow" "green" 
+> barplot(peach,main="PEACH SALES QTY",names.arg=c("MON","TUE","WED","THU","FRI"),col=f1(peach))
+
+★상당히 많이 쓰이는 포맷
+
+
+
+---------------------------------------------------------------------------------------------
+3교시
