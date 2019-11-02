@@ -276,3 +276,109 @@ barplot(peach,main="PEACH SALES QTY",names.arg=c("MON","TUE","WED","THU","FRI"),
 
 ---------------------------------------------------------------------------------------------
 3교시
+#hist() : 히스토그램 - 특정 데이터의 빈도수를 막대로 나타낸것.
+
+> h=c(182,175,167,172,163,178,181,166,159,155)
+> hist(h, main="histogram of height")
+
+#pie() : 전체합이 100이 되어야하는 경우 서로 비교할 때 좋은 함수
+
+> par(oma=c(0.5,0.5,1,0.1))
+> p1=c(10,20,30,40)
+> pie(p1)
+> pie(p1,radius=1)
+> pie(p1,radius=1,init.angle=90) ※시작각도가 90도가 된다.
+> pie(p1,radius=1,init.angle=90,col=rainbow(length(p1))) ※ 색 지정 가능
+> pie(p1,radius=1,init.angle=90,col=rainbow(length(p1)),label=c("week 1","week 2","week 3","week 4")) 
+  ※라벨 지정가능
+
+> pct=round(p1/sum(p1)*100,1)
+> lab=paste(pct,"%") ※paste 함수
+> pie(p1,radius=1,init.angle=90,col=rainbow(length(p1)),label=lab)
+> legend(1,1.1,c("week 1","week 2","week 3","week 4"),cex=0.5,fill=rainbow(length(p1)))
+  ※ 이렇게하면 시각적으로 불편
+
+> pct=round(p1/sum(p1)*100,1)
+> lab1=c("week 1","week 2","week 3","week 4")
+> lab2=paste(lab1,"\n",pct,"%") \n은 줄바꾸기 
+> pie(p1,radius=1,init.angle=90,col=rainbow(length(p1)),label=lab2)
+
+이렇게 해서 한번에 표현
+
+3차원 도넛 형태로 만들 수 있다
+
+install.packages("plotrix")
+library(plotrix)
+
+> library(plotrix)
+> p1=c(10,20,30,40,50)
+> day=round(p1/sum(p1)*100,1)
+> label=paste(day,"%")
+> pie3D(p1,main="3D Pie",col=rainbow(length(p1)),cex=0.5,labels=label,explode=0.05)
+  ※explode는 쪼개지는 정도를 나타낸다.
+> legend(0.5,1,c("mon","tue","wed","thu","fri"),cex=0.6,fill=rainbow(length(p1)))
+
+# boxplot() : 상자차트 최대/최소/중앙값을 한눈에 볼 수 있다.
+
+> v1=c(10,12,15,11,20)
+> v2=c(5,7,15,8,9)
+> v3=c(11,20,15,18,13)
+> boxplot(v1,v2,v3)
+> boxplot(v1,v2,v3,col=c('blue','yellow','pink'),names=c('blue','yellow','pink'))
+> boxplot(v1,v2,v3,col=c('blue','yellow','pink'),names=c('blue','yellow','pink'),horizontal=T)
+  ※ horizontal = T는 가로 출력 기능 
+
+히스토그램 - 전처리할때 결측치가 생겼을때, 결측치의 비율을 히스토그램으로 본다. 
+
+#igraph() : 관계도 - 서로 연관이 있는 데이터들을 연결해서 표현해주는 그래프
+ 주로 sns에서 친구가 어떻게 맺어져 있는지나 특정 기술이 어떤 기술과 관계가 있는지 상사와
+ 부하등의 관계를 표현할때 많이 쓴다. 
+
+install.packages("igraph")
+library(igraph)
+
+> g1=graph(c(1,2,2,3,2,4,1,4,5,5,3,6),directed = T)
+> plot(g1)
+> g1
+IGRAPH caaf947 D--- 6 6 -- 
++ edges from caaf947:
+[1] 1->2 2->3 2->4 1->4 5->5 3->6
+
+관계가 나온다. 결국 2개씩 묶인 것이다. 
+
+> g=graph.data.frame(emp,directed=F)
+> plot(g, layout=layout.fruchterman.reingold,vertex.size=8,edge.arrow.size=0.5,vertex.label=NA)
+무방향에 이름이 안나오게 하는 방법
+
+> savePlot("network_3.png",type="png")
+Error in savePlot("network_3.png", type = "png") : 
+  'windows'장치들로부터 복사만을 할 수 있습니다
+dev.new()를 사용한다. 
+
+emp=data.frame(이름=name,상사이름=pemp)
+emp
+dev.new()
+g=graph.data.frame(emp,directed=F)
+plot(g, layout=layout.fruchterman.reingold,vertex.size=8,edge.arrow.size=0.5,vertex.label=NA)
+
+> savePlot("network_3.png",type="png")
+> savePlot("network_3.jpg",type="jpg")
+
+install.packages("devtools")
+library(devtools)
+
+
+install.packages("devtools")
+library(devtools)
+install_github("christophergandrud/d3Network")
+install.packages("RCurl")
+library(RCurl)
+library(d3Network)
+
+
+> pemp=c('홍길동 대표','홍길동 대표','일지매 부장','김유신 과장','김유신 과장','홍길동 대표','이순신 부장','유관순 과장,','홍길동 대표','강감찬 부장','광개토 과장')
+> name=c('홍길동 대표','일지매 부장','김유신 과장','손흥민 대리','노홍철 대리','이순신 부장','유관순 과장','신사임당 대리','강감찬 부장','광개토 과장','정몽주 대리')
+> emp=data.frame(이름=name,상사이름=pemp)
+> d3SimpleNetwork(emp,width=600,height=600,file="C:\\r_data\\d3.html")
+
+※한글이 깨지는데, 익스플로러 오른쪽 클릭 - 인코딩 - 한글로 바꾸면 한글이 나온다. 
