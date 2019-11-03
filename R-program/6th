@@ -2,17 +2,314 @@
 #목차
 
 
-#
-#
-#
-#
+#스타차트 stars()
+#레이다차트 Radarchart()
+#그래프에 작도하는 함수들
+#ggplot
+#theme()는 ggplot2 패키지에서 주로 글자와 관련된 기능을 담당하고 있다. 
 
 
 
 
 ---------------------------------------------------------------------------------------------
 1교시
-#
+#stars() : 스타차트 
+total=read.table("학생별전체성적_new.txt",header=T,sep=",")
+total
+   이름 국어 영어 수학 국사 화학 물리
+1 박지영   90   85   55   88   91   79
+2 김태함   70   65   80   75   76   89
+3 김효섭   92   95   76   65   89   91
+4 임경희   76   89   88   98  100   91
+5 권혁진   97   87   83   91   86   91
+6 하혜진   80   86   97   85   69   77
+7 이준원   80   30   40   50   70   90
+8 윤정웅   70   82   54   56   58   60
+9 주시현   90   95  100   85   89   92
+
+row.names(total)=total$이름
+total=total[,2:7]
+total
+       국어 영어 수학 국사 화학 물리
+박지영   90   85   55   88   91   79
+김태함   70   65   80   75   76   89
+김효섭   92   95   76   65   89   91
+임경희   76   89   88   98  100   91
+권혁진   97   87   83   91   86   91
+하혜진   80   86   97   85   69   77
+이준원   80   30   40   50   70   90
+윤정웅   70   82   54   56   58   60
+주시현   90   95  100   85   89   92
+
+> stars(total,flip.labels=FALSE,draw.segment=FALSE,frame.plot=TRUE,full=TRUE,main="학생별전체성적분석")
+
+#어느 영역이 그 영역에 해당하는지 알수가 없다. 
+
+lab=names(total)
+value=table(lab)
+windows()
+pie(value, labels=lab,radius=0.1,cex=0.6,col=NA)
+savePlot(filename="star_11,png",type="png")
+
+이렇게해서 어거지로 넣을수는 있다. 
+
+stars(total,flip.labels=FALSE,draw.segment=FALSE,frame.plot=TRUE,full=TRUE,main="학생별전체성적분석",key.loc=c(0.2,6.5),key.apd=F)
+범례를 넣을 수 있는 방법은 이게 최선이다?
+
+여기서 segment를 TRUE로 바꿔주면 나이팅게일차트 / 이게 조금더 보기 낫다. 
+full을 true로하면 또 다른 형태가 된다.
+
+#Radarchart(): 레이더차트
+ 1) 샘플데이터를 만든다.
+ 2) 최대값 및 최소값을 지정
+ 3) Radarchart 함수 사용 
+
+install.packages("fmsb")
+library(fmsb)
+
+> layout=data.frame(분석력=c(5,1),창의력=c(15,3),판단력=c(3,0),
++                      리더십=c(5,1),사교성=c(5,1))
+
+> set.seed(123) ※ 임의의 데이터를 생성
+
+#runif : 균등분포를 나타맨 갯수 최소값 최대값이 들어온다.
+#rnorm : 정규분포에서 값을 추출한다. 갯수 평균 표준편차
+> data1=data.frame(
++   분석력=runif(3,1,5),
++   창의력=rnorm(3,10,2),
++   판단력=c(0.5,NA,3),
++   리더십=runif(3,1,5),
++   사교성=c(5,2.5,4))
+
+> data2=rbind(layout,data1)
+> data2
+    분석력    창의력 판단력   리더십 사교성
+1 5.000000 15.000000    3.0 5.000000    5.0
+2 1.000000  3.000000    0.0 1.000000    1.0
+3 2.150310 12.380413    0.5 2.826459    5.0
+4 4.153221  6.620889     NA 4.827333    2.5
+5 2.635908 12.478992    3.0 2.813337    4.0
+
+> op=par(mar=c(1,0.5,3,1),mfrow=c(2,2)) 여백조절하기 mar은 여백
+
+> radarchart(data2,axistype=1,seg=5,plty=1,title="1st type")
+> radarchart(data2,axistype=2,pcol=topo.colors(3),plty=1,title="2st type")
+> radarchart(data2,axistype=3,pty=32,plty=1,axislabcol="grey",na.itp=FALSE,title="3rd type")
+> radarchart(data2,axistype=0,plwd=1:5,pcol=1 ,title="4th type")
+
+#points() - 점찍는 함수
+#lines(), segments(), abline() - 선그리는 함수 
+#grid() - 격자
+#arrows() - 화살표
+#rect() - 직사각형
+#text(), mtext(), title() - 문자 text는 한줄, mtext는 여러줄
+#box(), axis() - 축
+#legend() - 범례
+#polygon()
+
+> plot(1:15)
+> abline(h=8)
+> rect(1,6,3,8)
+> arrows(1,1,5,5)
+> text(8,9,"TEXT")
+> title("THIS IS TEST", "SUB")
+> segments(8,8,13,13)
+
+#ggplot2 패키지
+#ggplot(dataframe, aes(x=x축데이터, y=y축데이터))+geom_함수....
+#geom부분에 설정값 
+ 1) stat : 주어진 데이터에서 geom에 필요한 데이터를 생성
+ 2) stat_bin : 데이터를 갖는 dataframe을 출력
+ 3) count : 각 항목의 빈도수 
+ 4) density : 각 항목의 밀도수 
+ 5) ncount : count와 같으나 값의 범위가 (0,1)로 스케일링 
+ 6) ndensity : density와 같으나 값의 범위가 (0,1)로 스케일링 
+ 7) 위설정값을 지정하지 않으면 기본값은 count 
+
+> k=read.table("학생별국어성적_new.txt",header=T,sep=",")
+> k
+    이름 과목 점수
+1 박지영 국어   90
+2 주시현 국어   70
+3 박동주 국어   92
+4 김태함 국어   76
+5 권혁진 국어   97
+6 임경희 국어   80
+7 이준원 국어   20
+8 하혜진 국어   50
+9 강경림 국어   60
+
+> plot(k)
+> ggplot(k,aes(x=이름,y=점수)) ※기본적인 차트 바탕이 만들어짐
+ggplot(k,aes(x=이름,y=점수))+geom_point() 점수들이 점으로 찍힘
+
+> ggplot(k,aes(x=이름,y=점수))+geom_bar(stat='identity') 
+identity는 x,y축이 각각 존재한다. 없으면 에러가 뜬다.
+Error: stat_count() must not be used with a y aesthetic.
+ggplot(k,aes(x=이름,y=점수))+geom_bar(stat='identity',fill="green") fill = 막대그래프 색깔
+ggplot(k,aes(x=이름,y=점수))+geom_bar(stat='identity',fill="green",color='red') color= 막대 외곽 색깔
+> gg+theme(axis.text.x=element_text(angle=45,hjust=1,vjust=1,color="blue",size=8))
+  ※ x축 지표값이 변경됨 h/v just는 위치 
+
+#theme()는 ggplot2 패키지에서 주로 글자와 관련된 기능을 담당하고 있다. 
+
+> s_k=read.csv("학생별과목별성적_국영수_new.csv",header=T)
+> s_k
+     이름 과목 점수
+1  박지영 국어   90
+2  김태함 국어   70
+3  김효섭 국어   92
+4  임경희 국어   76
+5  권혁진 국어   97
+6  하혜진 국어   80
+7  이준원 국어   20
+8  윤정웅 국어   50
+9  주시현 국어   95
+10 박지영 영어   85
+11 김태함 영어   65
+12 김효섭 영어   95
+13 임경희 영어   89
+14 권혁진 영어   87
+15 하혜진 영어   86
+16 이준원 영어   30
+17 윤정웅 영어   52
+18 주시현 영어   70
+19 박지영 수학   55
+20 김태함 수학   80
+21 김효섭 수학   76
+22 임경희 수학   88
+23 권혁진 수학   83
+24 하혜진 수학   97
+25 이준원 수학   40
+26 윤정웅 수학   54
+27 주시현 수학   80
+
+하나의 막대에 여러개를 나타내고 싶다?
+library(plyr) - 가져온 이유는 arrange 함수를 쓰기 위해서 
+
+> s_k=arrange(s_k,이름,과목)
+> s_k
+     이름 과목 점수
+1  권혁진 국어   97
+2  권혁진 수학   83
+3  권혁진 영어   87
+4  김태함 국어   70
+5  김태함 수학   80
+6  김태함 영어   65
+7  김효섭 국어   92
+8  김효섭 수학   76
+9  김효섭 영어   95
+10 박지영 국어   90
+11 박지영 수학   55
+12 박지영 영어   85
+13 윤정웅 국어   50
+14 윤정웅 수학   54
+15 윤정웅 영어   52
+16 이준원 국어   20
+17 이준원 수학   40
+18 이준원 영어   30
+19 임경희 국어   76
+20 임경희 수학   88
+21 임경희 영어   89
+22 주시현 국어   95
+23 주시현 수학   80
+24 주시현 영어   70
+25 하혜진 국어   80
+26 하혜진 수학   97
+27 하혜진 영어   86
+
+sk2=ddply ※ply함수를 앞의 글자는 입력 뒤의 글자는 출력 dataframe으로 입출력
+같은 것을 그룹합계는 summary, 다른것을 그룹합계는 transform
+
+> sk2=ddply(s_k,"이름",transform,누적합계=cumsum(점수))
+> sk2
+     이름 과목 점수 누적합계
+1  권혁진 국어   97       97
+2  권혁진 수학   83      180
+3  권혁진 영어   87      267  ※권혁진에 대한 국어/수학/영어가 다르기 떄문에 누적합계를 transform을 통해서 구했다.
+                                transform이 없으면 합계가 안된다.
+4  김태함 국어   70       70
+5  김태함 수학   80      150
+6  김태함 영어   65      215
+7  김효섭 국어   92       92
+8  김효섭 수학   76      168
+9  김효섭 영어   95      263
+10 박지영 국어   90       90
+11 박지영 수학   55      145
+12 박지영 영어   85      230
+13 윤정웅 국어   50       50
+14 윤정웅 수학   54      104
+15 윤정웅 영어   52      156
+16 이준원 국어   20       20
+17 이준원 수학   40       60
+18 이준원 영어   30       90
+19 임경희 국어   76       76
+20 임경희 수학   88      164
+21 임경희 영어   89      253
+22 주시현 국어   95       95
+23 주시현 수학   80      175
+24 주시현 영어   70      245
+25 하혜진 국어   80       80
+26 하혜진 수학   97      177
+27 하혜진 영어   86      263
+
+
+> sk3=ddply(sk2,"이름",transform,누적합계=cumsum(점수),label=cumsum(점수)-0.5*점수)
+> sk3
+     이름 과목 점수 누적합계 label
+1  권혁진 국어   97       97  48.5
+2  권혁진 수학   83      180 138.5
+3  권혁진 영어   87      267 223.5
+4  김태함 국어   70       70  35.0
+5  김태함 수학   80      150 110.0
+6  김태함 영어   65      215 182.5
+7  김효섭 국어   92       92  46.0
+8  김효섭 수학   76      168 130.0
+9  김효섭 영어   95      263 215.5
+10 박지영 국어   90       90  45.0
+11 박지영 수학   55      145 117.5
+12 박지영 영어   85      230 187.5
+13 윤정웅 국어   50       50  25.0
+14 윤정웅 수학   54      104  77.0
+15 윤정웅 영어   52      156 130.0
+16 이준원 국어   20       20  10.0
+17 이준원 수학   40       60  40.0
+18 이준원 영어   30       90  75.0
+19 임경희 국어   76       76  38.0
+20 임경희 수학   88      164 120.0
+21 임경희 영어   89      253 208.5
+22 주시현 국어   95       95  47.5
+23 주시현 수학   80      175 135.0
+24 주시현 영어   70      245 210.0
+25 하혜진 국어   80       80  40.0
+26 하혜진 수학   97      177 128.5
+27 하혜진 영어   86      263 220.0
+
+※ label이 무엇을 뜻하는가?
+
+> ggplot(sk3, aes(x=이름,y=점수,fill=과목))+geom_bar(stat="identity")
+
+> ggplot(sk3, aes(x=이름,y=점수,fill=과목))+geom_bar(stat="identity")
++geom_text(aes(y=label,label=paste(점수,"점")),color='black')
+
+하나의 막대에 3개가 나타난다. but 순서가 잘못설정되어 있다. 
+스택에 입력되어있는 것을 반대로 출력해야한다.
+스택에 입력될때 국어/수학/영어 순으로 입력되어 있어서
+출력될때 영어/수학/국어 순으로 뽑았다. 그래서 여기서 포지션을 넣어줘야 한다. 
+
+> ggplot(sk3, aes(x=이름,y=점수,fill=과목))+geom_bar(stat="identity",position=position_stack(reverse=T))
++geom_text(aes(y=label,label=paste(점수,"점")),color='black')
+
+※ position=position_stack(reverse=T) 이것이 중요하다. 
+   색깔은 이제 맞는다. 근데 범례순서가 다르다. 범례도 바꿔줘야한다. 
+
+> ggplot(sk3, aes(x=이름,y=점수,fill=과목))+geom_bar(stat="identity",position=position_stack(reverse=T))
++geom_text(aes(y=label,label=paste(점수,"점")),color='black')+guides(fill=guide_legend(reverse=T))
+
+범례도 뒤집혀서 밑에서부터 국어/수학/영어 수학순으로 되어있다. 
+
+> gg2+theme(axis.text.x=element_text(angle=45,hjust=1,vjust=1,color="blue",size=8))
+
 
 
 
