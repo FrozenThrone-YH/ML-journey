@@ -28,7 +28,161 @@ library(readxl)
 ------------------------------------------------------------------------
 1교시
 
+<실전분석>
 
+#워드클라우드 
+ 1) 데이터에서 단어만 추출
+ 2) 단어 집합 생성
+ 3) 단어 필터링
+ 4) 단어 핸들링
+ 5) txt파일로 저장하고 table로 읽어서 공백제거 
+    (불필요한 공백제거)
+ 6) 단어 빈도수 저장
+ 7) 워드클라우드 출력 
+ 8) 자바로딩 안될때(R 자바가 안잡혀서 에러가 뜨는 경우) 
+     : Sys.setenv(JAVA_HOME='C:\\Program Files\\Java\\jre1.8.0_231')
+ 9) 
+
+useSejongDic() ※시간이 좀 길다.스킵메세지가 뜨면 '1' 'all'로 한다. 
+                 에러가 뜨면 '3' 'Rcpp'에서 자꾸 에러가 난다?
+
+install.packages('Rcpp')
+library(Rcpp)            ※이렇게 해도 안붙는다?
+
+useSejongDic()
+useNIADic()    ※일단 진행 
+
+data1=readLines("BTS유엔연설_국문.txt")
+data1
+
+데이터가 깨질시 UTF-8로 저장 그래도 깨질시 ANSI로 설정해서 다른이름으로 저장(파일 이름 바꾸기)
+
+data2=sapply(data1,extractNoun,USE.NAMES=F)
+data2
+head(unlist(data2),30)
+data3=unlist(data2)
+data3
+
+data3에서 데이터 가공이 필요하다. 
+ex) 저 = 나를 낮춘것, 나와 저를 합쳐야한다. 
+    '한'이라는 단어가 애매하다. 
+    '장' '살' '내' "" 이런것들 지운다. 
+
+#gsub("변경전 글자","변경 후 글자","원본데이터")
+data4=gsub("\\d+","",data3) ※숫자는 공백처리하겠다.
+data4=gsub("한","",data3) ※"한"이라는 글자를 공백처리 
+data4=gsub("저","나",data3)
+
+data4=gsub("\\d+","",data3)
+data4=gsub("한","",data4)
+data4=gsub("저","나",data4)
+data4=gsub("것","",data4)
+data4=gsub(" ","",data4)
+data4=gsub("-","",data4)
+data4
+
+write(unlist(data4),"BTS_국문연설.txt")
+data5=read.table("BTS_국문연설.txt")
+data5 ※공백이 다 사라졌다. 
+
+nrow(data5) ※갯수가 몇개인가?
+[1] 357 
+
+wc=table(data5)
+wc
+head(sort(wc,decreasing=T),20)
+
+data5
+    나 여러분   우리   자신     들   사랑   이름 이야기     내 목소리 
+    34     12     11     10      7      7      6      6      5      5 
+  방탄 소년단   사람   시작   오늘   LOVE     그   무엇   시선   실수 
+     5      5      4      4      4      3      3      3      3      3 
+
+data4=gsub("들","",data4)
+data4=gsub("그","",data4)
+
+계속 삭제해준다. ※함수로 필요없는 단어들을 삭제하게 만들어서 실행시킬 수 도 잇다. 
+
+write(unlist(data4),"BTS_국문연설_2.txt")
+data5=read.table("BTS_국문연설_2.txt")
+wc=table(data5)
+head(sort(wc,decreasing=T),20)
+
+library(RColorBrewer)
+
+palete=brewer.pal(9,"Set3") S가 대문자 
+wordcloud(names(wc),freq=wc,scale=c(5,1),rot.per=0.25,min.freq=1,random.color=T,random.order=F,colors=palete)
+freq = 빈도수 / rot.per 회전 
+
+gsub는 너무 노가다이다. 
+필요없는 단어를 모아서 파일을 하나 만들어놔서 
+반복적으로 비교해서 바꾸는 코드 작업을 할 수 있다. 
+
+data1_1=readLines("remake.txt") ※Q_A에 답변 올려놓은걸 모아왔다. 
+data1_1
+
+data2_1=sapply(data1_1,extractNoun,USE.NAMES=F)
+data2_1
+
+data3_1=unlist(data2_1)
+data3_1
+
+data3_1=Filter(function(x){
+                nchar(x)<=10},data3_1)
+head(unlist(data3),30)
+
+data4_1=gsub("\\d+","",data3_1)
+data4_1=gsub("쌍","쌍꺼풀",data4_1)
+data4_1=gsub("쌍커풀","쌍꺼풀",data4_1)
+data4_1=gsub("메부리코","매부리코",data4_1)
+data4_1=gsub(" ","",data4_1)
+data4_1=gsub("\\'","",data4_1)
+data4_1=gsub('\\"',"",data4_1)
+data4_1=gsub('\\."',"",data4_1)
+data4_1=gsub('수',"",data4_1)
+
+이렇게 하면 시간이 너무 오래걸린다. 
+
+write(unlist(data4_1),"remake_2.txt")
+data5_1=read.table("remake_2.txt")
+data5_1
+nrow(data5_1)
+wc1_1=table(data5_1)
+wc1_1
+head(sort(wc1_1,decreasing=T),20)
+
+성형gsub이라는 파일에 필요없는 단어 모아둔 파일을 만든다.
+
+txt=readLines("성형gsub.txt")
+txt
+
+cnt_txt=length(txt)
+cnt_txt
+i=1
+for (i in 1:cnt_txt){
+  data4_1=gsub((txt[i]),"",data4_1)
+}
+data4_1
+
+data4_1=Filter(function(x){nchar(x)>=2},data4_1)
+data4_1
+write(unlist(data4_1),"remake_2_2.txt")
+data5_1=read.table("remake_2_2.txt")
+data5_1
+nrow(data5_1)
+wc=table(data5_1)
+wc
+head(sort(wc,decreasing=T),30)
+
+wordcloud(names(wc),freq=wc,scale=c(5,1),rot.per=0.3,min.freq=2,random.ordor=F,)
+※random.ordor = F -생성될때마다 바뀌지 말아라 
+
+legend(0.3,0.9,"여고생들이 선호하는 성형부위",cex=0.8,fill=NA,border=NA,
+       bg='white',text.col="red",text.font=2,box.col="blue")
+
+일일이 데이터를 훑어 봐야 한다. 
+
+remake2 라는 파일은 부작용에 관한 파일이다. 
 ------------------------------------------------------------------------
 2교시
 ------------------------------------------------------------------------
