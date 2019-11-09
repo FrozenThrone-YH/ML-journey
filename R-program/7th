@@ -24,6 +24,7 @@ install.packages("KoNLP")
 install.packages("wordcloud")
 install.packages("stringr")
 install.packages("tm")
+install.packages("plotrix")
 library(dplyr)
 library(foreign)
 library(ggplot2)
@@ -33,6 +34,7 @@ library(wordcloud)
 library(RColorBrewer)
 library(stringr)
 library(tm)
+library(plotrix)
 Sys.setenv(JAVA_HOME='C:\\Program Files\\Java\\jre1.8.0_231')
 
 ------------------------------------------------------------------------
@@ -391,5 +393,74 @@ barplot(fre1,las=2,glim=c(0,5)) 빈도수를 bar plot으로 만들수 있다.
 
 ------------------------------------------------------------------------
 3교시
+
+<다른 차트 활용하기 - 제주도 재활용>
+mergeUserDic(data.frame(readLines("제주도여행지.txt"),"ncn"))
+txt=readLines("jeju.txt")
+place=sapply(txt,extractNoun,USE.NAMES=F)
+place
+head(unlist(place),30)
+cdata=unlist(place)
+cdata
+place=str_replace_all(cdata,"[^[:alpha:]]","") #정규식활용-한글/영어 외에는 다 지워라
+place=gsub(" ","",place)
+txt=readLines("제주도여행코스gsub.txt")
+txt
+cnt_txt=length(txt)
+cnt_txt
+i=1
+for(i in 1:cnt_txt){
+  place=gsub((txt[i]),"",place)
+}
+place
+place=Filter(function(x){nchar(x)>=2},place)
+write(unlist(place),"jeju_2.txt")
+rev=read.table("jeju_2.txt") #필요없는 공백 삭제
+rev
+
+nrow(rev)
+wc=table(rev)
+wc
+head(sort(wc,decreasing=T),30)
+
+
+palete=brewer.pal(9,"Set3")
+wordcloud(names(wc),freq=wc,scale=c(5,1),rot.per=0.1,random.order = F,random.color = T,min.freq=6,colors=palete)
+
+#파이로 찍어보기 
+top10=head(sort(wc,decreasing=T),10)
+top10
+pct=round(top10/sum(top10)*100,1)
+names(top10)
+lab=paste(names(top10),"\n",pct,"%")
+pie(top10,col=rainbow(10),radius=1,main="제주도 추천명소 top10",cex=0.8,labels=lab)
+
+#바차트로 찍어보기
+bchart=head(sort(wc,decreasing=T),10)
+bchart
+bp=barplot(bchart,main="제주도 추천명소 Top10",col=rainbow(10),cex.names=0.7,las=2,ylim=c(0,25))
+
+pct=round(bchart/sum(bchart)*100,1)
+pct
+text(x=bp,y=bchart*1.05,labels=paste("(",pct,"%",")"),col="black",cex=0.7)
+text(x=bp,y=bchart*0.95,labels=paste(bchart,"건"),col="black",cex=0.7)
+
+#바차트를 눕히려면
+
+bp=barplot(bchart,main="제주도 추천명소 Top10",col=rainbow(10),cex.names=0.7,las=1,xlim=c(0,25),horiz=T)
+
+pct=round(bchart/sum(bchart)*100,1)
+pct
+text(y=bp,x=bchart*1.15,labels=paste("(",pct,"%",")"),col="black",cex=0.7)
+
+text(y=bp,x=bchart*0.95,labels=paste(bchart,"건"),col="black",cex=0.7)
+
+#바차트를 3D로 만드려면?
+
+th_pct=round(bchart/sum(bchart)*100,1)
+th_names=names(bchart)
+th_labels=paste(th_names,"\n","(",th_pct,")")
+pie3D(bchart, main="제주도 추천 Top10",col=rainbow(10),cex=0.3,labels=th_labels,explode=0.05)
+
 ------------------------------------------------------------------------
 4교
