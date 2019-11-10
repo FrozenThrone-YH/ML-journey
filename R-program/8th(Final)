@@ -1,0 +1,294 @@
+프로포즈 선물 검색어 분석결과를 그래프로 표시 하기
+
+프로포즈 선물로 받고 싶은 건수가 50이상이면 'red', 30이상이면 'yellow'
+10이상이면 'blue', 그외는 'pink'로 차트의 색상을 나타내시오 
+
+barchart piechart 워드 클라우드 3d chart 개를 하기 
+
+<내 실습>
+
+par(mfrow=c(2,2))
+mergeUserDic(data.frame(readLines("proposegift.txt"),"ncn"))
+txt=readLines("propose.txt")
+txt
+gift=sapply(txt,extractNoun,USE.NAMES=F)
+gift
+gift1=unlist(gift)
+gift1
+gift2=str_replace_all(gift1,"[^[:alpha:]]","")
+gift2
+head(unlist(gift2),30)
+
+
+txt2=readLines("proposegsub.txt")
+txt2
+cnt_txt=length(txt2)
+i=1
+for(i in 1:cnt_txt){
+  gift2=gsub((txt2[i]),"",gift2)
+}
+gift2
+head(unlist(gift2),30)
+write(unlist(gift2),"propose_2_2.txt")
+txt3=read.table("propose_2_2.txt")
+
+nrow(txt3)
+wc=table(txt3)
+wc
+head(sort(wc,decreasing=T),30)
+
+
+bchart=head(sort(wc,decreasing=T),10)
+bchart
+length(bchart)
+colors=c()
+for (i in 1:length(bchart)) {
+  if (bchart[i]>=50) {
+    colors[i]='red'
+  } else if (bchart[i]>=30){
+    colors[i]='yellow'
+  } else if (bchart[i]>=10){
+    colors[i]='blue'
+  }
+  else {
+    colors[i]='pink'
+  }
+}
+colors2=rev(colors)
+dev.new()
+bp=barplot(bchart,main="프로포즈 선물 Top10",col=colors,cex.names=0.7,las=2,ylim=c(0,60))
+
+top10=head(sort(wc,decreasing=T),10)
+pct=round(top10/sum(top10)*100,1)
+names(top10)
+lab=paste(names(top10),"\n",pct,"%")
+pie(top10,col=colors,radius=1,main="프로포즈 선물 top10",cex=0.8,labels=lab)
+
+palete=brewer.pal(9,"Set3")
+wordcloud(names(wc),freq=wc,scale=c(5,1),rot.per=0.1,random.order = F,random.color = F,min.freq=2,colors=colors2)
+
+th_pct=round(bchart/sum(bchart)*100,1)
+th_names=names(bchart)
+th_labels=paste(th_names,"\n","(",th_pct,")")
+pie3D(bchart, main="프로포즈 선물 Top10",col=colors,cex=0.3,labels=th_labels,explode=0.05)
+
+
+<강사님 풀이>
+
+
+txt_t=readLines("propose.txt")
+pro=sapply(txt_t,extractNoun,USE.NAMES=F)
+pro
+c=unlist(pro)
+c
+pro2=gsub("\\d+","",c)
+pro2=gsub("\\.","",pro2)
+pro2=gsub("\\n","",pro2)
+pro2
+
+txt_t_2=readLines("프로포즈gsub.txt")
+txt_t_2
+
+cnt_txt=length(txt_t_2)
+cnt_txt
+for (i in 1:cnt_txt){
+  pro2=gsub((txt_t_2[i]),"",pro2)
+}
+pro2=Filter(function(x){nchar(x)>=2},pro2)
+head(unlist(pro2),20)
+write(unlist(pro2),"pro_3.txt")
+rev=read.table("pro_3.txt")
+rev
+nrow(rev)
+wc=table(rev)
+wc
+head(sort(wc,decreasing=T),30)
+par(mfrow=c(2,2))
+a=head(sort(wc,decreasing=T),10)
+a
+
+colors=c()
+for(i in 1:length(a)){
+  if (a[i]>=50){
+    colors=c(colors,"red")
+  } else if (a[i]>=30){
+    colors=c(colors,"yellow")
+  } else if (a[i]>=10){
+    colors=c(colors,"blue")
+  } else {
+    colors=c(colors,"pink")
+  }
+}
+
+bp=barplot(a,main="프로포즈 top 10",col=colors,cex.names=0.7, ylim=c(0,60))
+
+text(x=bp,y=a*1.07,labels=paste(a,"건"),col="black",cex=0.7)
+
+names(a)
+pct=round(a/sum(a)*100,1)
+lab=paste(names(a),"\n",pct,"%")
+pie(a,main="프로포즈 top10",col=colors,cex=0.7,labels=lab)
+
+pal=brewer.pal(9,"Set3")
+wordcloud(names(wc),freq=wc,scale=c(5,1),rot.per=0.25,min.freq=2,random.order=F, ranmdo.color=T,colors=pal)
+legend(0.3,0.85,"프로포즈 top10",cex=0.8,fill=NA,border=NA,bg="white",text.col="red",text.font=2,box.col="blue")
+
+pie3D(a,main="프로포스 top10",col=colors,cex=0.8,labels=lab,explode=0.05)
+
+
+
+<공공데이터 분석>
+
+
+data1=read.csv("2013년_서울_주요구별_병원현황.csv",header=T)
+data1
+i=2
+name=data1$표시과목
+op=par(mfrow=c(2,5))
+for(i in 2:11){
+  d=data1[,i]
+  barplot(d,names.arg=name,cex.names=0.6,las=2,ylim=c(0,350),ylab="병원수",axes=F,col=rainbow(8),main=paste(colnames(data1)[i],'병원현황'))
+  axis(2, ylim=c(0,max(d)+10,50))
+}
+
+
+서울열린데이터광장
+
+install.packages("googoleVis")
+library(googleVis)
+line=read.csv("1-4호선승하차승객수.csv",header=T,sep=",")
+line
+t1=gvisMotionChart(line,idvar="노선번호",timevar="시간",options=list(width=1000,height=500))
+plot(t1)
+
+
+공공데이터포털 https://www.data.go.kr/
+<전국문화축제표준데이터> 검색
+
+
+
+df=read.csv("전국문화축제표준데이터.csv")
+df
+View(df) 
+#데이터에 결측값이 많이 있다 -> 결측치 처리 필요 / 이상치도 있다. 
+#정재해줘야한다. 
+
+#어디서 많이 하는지 / 어느 달에 많이 하는지 
+# R프로그래밍 지도 검색! 
+
+df=data.frame(df[1],df[3:4],df[12],df[14:15])
+df
+# 위도/경도 값을 임의로 지정할수가 없다. 
+
+cnt=length(df)
+cnt
+names(df)[cnt] <-'LAT'
+names(df)[cnt]
+names(df)[cnt-1] <-'LON'
+names(df)[cnt-1]
+head(df)
+
+summary(df) #LON에 NA's 48 / LAT에 NA's 48
+nrow(df) #총 1158개 중 NA가 48개
+
+df=df[complete.cases(df),] #없는애는 제외하고 완벽한 케이스만 가져온다. 
+nrow(df) #48개가 빠진 1110만 나왔다. 
+
+summary(df)
+
+#빈 값이 있는 자료가 있는지 확인 
+cnt=1 #노가다지만 모든열에 대해서 실행해줘야 한다.
+head(table(df[cnt])) #table로 부르는 이유는 공백제거 
+tail(table(df[cnt]))
+
+cnt=1
+head(df[order(df[cnt]),])
+length(df$소재지도로명주소[df$소재지도로명주소==""]) #81개가 공백 
+df[df==""]=NA
+summary(df) #NA's가 81개 
+df=df[complete.cases(df),]
+nrow(df)
+df[df=="-"]=NA
+df=df[complete.cases(df),]
+nrow(df)
+attach(df)
+str(df)
+class(df$축제종료일자) #factor면 계산이 안된다 - 변환 필요 
+df$축제종료일자=as.Date(df$축제종료일자)
+df$축제시작일자=as.Date(df$축제시작일자)
+str(df)
+
+df$gigan=df$축제종료일자-df$축제시작일자+1
+head(df$gigan)
+str(df)
+
+cnt를 1~6까지 다 진행해준다. 
+
+
+gigan2=as.numeric(gigan)
+str(gigan2)
+df=cbind(df,gigan2)
+df
+table(gigan2) #기간이 -인 것들이 있다. 
+
+subset(df,df$축제시작일자>df$축제종료일자)
+nrow(subset(df,df$축제시작일자>df$축제종료일자)) 
+df=subset(df,df$gigan2>=0) #이걸하고 나면 nrow를 해보면 0이 나온다. 
+df
+
+df=subset(df,df$축제시작일자<=df$축제종료일자)
+table(df$gigan2)
+bigo=ifelse(df$gigan2>365,"1년이상",ifelse(df$gigan2>=50,"50일이상",ifelse(df$gigan2==1,"1일","50일미만")))
+df=cbind(df,bigo)
+head(df)
+
+install.packages("lubridate")
+library(lubridate)
+
+df$mm=month(df$축제시작일자)
+df$mm #각 축제별로 월만 가져옴
+par(mfrow=c(1,1))
+table(df$mm) #10월이 가장 많다. 
+hist(df$mm)
+df$yy=year(df$축제시작일자)
+df$yy
+table(df$yy)
+
+hist(df$yy)
+
+
+df$day_week=wday(df$축제시작일자,label=F)
+df$day_week
+table(df$day_week)
+class(df$day_week)
+as.numeric(df$day_week)
+hist(df$day_week)
+
+str(df)
+dev.new()
+plot(df$day_week)
+savePlot("day_week_chart.png",type="png") #새창을 띄워야 차트가 저장이 된다. 
+
+install.packages("stringr")
+library(stringr)
+주소=str_split_fixed(df$소재지도로명주소," ",2)
+head(주소)
+주소=주소[,1]
+head(주소)
+df[4]=주소
+colnames(df)[4]="주소"
+df$주소=as.factor(df$주소)
+summary(df$주소)
+table(df$주소)
+write.csv(df,"축제.csv")
+ls()
+rm(list=ls())
+ls()
+df=read.csv("축제.csv")
+df
+plot(table(df$yy))
+plot(table(df$yy),type="l")
+plot(table(df$yy),type="b",lty=3,col=2,pch=5,lwd=3,cex=2,main="년간축제 분석",sub="전국(2011~2020)",ylab="횟수")
+
+
+
