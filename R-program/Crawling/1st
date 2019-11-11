@@ -1,1 +1,66 @@
-# '클리앙' 이라는 페이지 크롤링 하기 
+# '클리앙' 이라는 페이지 크롤링 하기 - 모두의 광장
+
+# https://www.clien.net/service/board/park 첫페이지
+# https://www.clien.net/service/board/park?&od=T31&po=0 2페이지갔다가 1페이지 갔을때의 주소 
+# 
+install.packages("stringr")
+library(stringr)
+
+i<-0
+final_data<-NULL
+for (i in 0:9){
+  url<-paste0("https://www.clien.net/service/board/park/14269962?od=T31&po=",i)
+
+b<-readLines(url,encoding="UTF-8") ##EUC-KR
+length(b)
+head(b,30) #HTML source를 확인할 수 있다. 페이지 소스보기와 똑같다. 
+tail(b)
+
+#게시글 제목에 있는 규칙을 찾아낼 것이다. 
+#tag들로 찾아낼 것이다. 
+#subject_fixed가 있으면 항상 제목이 있다.
+
+b2<-b[str_detect(b,"subject_fixed")]
+
+title<-str_extract(b2,("(?<=\">).*(?=</span>)")) ##정규표현식
+##">로 시작해서 </span>으로 끝나는 것들의 가운데를 뽑는다. 
+## 굉장히 많이 쓰이는 용법 
+
+##조회수 뽑아오기 (2가지 방법)
+#1
+b3<-b[str_detect(b,"<span class=\"hit\">")]
+b3
+b4<-str_split(b3,"hit\">")
+b5<-str_sub(sapply(b4,function(x){x[2]}),end=-8)
+b5
+##조회수는 <span class="hit"> 뒤에 나오는 것을 확인 할 수 있는데, 
+##그대로 복사하면 ""때문에 에러가 나기 때문에 "앞에 \를 붙여줘야한다.
+##b4는 hit">를 중심으로 나눈다. 
+##b5는 hit">로 나눈 것에서 2번째를 가져오고, 뒤에 글자 삭제 (8개정도 된다)
+#2
+hit<-str_extract(b3,("(?<=\">).*(?=</span>)"))[-1]
+hit
+## URL뽑기- 글제목이 있고 2번째 줄 위에 있다. 
+
+b6<-b[which(str_detect(b,"subject_fixed"))-2]
+#str_detect(b,"subject_fixed")를하면 TRUE FALSE로 표현이 되고, 제목이 있는 곳만 TRUE가된다. 
+#which는 TRUE값이 있는 INDEX의 숫자를 뽑을 수 있다. 
+#제목이 있는 곳에서 2번째 전이 URL이다. 이것을 b에서 가져온다. 
+
+b7<-str_sub(str_extract(b6,("(?<=href=\").*(?=data-role)")),end=-4)
+#기본 url 뒤에 붙는 주소들이다. 그래서 기본적인 주소를 붙여줘야한다. 
+
+url<-paste0("https://www.clien.net",b7)
+
+
+data<-cbind(title,hit,url)
+final_data<-rbind(final_data,data)
+cat("\n",i)
+}
+
+dim(final_data)
+head(final_data)
+
+setwd("D:\\r_data")
+write.csv(final_data,"base_data.csv",row.names=F)
+#hit의 숫자가 하나 더 많은 것은 공지가 포함되었기 때문에 hit 뒤에 [-1]을 붙여 준다. 
