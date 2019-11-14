@@ -1,0 +1,51 @@
+install.packages("stringr")
+library(stringr)
+setwd("D:\\r_data")
+
+data<-read.csv("base_data.csv")
+head(data)
+
+#리스트는 저장이 안된다. 객체를 r파일로 저장할 수 있다.
+
+save(data,file="base_data.RData")
+load("base_data.RData") #리스트는 이런식으로 저장해야한다.
+
+url_list<-data[,3]
+
+url_list[1] 
+#웹사이트 들어가서 소스를 보면 post_content와 post_ccls사이에 있다?
+#규칙이 맞는지 안맞는지 확인해봐야한다.
+url_list[10]
+#10번째 주소도 확인해서 규칙확인
+
+length(url_list)
+content<-c()
+for(i in 1:length(url_list)){
+if(class(try(b<-readLines(as.character(url_list[i]),encoding="UTF-8")))=="try-error"){
+  b6<-""
+  content<-c(content,b6)
+  #next
+}else{
+#이 데이터가 factor로 인식이 되었다는 것이다. level이 있으니 
+
+b2<-b[which(str_detect(b,"post_content")):which(str_detect(b,"post_ccls"))]
+#501라인부터 519라인까지 501:519와 같음 
+#그 다음 한개의 벡터로 합치는 과정을 거쳐야한다.
+
+b3<-paste(b2,collapse="") #그떄 구분자는 아무것도 하지 않겠다. (공백 처리)
+
+b4<-gsub("<.*?>","",b3) #b3안에서 앞 규칙을 찾아서 ""로 바꿔라-> 지워라 
+##정규식 꺽새사이에 있는 모든 것. 
+
+b5<-gsub("\t|&nbsp","",b4) #\t 또는 \&nbsp 라는 태그를 없애라 
+
+b6<-str_trim(b5) #앞뒤로 공백을 없애는 함수 
+content<-c(content,b6)
+cat("\n",i)
+}
+}
+#76에서 에러남 
+i #i의 결과값 76
+#크롤링을하다가 게시글이 지워지거나 서버에 문제가 있거나 
+#내 컴퓨터가 느려지거나 끊기거나
+#예외처리 하는 방법 - try-error문 
