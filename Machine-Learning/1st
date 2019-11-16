@@ -47,3 +47,9 @@ a = """안녕
 """
 a  #a만 치면 줄바꿈이 \n으로 처리 된다.
 #print해야만 반영된다.
+
+#만약 단일 따옴표를 쓰는데도 불구하고 여닫는 부분을 다른줄로 하고 싶다면...  끝나는 부분에 
+#끝에 \만 붙여준다. 계속 이어진다는 의미 
+c='aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+c
