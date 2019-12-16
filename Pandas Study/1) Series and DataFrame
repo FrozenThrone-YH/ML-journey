@@ -1,1 +1,375 @@
-#
+#Pandas란?
+"""
+- 데이터 처리 및 분석을 위한 라이브러리
+- 대용량 데이터를 안정적이면서도 간편하게 처리
+- 서로 다른 데이터타입으로 열을 구성할 수 있음 (열단위로 다른 데이터 / 같은 열에서는 같은 데이터 타입이어야 한다.) 
+(참고) Numpy : 전체 배열 원소를 동일한 타입으로 제한
+- 주요 기능
+    - 데이터 입출력 : csv, excel, RDB, JSON 등 다양한 포맷의 데이터를 효율적으로 처리할 수 있는 형식을 사용
+    - 데이터 가공 : 분리, 결합, 계층, ★피봇 등
+    - 통계 분석 처리
+- 기본 2차원 배열 
+- ★피봇이 가장 중요
+
+#### 자료형
+- Series
+
+    - 1차원 배열과 유사한 자료형
+    - 색인(index) : 행 번호
+        - 각각의 데이터에 부여하는 속성으로 기본값은 0부터 1씩 증가하는 숫자 지정
+        - index 파라미터를 통해 새로운 값으로 변경 가능
+        - 리스트, 튜플 타입으로 새로운 값을 전달해야하며 다차원 자료형은 사용할 수 없음
+        - 전달하는 색인의 개수와 데이터의 개수가 일치해야 함
+    - 각각의 색인과 데이터가 매핑되어 있으므로 dictionary 자료형과 유사
+    - 여러 가지 데이터 타입 사용 가능
+    - 라벨링 가능 
+
+"""
+
+# pandas 라이브러리 및 Series, DataFrame 네임스페이스 불러오기
+
+import pandas as pd
+
+# 빈 Series 생성 - Series로 변환하는 함수  ※np.array()랑 비슷 
+pd.Series()
+#결과값 : Series([], dtype: float64)
+
+"""
+### Series 생성
+
+- 하나의 값(숫자, 문자) 또는 자료형(리스트, 튜플, np 배열)으로 데이터 전달
+
+### Series 속성
+
+- 속성은 소괄호를 붙이지 않음
+- index : series 객체의 인덱스 배열을 반환
+- values : series 객체의 데이터(값) 배열을 반환
+- name : series 객체의 이름을 반환 
+- dtype : series 객체의 데이터 타입을 반환
+- size : series 객체의 데이터 개수(길이)를 반환
+- shape : series 객체의 구조(행, 열, 차원)를 반환
+"""
+
+# 숫자 10을 데이터로 가지고 잇는 Series
+# 결과 해석
+# 왼쪽 0 = 자동으로 생성되는 기본 인덱스번호 (0부터 시작)
+# 오른쪽 10 = 입력한 데이터 값
+
+s1 = pd.Series(10)
+s1 
+# 결과값 : 0    10  dtype: int64
+
+s2 = pd.Series([10,20,30,40])
+s2
+
+"""
+결과값 
+
+0    10
+1    20
+2    30
+3    40
+dtype: int64
+"""
+
+# 데이터 확인 - Numpy 배열로 나온다 
+s1.values
+
+# 결과값 : array([10], dtype=int64)
+
+
+# 인덱스 번호 
+# RangeIndex : 기본적으로 생성되는 인덱스 번호를 지칭
+
+s1.index #라벨링이 안된 경우 결과값 : RangeIndex(start=0, stop=1, step=1)
+
+print(s2.values,s2.index) #결과값 : [10 20 30 40] RangeIndex(start=0, stop=4, step=1)
+
+# 문자 
+s3 = pd.Series('abc')
+s3 #결과값 : 0    abc   dtype: object
+
+# 데이터 확인
+s3.values # 결과값 : array(['abc'], dtype=object)
+
+# 인덱스 확인 
+# 0이상 3미만의 RangeIndex : 0,1,2,3
+s2.index #결과값 : RangeIndex(start=0, stop=4, step=1)
+
+# 데이터타입이 서로 다른 리스트 자료형
+
+s4 = pd.Series([10.3,'test',200,[1,2,3]])
+s4
+
+# dtype : object라는 최상위데이터타입으로 치환이 되서 들어 간다.  
+# but object는 속도가 느려진다. 따라서 이렇게 안 쓰는게 좋다. 
+"""
+결과값 
+0         10.3
+1         test
+2          200
+3    [1, 2, 3]
+dtype: object
+"""
+
+# 데이터 확인
+s4.values # 결과값 : array([10.3, 'test', 200, list([1, 2, 3])], dtype=object)
+
+# 인덱스 확인
+s4.index # 결과값 : RangeIndex(start=0, stop=4, step=1)
+
+# 튜플 자료형
+
+s5 = pd.Series((1,2,3,4,5.0))
+s5
+#int를 float로 바꾸면 되니까 float으로 변경함 
+
+"""
+결과값 
+
+0    1.0
+1    2.0
+2    3.0
+3    4.0
+4    5.0
+dtype: float64
+"""
+
+# 데이터 확인
+
+s5.values # 결과값 : array([1., 2., 3., 4., 5.])
+s5.index #결과값 :  RangeIndex(start=0, stop=5, step=1)
+
+# 딕셔너리 자료형 (자동으로 라벨이 인덱스에 부여됨)
+s6 = pd.Series({'a':10,'b':20,'c':30})
+s6
+
+#0 1 2 가 없는 상황은 아니다 
+
+"""
+결과값 
+a    10
+b    20
+c    30
+dtype: int64
+"""
+
+#데이터 확인
+s6.values  #결과값 : array([10, 20, 30], dtype=int64)
+
+# 인덱스 확인 (RangeIndex가 아니라 다른게 나옴 )
+s6.index #Index(['a', 'b', 'c'], dtype='object')
+
+# 인덱스 새롭게 지정하기
+# 인덱스 속성을 참조하여 리스트, 튜플 타입으로 전달
+# 라벨 인덱스가 없던 경우 -> 새롭게 추가 
+# 라벨 인덱스가 있던 경우 -> 덮어쓰기
+
+s5.index  # 결과값 : RangeIndex(start=0, stop=5, step=1)
+
+# 인덱스를 새롭게 지정할때는 RangeIndex 범위만큼의 길이를 가지는 리스트를 사용
+# 행 개수(데이터 개수)와 동일한 길이를 전달해야 한다.
+
+s5.index=[2010,2011,2012,2013,2014]
+s5.index
+
+"""
+결과값 
+2010    1.0
+2011    2.0
+2012    3.0
+2013    4.0
+2014    5.0
+dtype: float64
+"""
+
+# 인덱스를 지정하여 객체 생성
+# 인덱스 객체에 대해서 인덱스 인덱스번호로 아이템 창조 가능
+
+s5.index # 사용자가 만든거라 int라서 나온다  : Int64Index([2010, 2011, 2012, 2013, 2014], dtype='int64')
+
+s5.index[0] #결과값 : 2010
+
+# 인덱스 객체 내부의 단일 자료만 변경 불가 -> 다시 리스트로 바꿔 줘야 한다?
+s5.index[-1]=2015 # 결과값 : TypeError: Index does not support mutable operations
+
+# 인덱스 라벨링을 바꿀때는 전체 인덱스를 변경해야한다.
+s5.index=[2010,2011,2012,2013,2015]
+s5
+
+"""
+결과값
+2010    1.0
+2011    2.0
+2012    3.0
+2013    4.0
+2015    5.0
+dtype: float64
+"""
+# Series 함수의 index 파라미터에 값을 지정해서 딕셔너리를 대신할 수 잇다.
+# Series(data, index=[...])
+
+s7=pd.Series([10,20,30,40], index=["mon",'tue','wed','thur'])
+s7
+"""
+결과값
+mon     10
+tue     20
+wed     30
+thur    40
+dtype: int64
+"""
+# 데이터 확인
+s7.values #array([10, 20, 30, 40], dtype=int64)
+
+s7.index #Index(['mon', 'tue', 'wed', 'thur'], dtype='object')
+
+# 사용자 부여 인덱스로 조회 
+s7['wed'] # 결과값 : 30
+
+# 자동 부여 인덱스로 조회 
+s7[0] #결과값 : 10
+
+### dictionary 자료형과 유사한 Series 자료형 
+
+# dictionary 자료형으로 series 생성
+
+data = {'서울':100,'경기':200,'강원':300,'부산':400}
+sample = pd.Series(data)
+print(data)
+print(sample)
+
+"""
+결과값
+{'서울': 100, '경기': 200, '강원': 300, '부산': 400}
+서울    100
+경기    200
+강원    300
+부산    400
+dtype: int64
+"""
+
+# Series 객체와 in 연산자
+# dictionary 와 유사 : in 연산자를 사용해 내부 검사시 
+# key값에 해당하는 라벨이 있는지 없는 여부를 True False로 출력 (데이터와 무관)
+
+print('서울' in data) # key값 조회 : 결과값 True
+print('서울' in sample) # 라벨 조회  : 결과값 : True
+print(100 in data) #r결과값 : False
+
+# for 문에서 in 연산자로 접근 : Series의 values값을 참조 
+
+for key in data:
+    print(key)
+print("-")
+for i in sample:
+    print(i)
+"""
+결과값
+서울
+경기
+강원
+부산
+-
+100
+200
+300
+400
+"""   
+# 주의 사항 : dictionary는 key값을 출력하지만, Series는 value값을 출력해준다.
+
+# 서울, 경기, 강원, 부산 => 서울, 경기, 강원, 제주로 라벨 인덱싱 변경
+# 지정한 Index 기준으로 Series 생성
+# 사용하는 인덱스에 없는 값은 Series에 NaN값에 저장
+# NaN : Not a Number(결측치) -> numpy에서 사용함
+# None : 결측치(파이썬에서 사용함)
+index2= ['서울','경기','강원','제주']
+sample2 = pd.Series(data,index=index2)
+sample2
+
+# 부산 400 인데, 제주 400으로 안변하고, 제주 NaN으로 표시, data에 제주에 대한 값이 없었으니까 
+# data에 value만 있었으면 제주에 400이 부여됐을텐데, 이미 key : value가 부여 되어있었는데, 제주에 조회되는 값이 없어서 NaN
+"""
+결과값
+서울    100.0
+경기    200.0
+강원    300.0
+제주      NaN
+dtype: float64
+"""
+
+### 인덱싱(Indexing) 
+
+#- 하나의 특정 값을 선택하거나 변경
+#- 참조하는 인덱스 : 기본 숫자 인덱스, 라벨 인덱스
+#- 새로운 인덱스를 설정해도 기본 숫자 인덱스 사용 가능
+
+s6 
+
+"""결과값
+a    10
+b    20
+c    30
+dtype: int64
+"""
+# Series s6의 첫 번째 데이터 => 인덱스 0으로 조회
+print(s6.index[0]) #0번째 요소의 라벨은 'a0'
+print(s6[0]) #0번쨰 요소의 데이터는 10 
+print(data[0])#dictionary는 이 명령어가 불가능
+
+# Series s7의 인덱스 0값을 조회
+print(s7[0])
+print(type(s7['mon']))
+
+"""
+10
+<class 'numpy.int64'>
+"""
+
+# Series s7의 인덱스 tue에 해당하는 데이터 값을 변경
+# 인덱스(라벨링)은 개별적으로 하나하나 변경 불가능
+# 그러나 데이터는 하나하나 인덱싱을 이용해 변경가능
+
+s7['tue']=200
+s7
+
+"""
+mon      10
+tue     200
+wed      30
+thur     40
+dtype: int64
+"""
+
+# 시리즈에서 원하는 로우(행)만 조회하기 : 조회할 로우명을 리스트로 묶어서 전달
+# Series s7에서 mon, wed 라벨 조회
+# 이중 리스트를 사용해야함 -> s7['mon','wed'] #에러 발생
+
+s7[['wed','mon']]
+
+"""
+wed    30
+mon    10
+dtype: int64
+"""
+s7['wed','mon'] #key error?
+
+# 여러개의 인덱스를 조회할때는 리스트만 사용가능하다. 튜플 불가
+s7[('mon','wed')] # KeyError: ('mon', 'wed')
+
+### 슬라이싱(Slicing)
+#- Series 객체[시작인덱스:끝인덱스:간격]
+#- 특정 범위의 값을 선택하거나 변경
+#- 기본 숫자 인덱스 또는 새로운 인덱스 모두 사용 가능
+#- 기본 숫자 인덱스를 사용해서 슬라이싱 할 때는 끝 인덱스 미포함
+#- 라벨 인덱스를 사용해서 슬라이싱 할 때 끝 인덱스까지 모두 포함 
+
+
+
+
+
+
+
+
+
+
