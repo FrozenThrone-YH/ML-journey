@@ -4,11 +4,109 @@ import numpy as np
 
 """
 #### 데이터 값에 대한 처리
-- 결측값
-- 이상치
+- 결측값 (항목은 있으나 값이 없음 => 0으로 처리하거나 평균으로 처리하거나)
+- 이상치 (값이 한계치까지만 표기, 얼토당토않은 수치)
 - 단순 중복 데이터
 - 동일한 의미, 다른 명칭의 중복 데이터
-- 중복속성(다중공선성)
+- ★중복속성(다중공선성) 
+   => 다른 자료로 간주되는 것끼리 corr값이 1에 가깝게 나오면 거의 같은 자료인지 의심을
+   => 소거해주는 경우가 많다. 
 - 불규칙한 데이터 수집(간격, 단위)"""
+
+# 데이터 적재
+sample = pd.read_csv('data/csv_exam_nan.csv')
+sample
+
+"""
+#### 결측치 처리 - 삭제
+- 결측치가 하나라도 있는 레코드 삭제 
+- 모든 값이 결측인 레코드 삭제 
+- 결측치가 하나라도 있는 데이터만 선택"""
+
+#결측치가 하나라도 있는 레코드 삭제
+#df.dropna(how='any'(default),inplace=True)
+#inplace=True : 원본에 바로 적용
+sample.dropna()
+sample
+
+#모든 값이 결측인 레코드(row)만 삭제
+# df.dropna(how='all')
+sample.dropna(how='all')
+
+#결측치가 하나라도 있는 데이터만 선택
+#조건색인
+# df[df,isnull().any(axis=1)]
+sample[sample.isnull().any(axis=1)]
+
+# 결과값 기준으로 컬럼에 대해 결측치 여부 bool type 반환
+sample.isnull().any() #axis=0(default)
+
+sample.isnull().any(axis=1)
+
+#컬럼별 결측치의 개수
+sample.isnull().sum()
+
+"""
+### 결측치 처리 - 대체 값
+- 연속형 : 임의값(0), mean, median, 예측값(머신러닝 이용), 도메인지식 활용
+- 명목형 : mode(최빈값), 예측값(남자인지 여자인지 예측해라), 도메인지식 활용
+
+ex) 삼수 하면 내신 점수가 사라지는데, 정시에서 내신 점수를 보면 수능값을 내신값으로 대체하는 경우 """
+
+# 연속형 - 임의의 값 대체
+# df.fillna(value)
+sample.fillna(0)
+
+# mean - 1) 전체 데이터의 평균값
+# sample : 6 x 3의 모든 데이터에 대한 평균
+# df.mean() : 컬럼별로 평균값
+
+sample.mean() # NaN을 제외한 나머지 데이터에 대한 평균
+
+# 전체 평균 결측치에 대입하기 
+# df.values.mean() : array 타입의 연산으로 NaN 값이 하나라도 있으면
+# 최종 결과는 NaN
+# sample.values.mean() -> NaN
+# df.fallna(0) -> mean()
+
+tot_avg=sample.fillna(0).values.mean()
+sample.fillna(tot_avg)
+
+tot_avg=sample.fillna(0).values.mean()
+tot_avg
+
+# mean - 2) 결측치가 존재하는 속성(변수 = 컬럼)의 평균값 
+# sample : math/en/sc 컬럼에 존재하는 결측치 -> math/en/sc 컬럼의 평균값 
+# df.mean() : 컬럼별 평균
+sample.mean()
+
+print(sample.mean()[0]) # math
+print(sample.mean()[1]) # englisg
+print(sample.mean()[2]) # science
+
+# 전체데이터가 아닌 컬럼별로 맞는 값을 .fillna()해줌
+# math 컬럼에만 값을 집어 넣는 경우는 sample['math'].fillna(값)을 이용한다.
+# sample['math'].fillna(sample['math'].mean()) 
+sample['math'].fillna(sample.mean()[0])
+
+sample['english'].fillna(sample.mean()[1])
+
+sample['science'].fillna(sample.mean()[2])
+
+# median - 전체 데이터에 대한 중위값
+# tot_avg : 54.5
+# median : 86
+tot_med=pd.Series(sample.values.reshape(18)).median()
+tot_med
+
+#sampel에 대해서 전체 데이터를 중위값으로 NaN채우기 
+sample.fillna(tot_med) # NaN를 제외한 값들의 중위수가 86이라서 높게 나온다. 
+
+#속성별 중위값 (인덱스 이용)
+print(sample.median()[0])
+print(sample.median()[1])
+print(sample.median()[2])
+
+sample.fillna(0)
 
 
