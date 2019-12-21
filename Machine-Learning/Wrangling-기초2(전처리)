@@ -116,3 +116,46 @@ sample['english'].fillna(sample.median()[1])
 
 #science 칼럼
 sample['science'].fillna(sample.median()[2])
+
+# mode - 범주형 (문자열 등) 데이터에서는 최빈값을 사용
+# describe()
+# value_counts()
+# collections 라이브러리의 Counter 모듈
+
+df=pd.DataFrame({'label':['A','B','B','C','C','C','D']})
+df
+df.describe()
+df.describe().loc['top']
+
+# 특정 요소의 출현 횟수를 딕셔너리로 정리하기
+# 2. 명목형 - mode(최빈값)
+# 리스트, 튜플타입
+
+from collections import Counter
+
+# 1. 라이브러리 가져오기
+# 2. Counter() 객체 생성
+# 3. Counter객체.most_common() => [(value1, 갯수),(value2,갯수),...]
+
+colors=['red','blue','pink','blue','blue','red']
+counter=Counter(colors)
+counter
+
+# most_common() => 특정 요소와 그 요소의 출현 횟수를 빈출순으로 나열
+counter.most_common()
+
+#최빈값을 반환하는 사용자 정의함수 1 
+# 인자값으로 리스트를 넘기면 최빈값 범주를 반환
+# 함수명, 매개변수(리스트) 정의
+# 함수 실행문
+# 1) 리스트에 대해서 Counter() 함수 적용
+# 2) 1번 결과에 대해서 most_common() 함수 적용
+# 3) 2번 결과에 대해서 0번째 아이템의 0번째 요소 (value, count)
+# 4) 3번 결과를 반환 / print() vs return
+
+def mode_finder(x):
+    result = Counter(x)
+    mode = result.most_common()[0][0]
+    return mode
+
+
