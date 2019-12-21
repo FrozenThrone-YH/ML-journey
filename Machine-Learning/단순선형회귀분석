@@ -1,0 +1,45 @@
+import os
+import pandas as pd 
+import numpy as np
+import statsmodels.api as sm
+
+# 현재경로 확인
+os.getcwd()
+
+# 데이터 불러오기
+boston = pd.read_csv("C:/Users/user/data1112/20191221/Boston_house.csv")
+
+boston.head()
+
+# target 제외한 데이터만 뽑기
+boston_data = boston.drop(['Target'],axis=1)
+boston_data
+
+# data 통계 뽑아보기 
+boston_data.describe()
+
+'''
+타겟 데이터
+1978 보스턴 주택 가격
+506개 타운의 주택 가격 중앙값 (단위 1,000 달러)
+
+특징 데이터
+CRIM: 범죄율
+INDUS: 비소매상업지역 면적 비율
+NOX: 일산화질소 농도
+RM: 주택당 방 수
+LSTAT: 인구 중 하위 계층 비율
+B: 인구 중 흑인 비율
+PTRATIO: 학생/교사 비율
+ZN: 25,000 평방피트를 초과 거주지역 비율
+CHAS: 찰스강의 경계에 위치한 경우는 1, 아니면 0
+AGE: 1940년 이전에 건축된 주택의 비율
+RAD: 방사형 고속도로까지의 거리
+DIS: 직업센터의 거리
+TAX: 재산세율'''
+
+## 변수 설정 target/crim/rm/lstat
+target = boston[['Target']]
+crim = boston[['CRIM']]
+rm = boston[['RM']]
+lstat = boston[['LSTAT']]
