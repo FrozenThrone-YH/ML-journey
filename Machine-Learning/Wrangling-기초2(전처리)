@@ -158,4 +158,27 @@ def mode_finder(x):
     mode = result.most_common()[0][0]
     return mode
 
+# 리스트를 만들어서 빈출요소만 조회되는지 확인해주세요
+mode_finder(['a','a','b','b','b','c'])
 
+mode_finder(['a','a','b','b','b','c','c','c']) #동점인 경우 순번이 앞선 것 먼저 나온다. 
+
+# 동일 최빈값이 2개 이상인 경우
+# for 반복문 & if문
+# 동일 최빈값 확인 : 최빈값 아이템의 value 를 찾아서 비교
+# 최종결과 : 리스트에 동일 최빈값인 범주를 담기 
+
+def mode_finder2(x):
+    c = Counter(x)
+    result = c.most_common()
+    most_value=result[0][1] # value가 아닌 횟수를 먼저 저장
+    modes=[]
+    
+    for i in result:
+        if i[1] == most_value:
+            modes.append(i[0])
+    return modes
+    
+ mode_finder2(['a','a','b','b','b','c','c','c'])
+ 
+ 
