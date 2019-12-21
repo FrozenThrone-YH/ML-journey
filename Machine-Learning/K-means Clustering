@@ -16,3 +16,15 @@
     - 입력변수를 스케일링, 정규화 하는 작업 필요
 - 인덱스 형식의 군집 레이블이 생성되며 학습이 반복될 때 마다 임의로 변경될 수 있음
 - 군집의 개수를 입력해야 하고 중심점의 초기값을 임의로 지정한다는 점에서 오분류 가능성이 높은 취약점"""
+
+# pandas, matplotlib, seaborn 라이브러리 불러오기 
+# sklearn : 데이터셋, Kmeans 라이브러리 
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn import datasets # 샘플 데이터셋 제공
+from sklearn.cluster import KMeans # KMeans Clustering 알고리즘 제공
+
+# Iris 데이터셋 적재 
+iris = datasets.load_iris()
