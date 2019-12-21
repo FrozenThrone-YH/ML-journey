@@ -29,3 +29,70 @@ df.duplicated()
 # 그러나 keep = 'last'를 입력하면 반대로 마지막에 나오는 값만 원복값
 
 df.duplicated(keep='last')
+
+# 특정 칼럼만을 기준으로 중복값 확인하기 2 
+df2.duplicated(['key1','key2'])
+
+# key1만을 대상으로 중복값을 확인해주세요. 중복요소는 전부 True로 출력합니다.
+df2[['key1']].duplicated(keep=False)
+
+# key2만을 대상으로 중복값을 확인해주세요, 중복요소는 마지막인 True로 출력합니다.
+df2.duplicated('key2',keep='first')
+
+### 중복값 삭제
+
+ - df.drop_duplicates()
+ 
+# 전체 데이터에 대해서 중복값 삭제하기 
+df2.drop_duplicates()
+
+# key1컬럼을 대상으로 중복값을 조회해보세요.
+df2['key1'].duplicated()
+
+#마지막 값을 유지 => keep='last' => 먼저 나온 중복값이 삭제 
+df2['key1'].drop_duplicates(keep='last') # 1번과 3번이 삭제 되는 것을 알 수 있다. 
+
+# 중복자료 전체 삭제 
+df2['key1'].drop_duplicates(keep=False)
+
+s1 = pd.Series([1,-999,2,-999,3,-1000])
+s1
+
+import numpy as np
+
+# 결측치로 사용되는 상수 
+np.nan
+
+# Pandas에서 인식하는 결측값으로 변형
+# Series.replace(old, new)
+# -999 -> Nans
+
+s1.replace(-999,np.nan)
+
+#여러개의 값에 대해 결측치로 변형 : 리스트 
+s1.replace([-999,-1000],np.nan)
+
+# 문자열 replace는 파라미터를 리스트로 받지 못한다. ★착각하기 쉽다.
+'abc'.replace(['a','b'],'')
+
+# df의 .replace()는 문자열 대상의 .replace()와는 다르다. 
+
+#여러 개의 값에 대해서 서로 다른 값으로 변형 : 딕셔너리
+s1.replace({-999:np.nan,-1000:0})
+
+"""
+### 범주형 데이터
+
+#### 1. 연속형 데이터를 범주형 데이터로 변경
+
+- 예시) 나이 : 15, 22, 67, 45, 55 ... -> 나이대/연령대(유도변수) : 10대, 20대, 30대 ...
+- pd.cut(data, bins|scalar, labels)
+    - 주어진 구간 또는 개수에 따라 그룹 생성
+    - 개수는 구간을 균등한 길이로 나눔
+- pd.qcut(data, bins|scalar)
+    - 주어진 구간 또는 개수에 따라 그룹 생성
+    - 구간은 0 이상 1 미만
+    - 개수는 적당한 크기의 그룹을 생성하는 길이로 나눔
+    """
+    
+ 
