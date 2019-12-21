@@ -347,3 +347,46 @@ tmp.drop([3,16,19],axis=0)
 data2 = data.fillna(0)
 data2
 
+nan_idx
+
+# 결측값이 있던 로우만 조회 
+data2.iloc[nan_idx]
+
+#### 3) 데이터의 평균값을 사용하여 결측값 대체
+
+# 결측값(NULL)을 데이터의 평균값으로 대체
+# 전체 데이터의 속성 타입 확인 후 숫자형 데이터에 대한 평균값 사용
+# 일반세균, 질산성...
+# df.select_dtypes(include=특정타입) #int/float/object
+# df._get_numeric_data()
+
+data._get_numeric_data()
+
+# 일반세균, 질산성질소
+# 결측치에 0채워서 나온 평균을 구해주세요. 
+avg1 = tmp.fillna(0).values.mean()
+avg1
+
+#### 4)결측치가 속한 클래스의 속성 평균값을 사용하여 결측값 대체
+data4 = data.copy()
+data4['일반세균'].mean()
+data4['질산성질소'].mean()
+data4['일반세균'].fillna(data['일반세균'].mean(),inplace=True)
+data4['질산성질소'].fillna(data['질산성질소'].mean(),inplace=True)
+data4
+
+#적합 컬럼이 부적합인 자료만 모아보기
+data[data['적합']=='부적합']
+
+#적합 컬럼이 적합인 자료만 모아보기
+data[data['적합']=='적합']
+
+# 적합여부별로 속성별 평균값을 구하여 결측치 대체
+# groupby() : 범주형 데이터에 대해 집계 기준을 설정 
+data6 = data.copy()
+
+# 적합컬럼 기준으로 집계한 '일반세균' 평균 구하기 (groupby)
+data6.groupby(by='적합').mean()
+
+#pivot_table로 같은 연산 처리하기
+data6.pivot_table(index='적합',values=['일반세균','질산성질소'],aggfunc='mean')
