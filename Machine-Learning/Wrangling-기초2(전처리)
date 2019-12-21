@@ -107,6 +107,12 @@ print(sample.median()[0])
 print(sample.median()[1])
 print(sample.median()[2])
 
-sample.fillna(0)
+# 전체 데이터가 아닌 컬럼별로 맞는 값(중위값)을 .fillna() 해주세요 
+#math 칼럼
+sample['math'].fillna(sample.median()[0])
 
+#english 칼럼
+sample['english'].fillna(sample.median()[1])
 
+#science 칼럼
+sample['science'].fillna(sample.median()[2])
