@@ -1,0 +1,133 @@
+#라이브러리 임포트
+import matplotlib 
+import pandas as pd
+import matplotlib.pyplot as plt 
+import numpy as np
+import seaborn as sns         # seaborn은 DataFrame 형태다. 
+from sklearn import datasets # iris 데이터셋이 딕셔너리 형태다 
+
+# 한글 폰트 지정
+font_name=matplotlib.font_manager.FontProperties(
+    fname='C:/Windows/Fonts/malgun.ttf').get_name()
+matplotlib.rc('font', family = font_name)
+
+%matplotlib inline
+
+# 배열 타입의 데이터를 데이터프레임으로 변환하여 최종 데이터로 생성하기
+from sklearn.datasets import load_iris   # 배열 타입 데이터
+# sns.load_iris() : 완성된 df 형태의 데이터
+# 1. iris = load_iris()
+# 2. data, target 값을 분리해서 변수로 할당하되 target은 2차원 데이터로 생성(150행 1열)
+# 3. numpy 함수를 이용하여 data, target을 열 방향으로 합치기
+# 4. 3번 데이터를 이용하여 dataframe 생성, 컬럼이름도 동시에 생성
+# 5. 품종(species)은 문자타입으로 최종 변환(0=setosa, 1=versicolor, 2=virginica)
+# 5번에서 map, apply 함수 사용
+# 6. 컬럼명 변경 : (cm) 제거, 공백 제거
+
+iris = load_iris()
+# data, target
+x = iris['data']
+y = iris['target']
+
+# y가 데이터프레임에서 하나의 컬럼으로 사용되 ㄹ값
+# x과 컬럼 방향으로(가로길이 1 증가) 결합
+# 1차원 -> 2차원(150, 1)
+y = y.reshape(150, 1)
+
+# x에 y를 붙여주기 => np.hstack
+data = np.hstack((x, y))
+data
+
+df = pd.DataFrame(data)
+df.head()
+
+# 컬럼 이름 가져오기
+iris.keys()
+cols = iris['feature_names'] + ['species']
+
+# cols를 이용해 컬럼이름 바꾸기
+df.columns = cols
+df.head()
+
+# map이나 apply를 이용해 species 내부의 값을 붓꽃 종 이름으로 변환
+species_map = {0.0:'setosa', 1.0:'versicolor', 2.0:'virginica'}
+species_map
+
+# species_map을 이용해서 df.species 컬럼 내부의 자료를 전부 숫자에서 종 이름으로 바꾸세요.
+df['species'] = df['species'].map(species_map)
+df.head()
+
+# 컬럼명에서 ' (cm)' 없애기.
+# 띄어쓰기는 _ 로 교체
+# df.rename({old_colname:new_colname})
+for col in df.columns:
+    new_col = col.replace(' (cm)', '')
+    new_col = new_col.replace(' ', '_')
+    df.rename({col:new_col}, axis=1, inplace=True)
+    
+df.head()
+
+# count plot
+# 종별 데이터 개수 => 각 종마다 50개의 데이터
+# value_counts : 범주형 데이터에 대해 각 범주의 데이터 개수를 반환
+tmp = df.species.value_counts()
+tmp
+
+#barplot은 x와 y를 적어줘야한다.
+sns.barplot(x=tmp.index,y=tmp.values)
+
+#barplot과 결과는 같지만, y를 안적어줘도 자연스럽게 groupby를 처리해준다. 
+sns.countplot(x='species',data=df)
+
+#barplot 
+#종별 Sepal_length 비교
+#작대기는 에러바 - 표본의 갯수가 변경되면 평균값이 바뀔 수 있으므로 
+
+# errorbar 없이 막대그래프만 표현
+sns.barplot(x='species',y='sepal_length',data=df,ci=None)
+
+# sepdal_length 속성에 대해 종별 box-plot
+sns.boxplot(x='species',y='sepal_length',data=df)
+
+#전체종에 대해서 파라미터 확인 
+sns.boxplot(data=df.drop('species',axis=1))
+
+#산점도 scatter plot
+# sepal_length, sepal_width 분포를 통해 상관관계 확인
+
+sns.scatterplot(x='sepal_length',y='sepal_width',data=df)
+
+#종별 구분 추가
+# hue는 집어넣은 컬럼의 unique()를 토대로 값이 뭐냐에 따라 마커색상 구분을 해줌 
+# 아웃라이어가 있으면 나중에 분류를 100%하지 못한다. 
+
+sns.scatterplot(x='sepal_length',y='petal_length',data=df,hue='species')
+
+#스타일 지정
+# 격자 무늬 배경
+# 배경  : white, dark, whitegrid, darkgrid
+# 추가로 보고 싶으면 seaborn set style 검색해서 보기 
+sns.set_style('dark')
+
+#hue파라미터로 종별 색상/마커모양 구분
+sns.pairplot(df,hue='species',markers=['o','s','D'])
+
+#df.corr() : 각 수치형 변수간 상관관계를 계수로 표현, NaN은 고려하지 않음
+# 상관계수란 하나의 요소가 증가, 감소할때 다른 요소가 따라서 증가하거나 감소하는 
+# 성향이 있는가를 수치적으로 표현한 계수
+# 범위는 -1(완전 역비례) <=상관계수 <= 1 (완전 정비례)
+df.corr()
+
+# petal_length & sepal_width 0.87
+# petal_width & sepal_width 0.82
+# petal_length & petal_width0.96
+#으로 상관계수 높은 3개 
+
+# heatmap 이용하기 
+sns.heatmap(df.corr())
+
+#annot(=True 사용시 상관도 수치를 히트맵에 직접 표시)
+# fmt = '.정수f'시 소수점 아래 정수 자리까지 반올림 표시
+
+sns.heatmap(df.corr(),annot=True,fmt='.3f')
+sns.barplot(x='species',y='sepal_length',data=df)
