@@ -208,4 +208,13 @@ Counter(df['label']).most_common()
 
 from sklearn.preprocessing import scale, minmax_scale
 
+# -3이상 5이하의 정수를 값으로 가지는 9행 1열 배열 생성 
+x = (np.arange(9)-3).reshape(-1,1) #-1 주고, 1주면 열을 1로 고정하고, 행은 알아서 계산 
+x                                  # np.arange(9)-3은 array전체에 -3을 일괄적으로 
+
+scale(x)
+
+df = pd.DataFrame(np.hstack([x,scale(x),minmax_scale(x)]))
+df
+
 
