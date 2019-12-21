@@ -181,4 +181,31 @@ def mode_finder2(x):
     
  mode_finder2(['a','a','b','b','b','c','c','c'])
  
- 
+ # 데이터 프레임
+df = pd.DataFrame({'label':['a','a','a','b','b','b','c','c','c','d']})
+df
+
+# COunter와 .most_common()을 이용해서 빈출횟수를 순서대로 나열해보세요 
+Counter(df['label']).most_common()
+
+"""
+### 데이터 단위 통일
+
+#### 표준화(Standardization)
+- 평균을 기준으로 얼마나 떨어져 있는지를 파악
+- sklearn에서 제공하는 전처리 클래스
+    - preprocessing 클래스
+        - scaler() : 전체 자료의 분포를 평균 0, 표준편차 1이 되도록 스케일링
+        - minmax_scale() : 최대/최소값이 각각 1, 0이 되도록 스케일링
+        - StandardScaler() : scaler() 함수와 동일한 동작
+- 표준화 : (요소값(하나의 데이터) - 평균) / 표준편차
+- 삼성전자 vs 작은회사 주식 시세
+- 몸무게 vs 키
+    - 표준화 결과 : 몸무게 음수, 키 양수
+    - 해석 : 몸무게는 평균 이하, 키는 평균 이상(=>마른몸)"""
+    
+# 전처리 기능을 제공하는 scikitlearn 라이브러리 및 모듈 가져오기 
+
+from sklearn.preprocessing import scale, minmax_scale
+
+
