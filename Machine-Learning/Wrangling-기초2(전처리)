@@ -217,4 +217,55 @@ scale(x)
 df = pd.DataFrame(np.hstack([x,scale(x),minmax_scale(x)]))
 df
 
+# 전체 데이터에 대한 평균, 표준편차 (std : Standard deviation) 비교
+# x에 대한 평균, 표준편차 
+# scale(x)에 대한 평균, 표준편차
+# minmax_scale(x)에 대한 평균, 표준편차
 
+print('original : ',np.mean(df[0]), np.std(df[0]))
+print('scale(x) : ',np.mean(df[1]), np.std(df[1]))
+print('minmax_scale(x) : ',np.mean(df[2]), np.std(df[2]))
+
+"""
+### 정규화(Normalizaion)
+
+- 정규화는 서로 다른 단위의 다차원 독립 변수에 대해 각 변수들의 상대적 크기 비교
+- 정규화 결과값은 0 ~ 1 사이의 값을 가짐
+- 단위가 서로 다른 경우
+- 0이 아주 많은 경우
+- sklearn 라이브러리에서 제공하는 클래스
+    - normalize()"""
+    
+# 표준화 
+# 정규화 : 표준화된 여러개의 자료를 비교?
+# 사막 강우량을 젠다고 했을때, 365일중에 2일 정도 올텐데, 평균을 내봤자 의미가 없다. 
+
+from sklearn.preprocessing import normalize
+
+# 첫 번째 열 : -20 ~ -16 정수
+# 두번째 열 : -2 ~ 2 정수
+# 5행 2열의 2차원 배열 생성
+x = np.vstack([(np.arange(5)-20),(np.arange(5)-2)]).T
+x
+
+# 표준화 (스케일링) 적용
+y1 = scale(x)
+y1
+
+# 정규화 적용
+y2 = normalize(x)
+y2
+
+# 정규화 여부 확인
+# np.linalg.norm(data,axis=1) : 값 (np.array, 벡터)의 단위 
+
+print(x)
+print('x norm',np.linalg.norm(x,axis=1))
+
+print(y1)
+print('scale norm', np.linalg.norm(y1,axis=1))
+
+print(y2)
+print('normalize norm', np.linalg.norm(y2,axis=1))
+
+# scale 했을때는 원래 숫자가 짐작이 가지 않았지만, normalize하면 원래 숫자에 대한 짐작이 가능하다?
