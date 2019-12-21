@@ -386,7 +386,40 @@ data[data['적합']=='적합']
 data6 = data.copy()
 
 # 적합컬럼 기준으로 집계한 '일반세균' 평균 구하기 (groupby)
-data6.groupby(by='적합').mean()
+avg3 = data6.groupby('적합')['일반세균].mean()
 
 #pivot_table로 같은 연산 처리하기
-data6.pivot_table(index='적합',values=['일반세균','질산성질소'],aggfunc='mean')
+data6.pivot_table(index='적합',values=['일반세균'],aggfunc='mean')
+
+#나의 풀이 
+# 적합인 NaN에는 적합 평균을 대입해주세요 
+data6[data6['적합']=='적합']['일반세균'].fillna(avg3[1])
+
+# 부적합인 NaN에는 적합 평균을 대입해주세요 
+data6[data6['적합']=='부적합']['일반세균'].fillna(avg3[0])
+
+# 강사님 풀이 
+# 적합인 NaN에는 적합 평균을 대입해주세요 
+data6['일반세균'][data6['적합']=='적합'] = data6['일반세균'][data6['적합']=='적합'].fillna(avg3[1])
+#일반세균의 적합인 자료들을.fillna로 평균채운 결과물을 할당
+#fillna를 바로 하면 inplace가 안먹힌다.
+
+data6['일반세균'][data6['적합']=='부적합'] = data6['일반세균'][data6['적합']=='부적합'].fillna(avg3[0])
+
+#적합 칼럼을 기준으로 집계한 질산성질소 평균구하기
+avg4 = data6.groupby('적합')['질산성질소'].mean()
+avg4
+
+# pivot_table로 같은 연산 실행
+data6.pivot_table(index='적합',values='질산성질소',aggfunc='mean')
+
+# avg4의 0번째는 부적합 평균, 1번째는 적합 평균
+print(avg4[0],avg4[1])
+
+# 적합에는 적합 평균 대입
+data6['질산성질소'][data6['적합']=='적합'] = data6['질산성질소'][data6['적합']=='적합'].fillna(avg4[1])
+
+# 부적합에는 부적합 평균 대입
+data6['질산성질소'][data6['적합']=='부적합'] = data6['질산성질소'][data6['적합']=='부적합'].fillna(avg3[0])
+
+data6
