@@ -7,3 +7,14 @@ iris.head() # sepal_width에 NaN이 있음
 
 # sepal _ width 결측치 갯수 카운트
 iris['sepal_width'].isnull().sum()
+
+# 독립변수 (x, 문제) : species와 sepal_width를 제외한 나머지 변수 (컬럼)
+# 종속변수 (y, 정답) : sepal_width
+iris_x = iris[['sepal_length','petal_length','petal_width']].copy() # .copy() 중요
+iris_y = iris['sepal_width'].copy()
+
+# 학습용 / 예측용 데이터 분류 
+# 조건색인을 이용해서 sepal_width가 null인 인덱스가 몇번인지를 알아낸다. 
+
+nan_idx = iris[iris['sepal_width'].isnull()].index
+nan_idx
