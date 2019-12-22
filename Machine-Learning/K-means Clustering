@@ -28,3 +28,121 @@ from sklearn.cluster import KMeans # KMeans Clustering 알고리즘 제공
 
 # Iris 데이터셋 적재 
 iris = datasets.load_iris()
+
+#종속변수(라벨) 추출
+labels = pd.DataFrame(iris.target)
+labels
+
+# 입력변수(데이터) 추출
+data = pd.DataFrame(iris.data)
+data.head()
+
+data.columns = ['sepal length','sepal width','petal length','petal width']
+data.head() # 문제  # 답은 labels
+
+# 입력변수(문제), 종속변수(답) 데이터결합
+
+data = pd.concat([data,labels],axis=1)
+data.head()
+
+data.columns = ['sepal length','sepal width','petal length','petal width','labels']
+data.head()
+
+# 붓꽃 데이터에서 2개의 변수만 추출
+# sepal length, sepal width
+# KMeans : 비지도학습이기 때문에 종속변수 (정답) 없이 독립변수(문제) 만 사용
+
+sample1 = data[['sepal length','sepal width']]
+sample1.head()
+
+# KMeans 모델 생성
+# 사용자가 조작해서 입력하는 값 : 입력 변수, k값 (초기값)
+# 초기값 : 3개 
+# KMeans 객체 생성시 n_clusters 파라미터 값으로 k값 전달
+
+kmeans3 = KMeans(n_clusters=3)
+
+# ★모델학습
+# model.fit(input_data) # 비지도학습은 문제만 이용하므로, 입력값이 하나 but 지도학습은 2가지이다. 
+# 지도학습 => model.fit(x,y)
+
+kmeans3.fit(sample1)
+
+# 학습 결과(예측한 군집 번호) 반환받기
+# fit 실행 후 => predict 
+
+label_cluster = kmeans3.predict(sample1)
+label_cluster #여기서 3가지 유형을 나눠야하니 임의순서대로 index를 줬다. 0이 세토사를 의미하진 않는다.
+# 분류 완료 
+
+iris.target
+# 2개의 패턴이 비슷하다. 
+
+# 예측 데이터 얻어오기
+cluster_pred = pd.Series(label_cluster)
+cluster_pred
+
+# 예측값
+cluster = cluster_pred.values
+
+# 실제라벨
+label = data['labels'].values
+
+# 정확도 얻기 (비지도학습)
+from sklearn import metrics
+
+metrics.adjusted_rand_score(cluster,label) #정답률 60%
+
+# 입력변수 데이터와 KMeans 결과 합치기
+pred = pd.DataFrame(kmeans3.predict(sample1))
+pred
+
+pred.columns = ['predict']
+
+# 문제로 사용한 sample과 추론한 결과인 pred를 concat으로 붙여준다.
+result = pd.concat([sample1,pred],axis=1)
+result.head()
+
+# 연습문제) 결과물에 대한 산점도를 시각화해주세요 
+# plt.scatter()
+# x축, y축 : 입력변수(문제)값
+# 색상 : predict 컬럼
+# 투명도 : alpha = 0.5
+
+plt.scatter(result['sepal length'],result['sepal width'],c=result['predict'],alpha=0.5)
+
+# 시각화를 시키려면 x,y 2개 만 넣을 수 있다. 4개를 넣는것은 좀 어렵다?
+
+# 군집 중심점 시각화 
+# model.cluster.centers
+
+points = kmeans3.cluster_centers_
+points
+
+# 점 3개 출력 => 군집을 3개로 해서 
+
+# 중심점 위치를 데이터프레임화 
+centers = pd.DataFrame(points, columns=['sepal length','sepal width'])
+centers
+
+#군집자체의 시각화 
+# x=result 의 sepal length, y=sepal width 
+# c=predict, alpha=0.5
+
+plt.scatter(result['sepal length'],result['sepal width'],c=result['predict'],alpha=0.5)
+
+#군집 중심점 시각화 
+plt.scatter(centers['sepal length'],centers['sepal width'],c='r',marker='D',s=50)
+
+#군집자체의 시각화 
+# x=result 의 sepal length, y=sepal width 
+# c=predict, alpha=0.5
+
+plt.scatter(result['sepal length'],result['sepal width'],c=result['predict'],alpha=0.5)
+
+#군집 중심점 시각화 (거리가 최소가 되는 점)
+plt.scatter(centers['sepal length'],centers['sepal width'],c='r',marker='D',s=50)
+
+# 원본 데이터에 대해서 중심점 표시까지 함께 해 주세요 
+plt.scatter(result_1['sepal length'],result_1['sepal width'],c=result_1[0],alpha=0.5)
+plt.scatter(centers['sepal length'],centers['sepal width'],c='r',marker='D',s=50)
