@@ -184,4 +184,62 @@ graph = graphviz.Source(dot_data)
 graph
 
 
-    
+# 결과물을 pdf파일로 저장하기
+graph.render('iris_img')
+
+#가장 중요한 요소가 제일 위 노드로 간다.
+# 사용된 변수(특성)에 대해 중요도 추출
+# model.feature_importances_
+
+## 변수중요도 추출 = 기여도 
+print(iris.feature_names)
+clf.feature_importances_ # speal width는 거의 안쓰고 petal length 중심으로 구분했다. 
+
+#모델이 사용한 독립변수 개수
+n_features = clf.n_features_
+
+#모델이 사용한 독립변수 개수
+n_features = clf.n_features_
+
+#인덱스
+idx = range(clf.n_features_)
+print(n_features, idx)
+
+## 중요도 시각화
+import matplotlib.pyplot as plt
+
+# feature_importance 시각화
+# barh - plot 
+# 위의 idx 변수와 요소별 중요도를 plt.barh를 이용해 입력해 시각화 해보세요.
+
+plt.barh(idx,clf.feature_importances_)
+plt.yticks(idx,iris.feature_names)
+
+# (연습문제) 앞서 생성한 최대 깊이의 의사결정나무 모델과 결과 비교
+# 깊이 3으로 바꾼 모델과의 정확도 산출해보기 
+# 깊이 제한 파라미터는 디시전트리 객체 (변수) 생성시 max_depth=정수 
+# 를 이용해 제한할 수 있다.
+# 1. 모델 객체 생성 => 최대 깊이를 3으로 설정
+clf3 = DecisionTreeClassifier(max_depth=3)
+clf3
+# 2. 학습시키기
+clf3.fit(train_x,train_y)
+# 3-1.평가하기
+test_answer3 = clf3.predict(test_x)
+test_proba3=clf3.predict_proba(test_x)
+clf3.score(test_x,test_y)
+# 3-2.평가하기 시각화
+features3 = iris.feature_names
+species3 = iris.target_names
+dot_data3=tree.export_graphviz(clf3, feature_names=features, class_names=species,
+                             filled=True, rounded=True)
+graph3 = graphviz.Source(dot_data3)
+graph3
+# 4.중요도 산출 및 시각화 
+clf3.feature_importances_
+n_features3 = clf3.n_features_
+idx3 = range(clf3.n_features_)
+print(clf3.feature_importances_)
+plt.barh(idx,clf3.feature_importances_)
+plt.yticks(idx,iris.feature_names)
+
