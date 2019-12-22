@@ -35,3 +35,16 @@ train_x, test_x, train_y, test_y = train_test_split(iris_x, iris_y, test_size=.2
 
 #랜덤포레스트 라이브러리 임포트
 from sklearn.ensemble import RandomForestClassifier
+
+#랜덤포레스트 변수 생성
+rfc = RandomForestClassifier()
+#모델학습
+rfc.fit(train_x,train_y)
+#학습용 입력데이터에 대한 결과 예측
+train_pred = rfc.predict(train_x)
+train_proba= rfc.predict_proba(train_x)
+# 학습용 데이터에 대한 분류결과 정확도 계산
+rfc.score(train_x,train_y)
+# 테스트 데이터에 대한 분류 결과 정확도 계산 
+test_answer = rfc.predict(test_x)
+rfc.score(test_x,test_y)
