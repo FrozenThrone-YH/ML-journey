@@ -153,7 +153,8 @@ clf.score(test_x,test_y)
 clf.predict([[5.7,2.1,6.4,5.5]]) # 이중리스트 
 # 결과값 : array([2])
 #예측을 해낸다.     
-    
+
+# 핵심은 fit으로 학습을 시키고, predict 예측하고, score로 검증한다. 
     
     
     
