@@ -156,7 +156,32 @@ clf.predict([[5.7,2.1,6.4,5.5]]) # 이중리스트
 
 # 핵심은 fit으로 학습을 시키고, predict 예측하고, score로 검증한다. 
     
+### 의사결정나무 모델 결과 시각화
+
+# graphviz 라이브러리 사용
+# tree 라이브러리 사용
+import graphviz
+from sklearn import tree
+
+#시각화 이미지 처리 
+dot_data = tree.export_graphviz(clf, out_file=None)
+graph = graphviz.Source(dot_data)
+graph
+
+# 옵션 추가 1 - 분류 기준으로 사용된 특성값을 컬럼명으로 바꾸기
+# 파라미터에 feature_names = features 추가 
+features = iris.feature_names
+
+# 옵션 추가 2 - 결과값을 데이터 속성(종이름)으로 바꾸기 
+# 파라미터에 class_names=species 추가 
+species = iris.target_names
     
-    
-    
+# 옵션 추가 3 - 박스 색상 채우기 & 박스 모서리 둥글게
+# export_graphviz(filled, rounded)
+dot_data=tree.export_graphviz(clf, feature_names=features, class_names=species,
+                             filled=True, rounded=True)
+graph = graphviz.Source(dot_data)
+graph
+
+
     
