@@ -1,0 +1,9 @@
+# IRIS 데이터를 이용한 예측 모델 실습
+# 학습 데이터 세팅하기 
+import pandas as pd
+import numpy as np
+iris = pd.read_csv('data/iris_nan_sample.csv')
+iris.head() # sepal_width에 NaN이 있음
+
+# sepal _ width 결측치 갯수 카운트
+iris['sepal_width'].isnull().sum()
