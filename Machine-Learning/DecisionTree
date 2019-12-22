@@ -220,6 +220,7 @@ plt.yticks(idx,iris.feature_names)
 # 깊이 제한 파라미터는 디시전트리 객체 (변수) 생성시 max_depth=정수 
 # 를 이용해 제한할 수 있다.
 # 1. 모델 객체 생성 => 최대 깊이를 3으로 설정
+# max_depth를 많이 줘도 넘지 않게 분류 가능 (ex 10으로 줘도 5에서 끝날 수 있음) 하지만 넘지는 않는다.
 clf3 = DecisionTreeClassifier(max_depth=3)
 clf3
 # 2. 학습시키기
@@ -243,3 +244,5 @@ print(clf3.feature_importances_)
 plt.barh(idx,clf3.feature_importances_)
 plt.yticks(idx,iris.feature_names)
 
+clf3.score(train_x,train_y)
+# 학습데이터로 평가를 하면 '1'이 안나온다. 
