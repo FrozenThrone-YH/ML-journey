@@ -48,3 +48,13 @@ rfc.score(train_x,train_y)
 # 테스트 데이터에 대한 분류 결과 정확도 계산 
 test_answer = rfc.predict(test_x)
 rfc.score(test_x,test_y)
+
+# forest로 구성된 개별 Decision Tree
+rfc.estimators_
+# Max_depth는 동일한데, Random_state값만 조금씩 다르다. 
+# 10개의 디시전트리를 만들어서 평균값 낸것이기 떄문에 과적합이 적다. 
+
+# 랜덤포레스트 feature_importances_
+rfc.feature_importances_ # 온갖 경우의 수를 따졌기때문에 10번 돌리는 동안 다 쓴다. 
+
+# => 요약! 디시전 트리 10개 만들어서 평균값 구하는것! 
