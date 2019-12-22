@@ -1,0 +1,161 @@
+"""
+### 모델 복잡도와 모델 정확도
+- 과대적합 :모델이 너무 복잡하여 학습데이터에 지나치게 최적화되고 일반화하기 어려움
+- 과소적합 : 모델이 너무 단순하여 학습데이터를 충분히 분석하지 못함
+- 과대적합과 과소적합의 절충점을 바탕으로 모델의 일반화 성능을 최대화 시킬 수 있는 모델 생성
+
+
+---
+### 지도학습 
+- 결과 값에 대한 라벨이 존재, 입력 데이터를 통해 출력 데이터가 어떤 라벨인지 분류하는 예측 수행
+
+- 분류 기준
+    - 이진 분류 : 결과 값에 대한 라벨이 두 가지 종류(Y/N, Female/Male, Success/Fail 등)    
+    - 다범주 분류 : n개의 범주로 이루어진 결과 값을 분류
+    
+---
+### 의사결정나무(Decision Tree)
+- 의사결정 규칙을 도표화하여 관심 집단을 몇 개의 소집단으로 분류 / 예측하는 계량적 분석방법
+- 의사결정나무 모델 학습 방법 
+ - 엔트로피 또는 지니계수를 통해 최적의 특징값을 선정하여 최상위 노드부터 분류 기준으로 적용
+ - 반복적으로 노드를 생성하여 분류
+ - 더 이상 노드를 생성할 수 없거나 지정한 높이(depth)에 도달하면 분류 종료<br>
+     - node : 분류 기준이 되는 특정 변수와 값 ★이것만 기억해도!하나하나의 박스를 노드라 한다. 
+     - root node : 첫번째 분류 기준이 되는 최상위 노드
+     - leaf node : 최상위 노드와 마지막 최종 노드 사이에 존재하는 중간 노드
+     - leaf : 마지막 최종 노드
+     - edge : 노드의 분류 결과(T/F)와 다음 노드를 연결
+     - depth : 최종 노드가 생성될 때 까지의 단계
+     
+     
+- 숫자형 결과를 반환하는 회귀 트리(Regression Tree)와 범주형 결과를 반환하는 분류 트리(Classification Tree)
+- 직관적인 작동 방식으로 해석력이 아주 좋은 분류 모델로 평가
+- 여러 개의 변수들에 대해 각각의 중요도를 평가 할 수 있음
+- 입력 데이터에 대해 범주형 데이터와 숫자형 데이터 모두 적용할 수 있으나 범주형 데이터의 경우 라벨인코딩 적용
+    - sklearn.preprocessing > labelEnconder
+- 결과 값에 대해 이진 분류와 다범주 분류 모두 가능
+
+- 과적합(Over-fitting) 관리 필요
+    - 학습한 데이터와 다른 새로운 데이터에 대해 일반화하는 성능이 떨어져 과적합 경향이 큰 것이 의사결정나무의 최대 취약점
+    - depth가 지나치게 크면 과적합 경향이 높음
+        - clf.set_param(max_depth=n)
+    - 새로운 node가 생성될 때 사용되는 sample의 개수가 지나치게 작으면 과적합 경향이 높음 
+        - min_samples_split, min_samples_leaf
+    - 차원(사용되는 변수)이 너무 많으면 과적합 경향이 높음 
+        - max_features, PCA
+    
+    
+- 정보획득(Information Gain), 불순도(Criterion) :  Gini Index(기본값), Entropy Index
+    - 확률변수가 담고 있는 정보(범주)가 얼마나 섞여 있는가를 나타내는 지표
+    - 분류 후의 순도 증가/불순도 또는 불확실성 감소가 가장 큰 변수를 우선적으로 분류 기준으로 적용
+    - 최종적으로 0이 되면 균일한 정보(범주)로 이루어진 데이터"""
+    
+#
+# graphviz 라이브러리
+# conda install graphviz #!pip install graphviz됨
+# conda install python-graphviz #!pip install 하면 error뜸 네비게이터에서 설치 필요
+# graphviz 환경변수 설정
+import os
+
+os.environ['PATH'] += os.pathsep + r'D:/KYH/Library/bin/graphviz'
+
+#아나콘다가 설치된 폴더 => Library 폴더 => bin => graphviz 폴더 경로를 찾아서 위 코드에 복사하기 
+
+# 의사결정나무 예시
+# prompt : pip install mglearn
+
+!pip install mglearn
+
+import mglearn
+
+mglearn.plots.plot_animal_tree()
+# 깊이 2
+# 노드 7개
+# 단선 6개 
+
+# IRIS 데이터 적재
+
+from sklearn import datasets
+
+iris = datasets.load_iris()
+iris
+
+# 독립(x, 문제), 종속 (y, 정답) 변수 분리 
+
+iris_x = iris.data
+iris_y = iris.target
+
+# 120개를 학습에 쓰고(120개의 문제와 답), 남은 30개는 문제만 - 30개는 답이 있지만 답은 안주고 문제만 준다.
+# 30개를 풀고 정답도를 체크한다. 
+
+# 데이터가 종류별로 있는데, 120개를 어떻게 뽑을 것인가? => 데이터를 뽑을때 섞어서, 비중 맞춰서 뽑아야 한다 => sklearn에서 제공한다. 
+
+# 학습, 평가 데이터분리 / 8:2 
+# 학습 : 생성한 모델을 학습시키지 위한 데이터
+# 평가 : 학습시킨 모델의 성능을 평가하기 위한 데이터
+# 평가 데이터는 최초 1회만 사용한다.
+# 일반적인 비율 : 학습 > 평가, 8:2, 7.5:2.5, 7:3
+# train_test_split(x,y,test_size) : 반환값은 4개, 순서를 잘 기억해서 써야함
+# (반환값 4개에 대해서) 여러개의 변수값에 변수명 입력 => 학습x , 평가x, 학습y, 평가y
+
+from sklearn.model_selection import train_test_split
+
+# 학습용 문제, 평가용문제, 학습용정답, 평가용정답 쪼개기
+train_x, test_x, train_y, test_y = train_test_split(iris_x, iris_y, test_size=.2)
+
+print(iris_x.shape)
+print(train_x.shape)
+print(test_x.shape)
+
+# 파이썬 머신러닝 패키지
+
+from sklearn.tree import DecisionTreeClassifier # 분류기 
+# 구글 - sklearn document 치기 - classification (분류기)
+
+# 의사결정나무 모델객체 생성
+# 기본값 : 가지치기를 하지 않은 최대깊이의 의사결정 나무(깊이 무제한)
+clf = DecisionTreeClassifier() # 클래스의 객체 생성 - 변수를 만들어준다고 생각하기 
+
+# 모델학습 (학습용 문제와 답을 넘김)
+clf.fit(train_x,train_y)
+
+# 모델에게 문제 풀게 시키기(풀었던 문제 주기)
+train_pred = clf.predict(train_x)
+train_pred
+
+#학습데이터에 대한 학률 값 반환
+train_proba=clf.predict_proba(train_x)
+train_proba
+
+# 첫번째 데이터에 대해서 1일 확률이 100% (0번일 확률 0%, 1번일확률 100%, 2번일확률이 0%)
+# 두번째 데이터에 대해서 0일 확률이 100% 
+# 세번째 데이터에 대해서 1일 확률이 100%
+# 네번째 데이터에 대해서 2일 확률이 100% 
+#다섯번째 데이터에 대해서 1일 확률이 100% 
+
+# 복잡한 모델일 경우 답에 대한 %를 갈라놓는다. 
+
+# 학습데이터에 대한 분류 결과에 대한 정확도 계산
+# 학습데이터에 대한 정확도가 100이거나 평가 데이터에서의 정확도와 
+# 차이가 너무 크면 과적합
+clf.score(train_x,train_y) #결과값 100%
+
+# 테스트 문제에 대한 정답을 예측시켜보세요
+test_answer = clf.predict(test_x)
+test_answer
+test_proba=clf.predict_proba(test_x)
+test_proba
+
+#테스트 문제에 대한 정답률을 .score()로 확인해보세요.
+clf.score(test_x,test_y)
+
+# 사용자가 직접 iris데이터와 비슷한 데이터를 만들어 넣어도 예측한다. 
+clf.predict([[5.7,2.1,6.4,5.5]]) # 이중리스트 
+# 결과값 : array([2])
+#예측을 해낸다.     
+    
+    
+    
+    
+    
+    
