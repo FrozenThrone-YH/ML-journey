@@ -1,0 +1,37 @@
+#랜덤포레스트
+"""
+- Ensemble method(앙상블기법)의 한 종류로 많은 의사결정나무로 이루어진 지도학습 모델
+- 각각의 의사결나무에서 사용되는 특징값들을 무작위로 선정
+- 여러 의사결정나무의 평균 예측값을 사용하여 분류함으로써 단일 의사결정나무의 취약점의 과적합을 보완
+- 데이터 특징값에 대한 해석 및 통찰을 얻기 어려움-
+- 어떻게 돌아가는지는 모르는데 결과는 나오므로 이런 알고리즘을 블랙박스알고리즘이라고도 한다. 
+"""
+
+# graphviz 라이브러리
+# conda install graphviz #!pip install graphviz됨
+# conda install python-graphviz #!pip install 하면 error뜸 네비게이터에서 설치 필요
+# graphviz 환경변수 설정
+import os
+
+os.environ['PATH'] += os.pathsep + r'D:/KYH/Library/bin/graphviz'
+
+#아나콘다가 설치된 폴더 => Library 폴더 => bin => graphviz 폴더 경로를 찾아서 위 코드에 복사하기 
+
+# IRIS 데이터 적재
+
+from sklearn import datasets
+
+iris = datasets.load_iris()
+iris
+
+iris_x = iris.data
+iris_y = iris.target
+features = iris.feature_names
+species = iris.target_names
+
+# 학습용 문제, 평가용문제, 학습용정답, 평가용정답 쪼개기
+from sklearn.model_selection import train_test_split
+train_x, test_x, train_y, test_y = train_test_split(iris_x, iris_y, test_size=.2)
+
+#랜덤포레스트 라이브러리 임포트
+from sklearn.ensemble import RandomForestClassifier
