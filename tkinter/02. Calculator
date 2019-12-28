@@ -27,6 +27,8 @@ def plus():
     result = int(source1) + int(source2)
     La = Label(root, text=result)
     La.place(x=10, y=180, width=100, height=30)
+    E1.delete(0,'end')
+    E2.delete(0,'end')
 
 def minus():
     source1 = E1.get()
@@ -34,6 +36,8 @@ def minus():
     result = int(source1) - int(source2)
     La = Label(root, text=result)
     La.place(x=10, y=180, width=100, height=30)
+    E1.delete(0,'end')
+    E2.delete(0,'end')
 
 def multiply():
     source1 = E1.get()
@@ -41,6 +45,8 @@ def multiply():
     result = int(source1) * int(source2)
     La = Label(root, text=result)
     La.place(x=10, y=180, width=100, height=30)
+    E1.delete(0,'end')
+    E2.delete(0,'end')
 
 def divide():
     source1 = E1.get()
@@ -48,6 +54,8 @@ def divide():
     result = int(source1) / int(source2)
     La = Label(root, text=result)
     La.place(x=10, y=180, width=100, height=30)
+    E1.delete(0,'end')
+    E2.delete(0,'end')
 
 def divide1():
     source1 = E1.get()
@@ -55,6 +63,8 @@ def divide1():
     result = int(source1) // int(source2)
     La = Label(root, text=result)
     La.place(x=10, y=180, width=100, height=30)
+    E1.delete(0,'end')
+    E2.delete(0,'end')
 
 def divide2():
     source1 = E1.get()
@@ -62,6 +72,8 @@ def divide2():
     result = int(source1) % int(source2)
     La = Label(root, text=result)
     La.place(x=10, y=180, width=100, height=30)
+    E1.delete(0,'end')
+    E2.delete(0,'end')
     
 # 엔트리 부품 배치 
 E1 = Entry(root)
