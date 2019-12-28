@@ -86,3 +86,22 @@ grid_search.best_score_
 # best_params_의 조합을 이용해 예측하기 (.score())
 grid_search.score(test_x,test_y)
 
+#디시전트리의 max_depth의 최적의 경우의 수를 찾아주세요 
+from sklearn.tree import DecisionTreeClassifier
+
+# 분류기 생성
+dt = DecisionTreeClassifier()
+
+#하이퍼파라미터맵 생성 
+param_map = {'max_depth':[1,3,5,7,9,10]}
+
+#그리드서치 변수 생성
+grid_search_dt= GridSearchCV(estimator = dt, param_grid=param_map)
+
+#학습
+grid_search_dt.fit(train_x,train_y)
+
+#최적조합찾기
+grid_search_dt.best_params_
+
+
