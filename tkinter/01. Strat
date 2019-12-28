@@ -94,4 +94,32 @@ Bt3 = Button(root, text="입력",command=get_E1).place(x=130,y=90,width=100,heig
 
 # 버튼을 누를때마다 get_E1이 실행되고 Entry값이 출력된다. 
 
+# listbox()
+# 리스트박스는 사용자에게 리스트를 보여주는 창 부품입니다.
+# 리스트박스에는 넣고 싶은 자료를 넣거나 뺄 수 있습니다.
+# 리스트박스는 함수설정을 통해 내부 리스트요소 클릭을 감지 할 수 있습니다.
 
+### 감지함수 ###
+# 클릭하는 걸 감지할 수 있게 한다. 
+# 아래코드를 그냥 외워서 쓰기 
+def onselect(evt):
+    w = evt.widget
+    index = w.curselection() 
+    value = w.get(index)
+    print(index,value)
+
+
+### 부품 설정 및 배치 부분 ###
+LB1 = Listbox(root)
+LB1.place(x=10,y=130,width=100,height=150)
+### 리스트박스에 요소 추가하기 (좋아하는 음식 3개 추가)
+LB1.insert(0,"김치찌개")
+LB1.insert(1,"된장찌개")
+LB1.insert(2,"부대찌개")
+# 0,탕수육
+# 0, 피자
+# 0, 치킨이면 화면에는 치킨/피자/탕수육 순서로 출력된다. 
+# 탕수육 먼저 출력됐다가 0번에 피자가 추가되면서 전체적으로 하나씩 밀린다. 
+
+### 버튼클릭 감지 (이벤트 bind - 사건 묶기?)
+LB1.bind('<<ListboxSelect>>',onselect)
