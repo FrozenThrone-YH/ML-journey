@@ -214,3 +214,21 @@ sb1.place(x=260,y=330, width=100,height=30)
 
 ### 버튼 배치 
 Bt5 = Button(root, text="SB값입력",command=get_sb1).place(x=260,y=370,width=100,height=30)
+
+# OptionMenu
+# 부품이 2개인데, 2개가 한쌍으로 작동을 한다. => 2개를 넣어야 한다. 
+### 함수 부분 ###
+def get_op1():
+    O1=variable.get() # 현재 골라져 있는 것이 variable이기 때문에 
+    La4 = Label(root,text=O1)
+    La4.place(x=370,y=10, width=100,height=30)
+
+### 창 부품 설정 및 배치부분 ###
+option1 = ["Python","Java","C++","C","JavaScript"]
+variable = StringVar(root)# 현재 골라져 있는 것 
+variable.set(option1[0]) # 메뉴창에 초기에 설정된 값은 "1"
+op1=OptionMenu(root,variable,*option1) #option1앞에 '*'임을 주의할것.
+op1.place(x=260,y=10,width=100,height=30)
+
+### 버튼 배치 
+Bt6 = Button(root, text="옵션선택",command=get_op1).place(x=260,y=40,width=100,height=30)
