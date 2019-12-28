@@ -101,7 +101,7 @@ Bt3 = Button(root, text="입력",command=get_E1).place(x=130,y=90,width=100,heig
 
 ### 감지함수 ###
 # 클릭하는 걸 감지할 수 있게 한다. 
-# 아래코드를 그냥 외워서 쓰기 
+# 아래코드를 그냥 복붙해서 쓰기  
 def onselect(evt):
     w = evt.widget
     index = w.curselection() 
@@ -123,3 +123,94 @@ LB1.insert(2,"부대찌개")
 
 ### 버튼클릭 감지 (이벤트 bind - 사건 묶기?)
 LB1.bind('<<ListboxSelect>>',onselect)
+
+# Listbox를 하나 더 추가해주세요
+# L2 변수를 이용해 만들어주세요
+# 만든 리스트박스에는 가고 싶은 여행지를 5개 입력해주세요
+###감지함수
+def onselect2(evt):
+    w = evt.widget
+    index = w.curselection() 
+    value = w.get(index)
+    print(index,value)
+
+### 부품 설정 및 배치 부분
+LB2 = Listbox(root)
+LB2.place(x=130,y=130,width=100,height=150)
+### 리스트 박스에 요소 추가 하기 (선호 여행지 5개 추가)
+LB2.insert(0,"치앙마이")
+LB2.insert(1,"밀라노")
+LB2.insert(2,"니스")
+LB2.insert(3,"두바이")
+LB2.insert(4,"하와이")
+### 버튼 클릭 감지
+LB2.bind('<<ListboxSelect>>',onselect2)
+
+#엔트리 두개를 만들어주세요
+#변수명은 Et2, Et3로 만들어주세요
+#Et2에는 이름을, Et3에는 성을 입력 받아서
+#버튼을 클릭하면 성+이름을 조합해서 
+# 콘솔창에 출력하도록 부품들을 배치해보세요 
+
+### 함수부분 ###
+def get_name():
+    E2 = Et2.get()
+    E3 = Et3.get()
+    print(E2+E3)
+    
+### 부품 설정 및 배치부분 ### 
+Et2 = Entry(root)
+Et2.place(x=300,y=200,width=100,height=30)
+Et3 = Entry(root)
+Et3.place(x=300,y=240,width=100,height=30)
+
+### 버튼 
+Bt4 = Button(root, text="이름입력",command=get_name).place(x=300,y=270,width=100,height=30)
+
+# 리스트박스 내부에 입력된 자료 삭제
+LB1.delete(0,0)
+# 리스트박스 내부에 입력된 전체 자료 삭제 
+LB1.delete(0, END)
+
+# Label-레이블 ; 창 내부 적어 놔서 클릭해도 반응 없는 것 
+# 레이블은 사용자에게 보여줄 공지사항 등을 보여주는 창 부품 입니다.
+# 레이블에는 원하는 문구를 지정해서 창에 출력할 수 있습니다.
+# 함수를 활용해 결과를 보여줄 수도 있고
+# 함수 활용 이전에 디폴트 상태에서 노출시키는 것도 가능합니다.
+
+# 외부창에 출력하기
+La1 = Label(root,text="레이블입니다.")
+La1.place(x=10,y=330,width=100,height=30)
+
+# La1 오른쪽 x=140, y=330에 bt4 버튼을 생성해주세요
+# 이 버튼은 클릭하면 함수 get_lb2()를 실행합니다. 
+# get_lb2는 내부 실행문으로 Lb2변수를 사용한 레이블을 생성해줍니다.
+# 이 함수는 "Lb2 생성완료"라고 적힌 레이블을 root 창 내부에 심어줍니다. 
+# x=10, y=370에 생성하도록 함수를 생성해주세요 
+
+### 함수
+def get_La2():
+    La2 = Label(root,text="La2 생성완료")
+    La2.place(x=10,y=370, width=100,height=30)
+
+### 버튼
+Bt5 = Button(root, text="레이블입력",command=get_La2).place(x=140,y=330,width=100,height=30)
+
+# Spinbox
+# 스핀박스는 엔트리아 비슷하지만 범위 내의 숫자 하나를 고를 수 있는 창 부품입니다.
+# 스핀박스 내부의 값을 .get()으로 얻을 수 있습니다. 
+# from =0 , to=10 (0~10까지, to값을 포함한다) 
+# .get()을 통해 얻어오는 자료형은 문자열이다. 숫자로 쓰고 싶을때는 int나 float를 써야 한다. 
+
+### 함수부분
+def get_sb1():
+    S1 = sb1.get()
+    La3 = Label(root,text=S1)
+    La3.place(x=370,y=330, width=100,height=30)
+
+### 부품 설정 및 배치부분
+sb1 = Spinbox(root, from_=0,to=10)
+sb1.place(x=260,y=330, width=100,height=30)
+
+### 버튼 배치 
+Bt5 = Button(root, text="SB값입력",command=get_sb1).place(x=260,y=370,width=100,height=30)
