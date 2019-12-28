@@ -20,4 +20,68 @@
         - best_estimator_ : 최적의 매개변수에서 학습 데이터를 사용해서 학습한 모델 객체
  """
  
- 
+# k-nn
+# 이웃점개수 [1,3,5,7,9]
+# 거리계산 [유클리디안,민코스크]
+# 5 * 2 = 10개의 케이스 계산 조합갯수가 많아지면 처리하기 어려워진다. 
+
+#IRIS 데이터셋 사용
+from sklearn import datasets
+
+iris = datasets.load_iris()
+
+# 독립변수(문제), 종속변수(정답) 분리
+
+iris_x = iris.data
+iris_y = iris.target
+
+#학습, 평가 데이터 분리 (7:3)
+from sklearn.model_selection import train_test_split
+
+train_x, test_x, train_y, test_y = train_test_split(iris_x, iris_y, test_size=.3)
+
+train_x.shape
+
+test_x.shape
+
+# RandomForest 모델 객체 생성
+from sklearn.ensemble import RandomForestClassifier
+
+rf = RandomForestClassifier()
+
+#그리드서치 라이브러리
+from sklearn.model_selection import GridSearchCV
+
+
+# GridSearchCV(model 변수, 파라미터조합(딕셔너리))
+# 그리드서치를 수행할 파라미터의 경우의 수를 딕셔너리로 생성(하이퍼파라미터 맵)
+# n_estimator: 분류기 생성 횟수
+# max_features : 독립변수의 최대 개수
+# max_depth : 의사결정나무의 최대 깊이
+# criterion : 불순도 지표
+param_map = {'n_estimators' : [50,100,150,200,250,300],
+            'max_depth':[1,3,5,7,9,10]}
+
+# 파라미터를 일일이 바꿔 모델을 튜닝하는것이 번거로우니 자동으로 하는 것.
+# 현재 param_map은 36번 명령을 해야한다. => 한번에 끝 
+param_map
+
+# 하이퍼파라미터맵과 모델 겹합
+grid_search = GridSearchCV(estimator = rf, param_grid=param_map)
+# 첫번째 파라미터에 어떤 알고리즘을 쓸 것인지 넣어준다.
+# 두번째 파라미터는 파라미터 조합은 어떻게 한다. 
+
+# 결합된 변수에 .fit() 명령어 사용
+grid_search.fit(train_x,train_y)
+
+#학습결과를 기반으로 최고의 성능을 가지는 하이퍼파라미터 조합 반환 
+grid_search.best_params_
+
+# 최고의 성능을 가지는 하이퍼파라미터 조합 사용시의 전체 파라미터 현황 반환 
+grid_search.best_estimator_
+
+# 최고 조합일때의 성능
+grid_search.best_score_
+
+# best_params_의 조합을 이용해 예측하기 (.score())
+grid_search.score(test_x,test_y)
