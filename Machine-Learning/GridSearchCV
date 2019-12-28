@@ -85,3 +85,4 @@ grid_search.best_score_
 
 # best_params_의 조합을 이용해 예측하기 (.score())
 grid_search.score(test_x,test_y)
+
