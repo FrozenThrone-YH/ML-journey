@@ -48,3 +48,50 @@ root.configure(width="600",height="600")
 - 를 사용합니다.
 """
 
+
+# Button
+# 버튼은 클릭했을 때 동작하는 버튼을 의미합니다.
+# 버튼은 버튼과 버튼을 클릭했을때 동작시킬 코드(함수로 지정)를 지정해야 가능합니다.
+def test():
+    print("Hello GUI")
+
+
+### 부품 설정 및 배치 
+bt1 = Button(root,text="테스트",command="").place(x=10,y=10,width=100,height=30)
+#button(창변수, text='버튼이름',command=함수명) - 버튼 속성만 지정
+#위치설정은 .place(x=정수값,y=정수값,width=정수값,height=정수값)
+# 가구를 집 내부 어디에다 넣을 것인가?
+
+#참고 / grid 활용 (grid)는 커스터마이징이 어렵다. 
+bt1 = Button(root, text = "테스트").grid(column=3,row=2,padx=100,pady=30)
+
+# 가상의 column과 row 가 있다고 생각, 가상의 인덱스 순서가 있는걸로 간주 
+# 칼럼 3번쨰, 로우 2번째, 
+
+# Entry() : 자료를 사용자에게 키보드로 입력 받을 수 있는 창
+# ListBox() : 선택지가 이미 있는 창
+# Label() :  안내 혹은 결과를 나타내 주는 창
+
+# Entry()
+# 엔트리는 사용자에게 문자열을 직접 입력받는 창부품입니다.
+# 엔트리에 입력된 문장은 .get()을 이용해 얻어 올 수 있습니다.
+
+### 함수부분 ###
+def get_E1():
+    E1 = Et1.get()
+    print(E1)
+
+
+### 부품 설정 및 배치부분 ### (보통 배치 부터 하고 로직을 짜는 것이 일반적)
+Et1 = Entry(root)
+Et1.place(x=10,y=90,width=100,height=30)
+
+
+# 버튼을 하나 더 배치해주세요 
+# 배치한 버튼은 위쪽 함수부분의 get_E1()함수를 통해 result라는 변수에 
+# 값을 저장한 다음 print(result) 구문을 이용해 엔트리에 입력된 자료를 콘솔에 출력합니다. 
+Bt3 = Button(root, text="입력",command=get_E1).place(x=130,y=90,width=100,height=30)
+
+# 버튼을 누를때마다 get_E1이 실행되고 Entry값이 출력된다. 
+
+
