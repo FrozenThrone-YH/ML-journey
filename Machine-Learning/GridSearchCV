@@ -1,0 +1,23 @@
+"""
+### GridSearchCV
+
+- 모델의 일반화 성능을 개선하기 위한 매개변수 튜닝 (파라미터를 a로도 해보고 b로도 해봐서 최적의 것을 알려줘) 
+- GridSearchCV(estimator, param_grid)
+    - 조정하고자 하는 매개변수명과 설정값에 대해서 딕셔너리 타입으로 전달
+    - 기본값으로 3-fold cross-validation을 적용 (교차 검증을 하여 평균 사용) 
+    - 분석모델로 분류기가 전달되면 stratified 3-fold cross-validation 적용
+    - 일반적인 분석 모델 객체와 유사하게 GridSearch 객체도 predict, score 메서드 제공
+        - predict() : 찾아낸 최적의 매개변수로 학습된 모델로부터 예측값 얻기 (제일 좋은 값으로 얻어줌)
+        - score() : 찾아낸 최적의 매개변수로로 학습된 모델의 일반화 성능 평가
+    - 최적의 매개변수를 찾는 과정에서는 학습 데이터만 사용할 뿐 테스트 데이터는 사용하지 않음
+        - grid_scores_
+            - 모든 하이퍼파리미터 조합에 대한 성능 결과
+            - parameters: 사용된 파라미터
+            - mean_validation_score: 교차 검증(cross-validation) 결과의 평균값
+            - cv_validation_scores: 모든 교차 검증(cross-validation) 결과
+        - best_params_ : 찾아낸 최적의 매개변수
+        - best_score_ : 최적의 매개변수로 학습 데이터에서 얻은 최상의 교차 검증 정확도
+        - best_estimator_ : 최적의 매개변수에서 학습 데이터를 사용해서 학습한 모델 객체
+ """
+ 
+ 
