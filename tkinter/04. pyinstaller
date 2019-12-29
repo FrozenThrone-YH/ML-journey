@@ -7,7 +7,7 @@
 # cd 20191229
 
 # dir을 쳐서 변경하고자 하는 파일이 있는지 확인
-# jupyter nbconvert --to script [filename].ipynb 를 쳐주면 확장자 변경파일 하나 더 생성
+# ★핵심jupyter nbconvert --to script [filename].ipynb 를 쳐주면 확장자 변경파일 하나 더 생성
 
 # pyinstaller lotto.py 타이핑 
 
