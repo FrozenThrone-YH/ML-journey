@@ -1,0 +1,93 @@
+"""
+# 로또복권 번호 추첨기 제작
+
+- 버튼1을 누르면 추첨함수 실행
+- 함수는 로또복권 번호 여섯개(1~45 범위에서 중복된 숫자 없이 6개)를 뽑아냄
+- 버튼2를 누르면 2등번호 추첨함수 실행
+- 2등번호는 버튼 1에서 뽑힌 6개를 제외한 1~45번호 중 하나를 추가로 추첨함
+- 모든 결과는 레이블로 출력함
+- 출력 창 위에는 레이블로 "당첨번호", "2등보너스번호" 와 같이 어떤 숫자가 나올지
+- 미리 위치가 표시되어 있음"""
+
+# 파이썬 gui프로그래밍을 위한 라이브러리 tkinter 임포트
+from tkinter import *
+
+# 로또 추첨을 위한 난수 발생
+import random
+
+# 하단의 root라는 변수가 바로 우리가 알고있는 창이 됨
+root = Tk()
+
+# 창크기 조절 및 타이틀 변경
+root.title("로또복권 번호 추첨기")
+
+root.configure(width="80m", height="70m")
+
+# 전역함수
+lottonum=[]
+
+# 1등번호 추첨
+def get_lotto():
+    global lottonum
+    lottonum.clear()
+    while len(lottonum) != 6:
+        number = random.randint(1, 45)
+        if number not in lottonum:
+            lottonum.append(number)
+    lottonum.sort()
+    Lb1 = Label(root, text=lottonum)
+    Lb1.place(x=10, y=90, width=150, height=30)
+    
+# 2등번호 추첨
+def get_bonus():
+    global lottonum
+    if not lottonum:
+        get_lotto()
+    number = random.randint(1, 45)
+    while number in lottonum:
+        number = random.randint(1, 45)
+    Lb2 = Label(root, text=str(number))
+    Lb2.place(x=200, y=90, width=100, height=30)
+# 버튼 배치
+Bt1 = Button(root, text="번호 추첨", command=get_lotto)
+Bt1.place(x=10, y=10, width=100, height=30)
+
+Bt2 = Button(root, text="보너스번호 추첨", command=get_bonus)
+Bt2.place(x=130, y=10, width=100, height=30)
+
+# 레이블 배치
+# 제작자 레이블
+Lb3 = Label(root, text="제작자 : 채종훈")
+Lb3.place(x=200, y=200, width=100, height=30)
+
+# 안내 레이블
+Lb4 = Label(root, text="로또복권 번호 6개")
+Lb4.place(x=30, y=50, width=100, height=30)
+
+Lb5 = Label(root, text="보너스번호")
+Lb5.place(x=200, y=50, width=100, height=30)
+
+# 창 유지
+root.mainloop()
+
+# 번호 6개 추첨
+
+# 난수 발생 라이브러리(파이썬)
+import random
+
+# 당첨번호 6개를 저장하기위한 빈 리스트
+lottonum = []
+
+while(len(lottonum)!=6):
+    # 난수(정수)발생 random.randint(시작값, 끝값)
+    num=random.randint(1, 45)
+    if num not in lottonum:
+        lottonum.append(num)
+
+lottonum.sort()
+print(lottonum)
+
+while(num in lottonum):
+    num=random.randint(1, 45)
+    
+print(num)
