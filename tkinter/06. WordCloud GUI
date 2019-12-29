@@ -1,1 +1,31 @@
-#
+"""
+# 워드 클라우드 GUI화
+
+- 워드클라우드는 GUI화를 할 때 텍스트파일 (+ 그림파일) 을 지정해줘야 워드클라우드화 시킬 수 있습니다.
+- 따라서 파일 경로를 원래대로라면 사용자가 직접 입력해야 하는데 그게 귀찮습니다.
+- 그래서 파일 경로를 버튼으로 클릭해서 입력받아올 수 있도록 설계했습니다.
+"""
+
+## 필요 라이브러리 임포트 
+from tkinter import *
+
+# 파일 경로를 입력받기 위해 사용 
+from tkinter.filedialog import *
+
+root = Tk()
+root.title("워드클라우드 GUI")
+root.configure(width="600",height="600")
+
+# 버튼 하나 만들어서 경로를 읽어오도록 만들어주세요
+# 읽어온 경로는 콘솔창에 지금처럼 띄워줍니다.
+
+### 함수 부분 ###
+def get_file():
+    name = askopenfilename()
+    print(name)
+
+### 버튼 생성 ###
+Bt1 = Button(root, text="파일불러오기",command=get_file).place(x=10,y=10,width="100",height="30")
+
+
+root.mainloop()
