@@ -1,0 +1,36 @@
+# 아나콘다 네비게이터에서 open terminal로 cmd 창열기
+# pip install pyinstaller - pyinstaller 라이브러리 설치
+
+# .ipynb 파일을 .py로 변경 필요 
+# 변경하고자 하는 파일이 있는 경로로 접속
+# cd data1112 (change directory) data1112로 디렉토리로 변경
+# cd 20191229
+
+# dir을 쳐서 변경하고자 하는 파일이 있는지 확인
+# jupyter nbconvert --to script [filename].ipynb 를 쳐주면 확장자 변경파일 하나 더 생성
+
+# pyinstaller lotto.py 타이핑 
+
+# 새로 생긴 파일
+# 1) lotto.spec
+# 2) dist 폴더
+# 3) build 폴더 
+# 4) __pycache__ 폴더 
+# 4개 새로 생김
+
+# dist 폴더에 lotto.exe 파일 생성됨
+
+# pyinstaller 옵션들 
+
+# exe 파일 실행시 뒤에 콘솔창 뜨는데 이거 소거하기
+# pyinstaller --noconsole lotto.py
+
+# 간단한 응용프로그램인데, 파일이 900개가 넘어가서 배포하기 힘들다.
+# pyinstaller --onefile lotto.py
+# 파일이 하나가 된다. 관리는 쉬우나 but 가동하는데 오래걸린다. 
+
+# 2개 이상의 옵션 걸기
+# pyinstaller --noconsole --onefile lotto.py (그냥 띄어쓰기 하면 된다) 
+
+# 자세한 내용은 document 참조 
+
