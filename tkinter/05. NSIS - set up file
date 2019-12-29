@@ -1,1 +1,4 @@
-#
+#NSIS 설치 파일 받기 
+
+# https://nsis.sourceforge.io/Download 에서 NSIS 3.05 라는 것을
+# http://hmne.sourceforge.net/ 에서  nisedit2.0.3.exe 라는 것을 다운 받아서 실행시켜 준다. 
