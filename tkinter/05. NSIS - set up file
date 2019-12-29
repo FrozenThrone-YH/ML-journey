@@ -2,3 +2,23 @@
 
 # https://nsis.sourceforge.io/Download 에서 NSIS 3.05 라는 것을
 # http://hmne.sourceforge.net/ 에서  nisedit2.0.3.exe 라는 것을 다운 받아서 실행시켜 준다. 
+
+# Step 1
+# HM NIS Edit 실행
+# NSIS 스크립트 마법사 
+# 라이센스 파일 경로 일단 삭제 
+# 프로그램 파일 일단 삭제 
+# EditDirectory (2번째 버튼) 
+# --noconsole로 만든 것 중 dist 밑에 lotto 폴더 선택 
+## => 그렇게 하면 폴더 아래에 있는 파일 다 들어온다. 
+# 웬만한거 다 그냥 그대로 pass 
+# 마법사 완료에서 스크립트 저장 체크 => 저장 경로와 파일 이름 설정
+## ex) lotto install => lotto install.nsi 파일 생성 
+
+# Step 2
+# 좌측 상단 compile nsi scripts 선택 
+# file - load scripy - step1에서 저장한 파일 선택 
+# Test installer 선택 
+# 실행되는 것만 확인하고 끄기 
+# Setup파일은 lotto install.nsi가 있는 경로에 있다. 
+# Setup.exx 파일 확인 
