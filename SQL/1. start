@@ -63,5 +63,10 @@ select 컬럼 from 테이블명 where 컬럼명 ='자료'; */
 
 select * from users where name='김파이썬';
 
+/* INSERT INTO 구문을 이용해 계정정보를 3개 더 넣어보세요. 1개는 pnum을 넣지 않고 2개는 모두 넣습니다. */
+INSERT INTO users values('py_py1234','py12py','SQL','01048561890');
+INSERT INTO users values('insert_py123','insert_p','insert','01015694891');
+INSERT INTO users (id,pw,name) values('no_pnum12','nono1234','01094129463');
+
 commit; 
 /* commit;을 해야 껏다 켜도 데이터가 남아있다. */
