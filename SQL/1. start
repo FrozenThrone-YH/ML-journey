@@ -1,0 +1,67 @@
+/* 1. 데이터베이스 생성 명령
+DB생성시 한글을 쓸 수 있도록 -> default character set utf8; */
+create database py_practice default character set utf8;
+
+/* schemas 클릭후, 새로고침 후 (schemas 옆 화살표 2개 누르기) py_practice -> set as default schema 를 클릭함.
+이러면 현재 명령을 받을 DB로 지정됨 */
+
+/* DB 사용자 계정 생성하기 
+user -> ID, identified by - PASSWORD */
+
+create user 'py' identified by 'py';
+
+/* 사용자에게 권한 부여 (권한 분리 더 알아보기) 
+grant 주고싶은기능1, 주고싶은기능2... 
+만약 모든 권한을 주고 싶다면 all privileges(관리자의 모든 권한)
+to 뒤쪽에는 어떤 계정에게 권한을 넘길지 적기
+py_practice.*은 py_practice에 있는 모든 테이블이라는 의미  */
+
+grant all privileges on py_practice.* to 'py';
+
+/* 테이블 생성 명령
+primary key - 컬럼의 주요 키를 뜻하며, 중복데이터를 방지합니다. 다른 컬럼과 차별성을 두는 것. 
+컬럼들 중 하나의 컬럼은 반드시 primary key 속성을 가져야 합니다. 무조건 한개는 있어야 한다. 
+not null -> 데이터에 null(NaN) 값이 들어오는 것을 방지합니다. 반드시 기입이 되어 있어야 한다. 
+why 테이블을 설정하나? - 같은 속성 데이터끼리 모아두기 / 일괄성있는 관리/조회를 위해 
+*/
+
+create table users(
+	id varchar(20) primary key,/*글자수 제한*/
+    pw varchar(20) not null,
+    name varchar(30) not null,
+    pnum varchar(13)
+    );
+ 
+/* 조회 구문 SELECT 
+SELECT 컬럼1, 컬럼2... FROM 테이블명;
+컬럼 전체 조회시 *로 대체한다 */
+
+select * from users;
+
+/* 데이터 적재하기 
+insert into 테이블명 (컬럼1, 컬럼2...) values (컬럼1값, 컬럼2값, ...) 
+만약 모든 컬럼을 다 입력대상으로 지정할 경우는 
+insert into values (컬럼1값, 컬럼2값, ...); */
+
+insert into users (id,pw, name) values('abcd1234','qawsed','김파이썬');
+insert into users values('pypy2121','pypypy','싸이킷런','01012341234');
+
+select * from users;
+
+insert into users values('pypy1212','121212','장고','01023452345');
+
+/*실행문은 대문자로 적는게 관례 */
+
+/* 조회시 조건 걸기 */
+/* 원하는 컬럼만 조회하기 */
+SELECT id, pw FROM users;
+
+/* 원하는 로우만 가져오기 
+이름이 김파이썬인 유저만 가져오기 등 조건을 걸 수 있으며, 
+조건은 where 구문을 이용해 부여한다. 
+select 컬럼 from 테이블명 where 컬럼명 ='자료'; */
+
+select * from users where name='김파이썬';
+
+commit; 
+/* commit;을 해야 껏다 켜도 데이터가 남아있다. */
