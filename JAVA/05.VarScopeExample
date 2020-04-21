@@ -1,0 +1,22 @@
+//int a = 10; 블록 밖에서 만들면 빨간줄 뜬다. 
+public class VarScopeExample {
+
+	public static void main(String[] args) {
+		//같은 타입의 변수를 선언할때는 콤마(,)로 나열 가능.
+		int num1=10,num2=20;
+		
+		if (num1>15) {
+			int num3 = num1+num2;
+		}
+//		int num4=num1+num3; num3를 사용못한다. 
+		//num1과 num2의 수명은 main 함수 내 
+		//num3의 수명은 if블록 안 
+//		int num1; 메모리안에 살아 있기때문에 생성이 안된다.
+		int num3; //num3는 만들어 진다. 메모리에 없기 때문이다. 
+	}
+		
+}
+// 정수형 byte1 short2 int4 long8
+// float4 double8 boolean 1bit 
+// char 2byte
+// String variable 참조 데이터 타입 / 객체 데이터 타입  / 문자열 
