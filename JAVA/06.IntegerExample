@@ -1,0 +1,40 @@
+
+public class IntegerExample {
+
+	public static void main(String[] args) {
+		
+		byte a = 127; // 127로 바꾸면 빨간줄 없어진다.
+		short b = 32767; //32768을 쓰면 빨간줄
+		int c = 2147483647; //2147483648을 쓰면 빨간줄
+		long d = 2147483648L; // 끝에 L을 써주면 long 데이터 타입 
+		// 죄다 빨간색 - 저장 범위를 넘어갔기 때문이다. 
+		// long은 왜 저장을 못하는가?
+		// 상수 리터럴? 상수 정수 형태는 int다. 
+		// long의 오른쪽값은 int이기때문이다. 
+		
+		System.out.println(d);
+		
+		//2진수 저장시에 정수 앞에 접두어로 0b를 붙임
+		int bin = 0b1010;
+		System.out.println("2진수 1010: "+bin);
+		
+		//8진수 저장시에 정수 앞에 접두어 0을 붙임
+		//0만써도 8진수로 인식
+		int octa = 064;
+		
+		System.out.println("8진수 64:"+octa);
+		
+		//16진수 저장시에 정수 앞에 접두어로 0x을 붙임.
+		int hexa = 0x3a4c;
+		System.out.println("16진수 3a4c: " + hexa);
+		
+		//export / import 방법
+		//가져가고 싶은 프로젝트 지정 
+		//우클릭 export - general - archive file 
+		//보내고 싶은 폴더 선택 - 그폴더에 압축파일 생성됨
+		// import 
+		
+
+	}
+
+}
