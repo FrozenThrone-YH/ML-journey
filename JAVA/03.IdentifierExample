@@ -1,0 +1,28 @@
+
+public class IdentifierExample {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		int age = 20;
+		int aGe = 21; //두번째 age에 빨간색 줄 => aGe, 대소문자 구분
+		System.out.println(age);
+		System.out.println(aGe);
+		
+		//식별자 이름을 숫자로 시작하게 만들지 마세요.
+		int number4 = 4;
+		int num4ber = 4;
+//		int 4number = 4; //4에 빨간색 밑줄이 뜬다. 4라는 토큰을 지워주세요 라고 뜬다. 
+		
+		//식별자 이름에 공백을 포함하지 마세요 
+//		int birth day = 020111; //(x)
+		int birthDay = 020111;
+		
+		//키워드는 식별자 이름을 지정 불가.
+		//검은 바탕에서 주황색으로 뜨는 것은 예약어이다. 흰색바탕은 자주색
+//		int class = 12;
+//		int if = 33;
+		int cLASS = 33; // 이건 된다. 
+		
+	}
+}
