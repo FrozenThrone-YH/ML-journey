@@ -1,0 +1,75 @@
+
+public class CastingExample1 {
+
+	public static void main(String[] args) {
+
+		byte b = 10;
+		int i = b; //byte가 더 작기때문에 바로 들어 간다.
+		//byte(2) -> int(4)로 자동 형 변환이 되서 저장된다.
+		
+		char c = '가';
+		int j = c;
+		// char type은 2byte이기 때문에
+		// char(2) -> int(4) 자동형 변환
+		
+		System.out.println("가의 유니코드 : " + j);
+		// 크기가 작은 데이터를 큰 데이터로 옮길때 자동 형변환된다.
+		// 자바 가상머신(jvm)이 데이터타입을 
+		// 자동으로 올려서 변환해줍니다.(promotion/upcating)
+		
+		int k = 500;
+		double d = k;
+		//int(4) -> double(8) 자동 형 변환
+		
+//		int ii = 72;
+//		char c = ii; 
+		//error : cannot convert from int to char 
+		//데이터가 줄이면서 데이터 손실이 일어날수 있기 때문이다.
+		
+		/*
+		 * 크기가 큰 데이터를 작은 데이터타입으로 변환하려면
+		 * 반드시 캐스트 연산자 (type)를 사용하여
+		 * 명시적으로 형 변환을 해야합니다. (Downcasting)
+		 */
+		int ii = 72;
+		char cc = (char)i;
+		// i 를 char형태로 바꾼 것이다. 
+		// int -> char 강제 형 변환
+		
+		System.out.println("72의 유니코드문자 :"+c);
+		
+		int i_2 = 23453;
+		char c_2 = (char)i_2;
+		System.out.println(c_2);
+		// 아무값이나 나온다. 실제로 23453에 해당하는 문자는 결과값이 아니다.
+		
+		double dd = 4.83123;
+		int jj = (int)dd;
+		
+		/*
+		 * 강제 형변환의 경우 데이터 손실이 일어날 가능성이 
+		 * 있기 때문에 명시적으로 타입을 변환합니다.
+		 */
+		
+		System.out.println(jj);
+		// 결과값은 4, 소수점 이하가 버려졌다. 
+		
+		int kk = 1000;
+		byte bb = (byte)kk;
+		
+		System.out.println(bb);
+		//-24가 나온다. 
+		//1000의 2진수는 0011 1110 1000
+		// byte로 가면 제일 앞의 0011이 짤린다.
+		// 이런 현상을 overflow 
+		/*
+		 * 강제 형 변환시 주의점은 해당 데이터 타입이 
+		 * 받아들일 수 있는 범위가 아닌 데이터가 들어오면
+		 * 오버플로, 언더플로가 일어납니다. 
+		 */
+		
+		
+		
+	}
+
+}
