@@ -1,0 +1,28 @@
+
+public class FloatExample {
+
+	public static void main(String[] args) {
+
+//		float f1 = 7.12345; //int와 비슷한 이유로 빨간줄 
+		double d1 = 7.12345;
+		//실수 상수의 기본 값은 double이다. 그래서 float에 저장하려니 
+		//형태가 맞지 않다. 뒤에F를 붙여줘야 float로 저장 가능
+		float f2 = 7.1234567891234F; //뒤에 F를 붙여줘야 float로 저장
+		//print를 하면 다 뜨지 않는다. 7까지 밖에 안나온다.
+		double d2 = 1.234567891234;
+		
+		System.out.println(f2);
+		System.out.println(d2);
+		
+//		2.1321 x e^14 
+		float f3 = 3.1415e6F;
+		double d3 = 2.213e-3;
+		
+		System.out.println(f3);
+		System.out.println(d3);
+		
+		
+
+	}
+
+}
