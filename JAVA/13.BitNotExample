@@ -1,0 +1,29 @@
+
+public class BitNotExample {
+
+	public static void main(String[] args) {
+
+		//비트 반전 연산자(~)
+		//정수의 2진수값의 각 자리수를 반전시킵니다.
+		// 0 -> 1, 1 -> 0 
+		
+		byte b = 8; // 0000 1000
+		System.out.println(~b); //결과값 -9 1111 0111
+		
+		//2의 보수 
+		// 1111 0111 -> 1의 보수 치환 0000 1000
+		//2의 보수 +1 -> +1) 0000 1001 9이다. 그래서 -9
+		
+		//논리반전 연산자(!)
+		//true -> false, false -> true
+
+		boolean bool = false;
+		System.out.println(!bool);
+		// python의 not 
+		
+		
+		
+		
+	}
+
+}
