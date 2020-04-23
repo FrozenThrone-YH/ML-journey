@@ -1,0 +1,29 @@
+
+public class UnaryExample {
+
+	public static void main(String[] args) {
+		
+		// 증감연산자 ++,--
+		int i = 1;
+		int j = i++; //후위 연산자
+		// i가 j로 들어간다. 앞에 누구도 막지 않는다.
+		// 대입하고 나서 1을 올린다. j는 1이고 i는 2다.
+		
+		System.out.println("i의 값은:" + i);
+		System.out.println("j의 값은:"+j);
+		
+		int x = 1;
+		int y = ++x; //전위 연산자
+		//x가 y로 들어가려고 하니까 ++가 막고 있다.
+		//일단 x를 1올리고, y에 대입
+		
+		System.out.println("x의 값:" + x);
+		System.out.println("y의 값:"+ y);
+		
+		//++가 앞에 붙냐, 뒤에 붙냐에 따라 연산의 순서가 생긴다.
+		
+		
+		
+	}
+	
+}
