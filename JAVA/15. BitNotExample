@@ -21,7 +21,12 @@ public class BitNotExample {
 		System.out.println(!bool);
 		// python의 not 
 		
+		// << , >> 비트이동(bit shift) 연산 
+		int a = 192;
+		System.out.println(a<<3);
+		System.out.println(a>>2);
 		
+		//결과값 1536 , 48이다. 
 		
 		
 	}
