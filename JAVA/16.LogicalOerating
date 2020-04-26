@@ -1,0 +1,62 @@
+
+public class LogicalOerating {
+	public static void main(String[] args) {
+		
+		/* 논리연산자 : &, &&, |, ||
+		 * 정수 & 정수 -> 비트 연산
+		 * bool & bool -> 논리 연산 
+		 * & python의 and 연산자는 id/pw 로그인으로 생각하면 쉽다. 
+		 * | python의 or
+		 * &&,|| short circuit : &의 경우 좌항이 False면
+		 * 우항을 보지 않아도 False이기 때문에 우항을 보지 않는다. 
+		 * True면 우항을 본다. 
+		 * 두개짜리는 좌항에서 결과를 판단할 수 있으면 우항을 보지 않는다. 
+		 * 메모리 절약 
+		 */
+		
+		int x = 10, y=20;
+		
+		//if 뒤에 조건식 결과가 true이면 if블록 내부코드를 실행하고
+		//false면 else블록의 내부코드를 실행 
+		
+		if((x != 10) & (++y ==21)) {
+			
+			System.out.println("연산결과가 참입니다.");
+		
+		} else {
+			System.out.println("연산결과가 거짓입니다.");
+		}
+		
+		if ((x==10) | (++y==21)) { // x==10true, ++y=21 false
+			// y==22이다.
+			System.out.println("연산결과가 참입니다.");
+			
+		} else {
+			System.out.println("연산결과가 거짓입니다.");
+		}
+		
+		System.out.println("-----------------");
+		
+		int a = 10, b=20;
+		if((a != 10) && (++y ==21)) {
+			
+			System.out.println("연산결과가 참입니다.");
+		
+		} else {
+			System.out.println("연산결과가 거짓입니다.");
+		}
+		
+		System.out.println("a:"+a+"b:"+b);
+		// && 다음은 실행을 하지 않아서 21이 아닌 20이다. 
+		
+		if((a == 10) || (++y ==21)) {
+			
+			System.out.println("연산결과가 참입니다.");
+		
+		} else {
+			System.out.println("연산결과가 거짓입니다.");
+		}
+		System.out.println("a:"+a+"b:"+b);
+		// || 다음은 실행을 하지 않아서 21이 아닌 20이다. 
+	}
+}
