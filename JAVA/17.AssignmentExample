@@ -1,0 +1,31 @@
+
+public class AssignmentExample {
+
+	public static void main(String[] args) {
+		
+		int a= 5, b=5;
+		
+		a += 3;  // a = a+ 3; =>8
+		// a의 값에 더해서 대입해라 삼을  
+		b =+ 3; // b = +3;  =>3
+		
+		System.out.println("a:"+a);
+		System.out.println("b:"+b);
+		
+		a -= 4;
+		System.out.println("a:"+a);
+		
+		a *= 6;
+		System.out.println("a:"+a);
+		
+		a /= 5;
+		System.out.println("a:"+a);
+		// a의 값에 나눈 몫을 저장해라 5로 
+		
+		a %= 3;
+		System.out.println("a:"+a);
+		
+		// a의 값에 나눈 나머지를 저장해라 3으로 
+	}
+	
+}
