@@ -1,0 +1,31 @@
+
+public class RandomExample {
+
+	public static void main(String[] args) {
+		
+		//난수(랜덤값)을 발생시키는 메서드 random()
+		// 0.0이상 1.0 미만의 랜덤 실수 값을 가져옴.
+		
+		double r = Math.random(); // 양수의 8바이트 더블값을 반환한다. 
+		// 함수 반환값에 맞는 변수 지정해줘야함.
+		
+		System.out.println("랜덤값 : "+r);
+		
+		// 정수 난수 생성하기
+		int rn = (int) (r*10); // (int) r * 10 은 0만 나온다.
+		// (int) r 이 먼저 계산이 되고 나서 10을 곱한다. 
+		
+		System.out.println("정수 난수값 : "+ rn);
+		
+		System.out.println("--------------------");
+		System.out.println("신년 여행지 선정!!");
+		if (r > 0.66) {
+			System.out.println("모로코로 갑시다.");
+		} else if (r > 0.33) {
+			System.out.println("상하이로 갑시다.");
+		} else {
+			System.out.println("집에서 있자");
+		}
+	}
+	
+}
