@@ -1,0 +1,32 @@
+
+public class SwitchExample2 {
+
+	public static void main(String[] args) {
+		
+		String[] foods = {"비빔밥","사시미","북경오리","카레","똠양꿍"};
+		
+		//index 범위의 난수 발생시키기 
+		int idx = (int)(Math.random() * 5);
+		System.out.println("선택된음식:"+foods[idx]);
+		
+		//foods의 타입은 문자열 배열
+		//foods[idx] 타입은 문자열
+		switch(foods[idx]) {
+		case "비빔밥":
+			System.out.println("한식입니다.");
+			break;
+		case "사시미":
+			System.out.println("일식입니다.");
+			break;
+		case "북경오리":
+			System.out.println("중식입니다.");
+			break;
+		default:
+			System.out.println("한식입니다.");
+			break;
+
+		}
+
+	}
+
+}
