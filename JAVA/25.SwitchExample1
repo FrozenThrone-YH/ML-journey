@@ -1,0 +1,50 @@
+import java.util.Scanner;
+
+public class SwitchExample1 {
+
+	public static void main(String[] args) {
+		
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.print("점수: ");
+		int point = scan.nextInt();
+		
+		/*
+		 * switch 키워드 뒤에 나오는 변수나 연산식은
+		 * 결과값이 반드시 문자나 정수타입이어야 한다.
+		 */
+		
+		switch (point / 10) {
+		
+		// case 뒤에는 반드시 상수를 적어야 합니다.
+		case 10: // 10일때는 그냥 흘러 내린다. 
+				 // case 9: 에 해당하는 결과 출력 
+		case 9:
+			if (point > 100) {
+				System.out.println("점수르를 잘못 입력하셨습니다.");
+			}else {
+			System.out.println("당신의 학점은 A입니다.");}
+			break; //switch블록을 나가라 
+		case 8:
+			System.out.println("당신의 학점은 B입니다.");
+			break; //switch블록을 나가라 
+		case 7:
+			System.out.println("당신의 학점은 C입니다.");
+			break; //switch블록을 나가라 
+		case 6:
+			System.out.println("당신의 학점은 D입니다.");
+			break; //switch블록을 나가라  
+		default:
+			System.out.println("당신의 학점은 F입니다.");
+			break; //switch블록을 나가라 
+		//지금 상태에서 코드 실행하면 다 실행이 된다. 
+		// 99를 입력하면 다 실행된다. 
+		// 그 이유는 블록이 나눠지지 않았기 때문이다.
+		// 끊고 싶은 부분에서 break;를 걸어 준다. 
+		
+		}
+		scan.close();
+
+	}
+
+}
