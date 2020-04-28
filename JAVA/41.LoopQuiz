@@ -1,0 +1,57 @@
+import java.util.Scanner;
+
+public class LoopQuiz {
+
+	public static void main(String[] args) {
+		
+		/*
+		 * ===================
+		 * 돈을 넣어주세요 : (입력 200)
+		 * 돈이 부족합니다. 최소 500원을 넣어주세요.
+		 * 남은 음료수의 개수는 5개입니다.
+		 * ===================
+		 *  돈을 넣어주세요 : (입력 500)
+		 * 음료수를 받았습니다.
+		 * 남은 음료수는의 개수는 4개입니다.
+		 * ===================
+		 * 돈을 넣어주세요 : (입력 800)
+		 * 음료수를 받았습니다.
+		 * 거스름돈을 300원 받았습니다.
+		 * 남은 음료수의 개수는 3개 입니다. 
+		 * --------------------
+		 * 남은 음료수의 개수는 0개입니다.
+		 *  
+		 */
+		Scanner sc = new Scanner(System.in);
+		int last_can = 5;
+		
+		while (true) {
+			System.out.println("===================");
+			System.out.print("돈을 넣어주세요 : ");
+
+			int coin = sc.nextInt();
+			
+			if (coin < 500) {
+				
+				System.out.println("돈이 부족합니다. 최소 500원을 넣어주세요.");
+				
+			} else if (coin % 500 == 0) {
+				System.out.println("음료수를 "+coin / 500+"개 받습니다.");
+				last_can -= coin / 500;
+				
+			} else {
+				System.out.println("음료수를 "+coin / 500+"개 받습니다.");
+				System.out.println("거스름돈을 "+coin % 500+"원 받았습니다.");
+				last_can -= coin / 500;
+				
+			}
+			System.out.println("남은 음료수의 개수는 "+last_can +"개입니다.");
+			if (last_can == 0) break;
+		
+		}
+		
+		System.out.println("판매를 종료합니다.");
+		sc.close();
+	}
+
+}
