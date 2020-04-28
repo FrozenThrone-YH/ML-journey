@@ -11,7 +11,7 @@ public class MultiForExample {
 				System.out.printf("%d x %d = %d\n",dan
 						,hang,dan*hang);
 			}//end outer for 
-			
+			System.out.println("==============");
 		}//end main method
 		
 	}
