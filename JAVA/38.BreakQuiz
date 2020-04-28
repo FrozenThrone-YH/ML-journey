@@ -1,0 +1,51 @@
+import java.util.Scanner;
+
+public class BreakQuiz {
+
+	public static void main(String[] args) {
+
+		/*
+		 * 1. 두수의 더하기를 맞추는 문제를 지속적으로 
+		 *    출제하는 프로그램입니다.
+		 * 2. 2가지의 정수를 1~100사이의 난수를 발생시켜
+		 * 	  지속적으로 문제를 출제한 후 정답을 맞추면 
+		 *   반복문을 탈출시키세요.
+		 * 3. 27+84=?  
+		 */
+
+		
+		Scanner sc = new Scanner(System.in);
+		int correct = 0;
+		int ircorrect = 0;
+		while (true) {
+			
+			int a = (int)(Math.random()*100)+1;
+			int b = (int)(Math.random()*100)+1;
+			System.out.println(a +" + " + b+" = ?");
+			System.out.println("[그만 푸시려면 0을 입력해주세요]");
+			System.out.print("> ");
+			
+			int answer = sc.nextInt();
+			
+			if (answer == 0) {
+				
+				break;
+
+			} else if(answer == a+b) {
+				
+				System.out.println("정답입니다.");
+				correct ++;
+			} else {
+				
+				System.out.println("오답입니다.");
+				ircorrect ++;
+			}
+			
+		}
+		System.out.println("프로그램을 종료합니다.");
+		System.out.println("----------------");
+		System.out.println("정답횟수 : "+correct);
+		System.out.println("오답횟수 : "+ircorrect);
+	}
+
+}
