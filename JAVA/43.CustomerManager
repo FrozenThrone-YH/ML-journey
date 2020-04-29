@@ -1,0 +1,49 @@
+import java.util.Scanner;
+
+public class CustomerManager {
+
+	
+	//프로그램 전체에서 사용할 변수들은 클래스 블록 바로 아래에 선언합니다.
+	//static이 붙은 블록에서는 static변수와 static메서드만 사용할 수 있음.
+	
+	static String[] nameList = new String[100];
+	static char[] genderList = new char[100];
+	static String[] emailList = new String[100];
+	static int[] birthList = new int[100];
+	
+	//현재 고객 데이터가 몇 명 저장되어 있는지 알기 위한 변수 count 선언
+	
+	static int count=0;
+	
+	//배열의 인덱스를 조작하기 위해 인덱스를 변수화 시킴.
+	//배열의 인덱스는 0부터 출발하므로 초기값을 0바로 이전값인 -1로
+	//세팅하여 초기에 next를 실행했을 때 인덱스가 0이 되어 첫번째 고객을
+	//조회하기 위함.
+	static int index = -1;
+	
+	static Scanner sc = new Scanner(System.in);
+	
+	public static void main(String[] args) {
+		
+		while(true) {
+			
+			System.out.println("\n[INFO] 고객 수 : "+count
+					+ "인덱스: "+ index );
+			System.out.println("메뉴를 입력하세요.");
+			System.out.println("(I)nsert,(P)revious,"
+					+ "(N)ext, (C)urrent, (U)pdate,"
+					+ "(D)elete, (Q)uit");
+			System.out.print("메뉴 입력: ");
+			
+			String menu = sc.next();
+			
+			
+		}
+		
+	}
+	
+	
+	
+	
+	
+}
