@@ -37,8 +37,35 @@ public class CustomerManager {
 			
 			String menu = sc.next();
 			
+			switch (menu) {
+			case "I":
+				System.out.println("\n 고객정보 입력을 시작합니다.");
+				break;
+			case "P":
+				System.out.println("\n 이전 고객정보를 조회합니다.");
+				break;
+			case "N":
+				System.out.println("\n 다음 고객정보를 조회합니다.");
+				break;
+			case "C":
+				System.out.println("\n 현재 고객정보를 조회합니다.");
+				break;
+			case "U":
+				System.out.println("\n 현재 고객정보를 수정합니다.");
+				break;
+			case "D":
+				System.out.println("\n 현재 고객정보를 삭제합니다.");
+				break;
+			case "Q":
+				System.out.println("프로그램을 종료합니다.");
+				sc.close();
+				System.exit(0);//프로그램을 강제종료하는 구문 
+				break;
+			default:
+				System.out.println("메뉴를 잘못 입력했습니다.");
 			
-		}
+			}//end switch 
+		}//end while 
 		
 	}
 	
