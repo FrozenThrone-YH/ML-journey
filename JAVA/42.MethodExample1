@@ -72,3 +72,136 @@ public class MethodExample1 {
 	
 
 }
+/*
+ * 매개변수 (parameter)
+ * 1. 매개 변수는 메서드를 호출할 때 실행에 필요한 값들을 메서드 내부로 
+ *    전달하기 위한 매개체입니다.
+ * 2. 메서드 호출부에서 어떤 매개값을 전달하느냐에 따라 메서드의 실행
+ * 	   결과가 달라집니다.
+ * 3. 매개변수를 몇 개 전달받을 지는 메서드를 선언할 떄 선언부에서 결정해야
+ *    합니다.
+ * 4. 매개변수를 하나도 선언하지 않을 수 있으며 이 때는 메서드 선언부의 
+ *    ()를 비워둡니다. 그리고 호출시에도 ()를 비워서 호출합니다. 
+ *
+ * 
+ */
+
+public class MethodExample2 {
+
+
+	
+	public static void main(String[] args) {
+		
+		System.out.println(calcSum());
+		System.out.println("이번에 획득한 무기"+randomWeapon());
+
+	}
+
+	public static String randomWeapon() {
+		
+		double d = Math.random();
+		if (d > 0.66)
+			return "단검";
+		else if (d > 0.33)
+			return "장궁";
+		else
+			return "지팡이";
+		
+	}
+	public static int calcSum() {
+		
+		int sum = 0;
+		for(int i =1;1 <= 100;i++) {
+			
+			sum += i;
+			
+		} //return sum;
+			
+	}
+	
+}
+
+import java.util.Scanner;
+
+/*
+ * 반환유형(return type)
+ * 
+ * 1.반환값 메서드를 호출한 곳으로 메서드의 최종 실행 결과를
+ *   전달하는 값입니다.
+ * 2. 매개변수는 여러 개 존재할 수 있지만 반환값은 오직 하나여야 합니다.
+ * 3. return이라는 키워드를 사용하여 return 뒤에 전달할 값을 지정합니다.
+ * 4. 전달할 값의 데이터 타입을 반환유형이라고 하며 메서드를 선언할때
+ *    메서드 이름 앞에 반환유형을 명시해야합니다.
+ * 5. 반환값이 있는 메서드는 호출문이 하나의 값이 되기 때문에 반환된 값을
+ *    다른변수에 대입할 수도 있고, 다른 메서드의 매개값으로 사용할 수도 
+ *    있습니다.
+ * 6. 모든 메서드가 반환값이 필요한 것은 아닙니다. 메서드 실행 이후에
+ *    반환할 값이 없다면 return 을 사용하지 않아도 됩니다.
+ * 7. 이때는 반환유형을 선언시에 비워두면 되고 반드시 void를 적어줘야
+ *    합니다.
+ * 8. 모든 메서드는 return 키워드를 만나면 강제로 종료됩니다.
+ *    따라서 return문 이하에 코드를 작성할 수 없습니다.
+ * 
+ */
+
+
+public class MethodExaple3 {
+	
+	public static int add(int n1,int n2) {
+		
+		return n1 + n2;
+		
+	}
+	
+	public static int[] totalOperate(int n1, int n2) {
+		
+		
+		int[] total = {n1+n2, n1-n2,n1*n2,n1/n2};
+		return total;
+		
+		
+	}
+	
+	public static void callMyname(String name){
+		
+		if (name.length() < 2) {
+			
+			System.out.println("이름은 2글자 이상으로 입력하세요!");
+			return; //함수를 강제 종료 시켜라!! 
+		}
+		System.out.println("내 이름은 "+ name + "입니다!");
+		
+	}
+
+	public static void main(String[] args) {
+		
+		int r = add(3,5);
+		
+		System.out.println(r);		
+		
+		int r2 = add(add(4,6),add(8,7));
+		
+		System.out.println(r2);
+		
+		int[] tot = totalOperate(30,5);
+		System.out.println("30 + 5 = "+tot[0]);
+		System.out.println("30 - 5 = "+tot[1]);
+		System.out.println("30 * 5 = "+tot[2]);
+		System.out.println("30 / 5 = "+tot[3]);
+		
+		//반환 값이 없는 메서드는 반드시 단독호출해야 합니다.
+		//변수에 저장하거나 다른 메서드의 매개값으로 사용할 수 없습니다.
+		callMyname("김용희");
+		
+		System.out.println("----------------------");
+		Scanner sc = new Scanner(System.in);
+		System.out.print("이름을 입력하세요 : ");
+		String name = sc.nextLine();
+		callMyname(name);
+		
+		sc.close();
+
+	}
+
+}
+
