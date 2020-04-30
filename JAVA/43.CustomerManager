@@ -51,28 +51,53 @@ public class CustomerManager {
 				break;
 			case 'ㅔ':
 			case 'p':
-				index --;
-				printData(index);
 				System.out.println("\n 이전 고객정보를 조회합니다.");
+				if (index <=0) {
+					System.out.println("이전 고객정보가 존재하지 않습니다.");
+				}else {
+				index --;
+				
+				printData(index);
+								}
 				break;
 			case 'ㅜ':
 			case 'n':
-				index ++;
-				printData(index);
 				System.out.println("\n 다음 고객정보를 조회합니다.");
+				if (index >= count) {
+					System.out.println("다음 고객정보가 존재하지 않습니다.");
+					
+				}
+				index ++;
+				
+				printData(index);
+				
 				break;
 			case 'ㅊ':
 			case 'c':
-				printData(index);
+				
 				System.out.println("\n 현재 고객정보를 조회합니다.");
+				if(index >=0 && index <count) {
+					System.out.println("현재 고객정보가 존재하지 않습니다.");
+				}else {
+				printData(index);
+				}
 				break;
 			case 'ㅕ':
 			case 'u':
 				System.out.println("\n 현재 고객정보를 수정합니다.");
+				updateData(index);
 				break;
 			case 'ㅇ':
 			case 'd':
 				System.out.println("\n 현재 고객정보를 삭제합니다.");
+				if(index >=0 && index<count) {
+					
+					deleteData(index);
+					
+				}else {
+					
+					System.out.println("현재 고객정보가 존재하지 않습니다.");
+				}
 				break;
 			case 'ㅂ':
 			case 'q':
@@ -126,6 +151,40 @@ public class CustomerManager {
 		System.out.println("출생연도: "+birthList[index]);
 		System.out.println("===================");
 		
+	}
+	
+	//고객 정보를 수정하는 메서드 선언.
+	public static void updateData(int index) {
+		
+		System.out.println("\n======고객 정보 수정======");
+		
+		//새로운 정보들을 입력받아 각각의 배열의 수정 인덱스에 있는 데이터를 
+		//변경시키세요. 수정시에는 수정전의 정보들이 출력되도록 하세요.
+		//ex) 이름(홍길동) : ______
+		
+		System.out.printf("이름(%s): ",nameList[index]);
+		nameList[index] = sc.next();
+		System.out.printf("성별(%s): ",genderList[index]);
+		genderList[index] = sc.next().charAt(0);
+		System.out.printf("이메일(%s): ",emailList[index]);
+		emailList[index] = sc.next();
+		System.out.printf("출생연도(%d): ",birthList[index]);
+		birthList[index] = sc.nextInt();
+		
+	}
+	
+	public static void deleteData(int index) {
+		
+		for (int i=index;i < count-1;i++) {
+			
+			nameList[i]=nameList[i+1];
+			genderList[i]=genderList[i+1];
+			emailList[i]=emailList[i+1];
+			birthList[i]=birthList[i+1];
+			
+		}
+		count --; //고객이 삭제되었으니 count를 줄여줘야 한다.
+		//count가 저장된 고객수이므로 
 	}
 	
 }
