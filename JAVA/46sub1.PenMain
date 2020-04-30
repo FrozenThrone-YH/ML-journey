@@ -1,0 +1,38 @@
+//main 함수가 공장이라고 생각하면 된다.
+public class PenMain {
+
+	public static void main(String[] args) {
+		
+		//Pen의 기능과 속성을 사용하려면
+		//설계용 클래스를 로딩시켜 Pen객체를 생성해야합니다.
+		pen blackPen = new pen();
+		
+		//객체의 기능과 속성을 사용하기 위해서는 
+		//참조 연산자(.)를 사용합니다.
+		blackPen.color = "검정";
+		blackPen.price = 1000;
+		
+		blackPen.write();
+		blackPen.info();
+		
+		pen redPen = new pen();
+		
+		redPen.color = "빨강";
+		redPen.price = 800;
+		
+		redPen.write();
+		redPen.info();
+		blackPen.info();
+		
+		System.out.println(redPen);
+		System.out.println(blackPen);
+		//두 객체의 주소가 다르다.
+		
+		pen bluePen = new pen();
+		
+		bluePen.color = "파랑";
+		bluePen.write();
+
+	}
+
+}
