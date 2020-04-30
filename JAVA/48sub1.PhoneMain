@@ -1,0 +1,34 @@
+
+public class PhoneMain {
+
+	public static void main(String[] args) {
+		
+		//생성자는 객체를 생성할 때 1회 호출할 수 있습니다. 
+		//메서드는 계속 호출할 수 있다. 
+		Phone basic = new Phone();
+		
+		basic.info(); //null,null,0으로 뜬다.
+		//생성자를 만들어 놓으면 생성자에 적어놓은 기본값이 출력된다.
+		//매개변수가 없는 Phone 생성자가 호출됨
+		
+		Phone bluePhone = new Phone("사파이어");
+		bluePhone.info();
+		//매개변수가 String pColor 인 생성자가 호출됨
+		
+		Phone galaxyS9 = new Phone("코발트 블루","갤럭시S9");
+		galaxyS9.info();
+		//매개변수가 String pColor, String pModel인 생성자가 호출됨
+		
+		//3가지의 멤버변수를 초기화하는 생성자를 선언하고
+		//main 메서드 내부에서 해당 객체를 만들어
+		//info를 출력하세요, 객체 변수 이름은 shaomi
+		
+		Phone shaomi = new Phone("화이트","샤오미",250000);
+		//매개변수 입력할때는 생성자 생성할때의 순서와 같이 해야한다. 
+		shaomi.info();
+		
+		
+		
+	}
+	
+}
