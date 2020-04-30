@@ -1,0 +1,17 @@
+// project를 실행가능한 exe파일로 만들기
+// 현재 java project 우클릭 - export select an export wizard에서
+// java - runnable JAR file
+// launch configuration - src에 있는 java file 선택 - CustomerManager
+// export destination - file 이름 넣고 실행 
+// 여기까지 1차 작업 
+
+//jsmooth를 설치해서 실행
+//skeleton - console wrapper
+//executable - executable binary - 1차에서 만들어준 파일 선택. - 확장자를 .exe로 변경
+//current directory - . 점하나 찍어서 현재 위치로 설정
+//application - embbeded jar settings - use a embbeded jar check 후 우측에 있는 경로 버튼
+//1차에서 만든 파일
+//application - main class - Available Classes - customerManager
+// 마지막으로 톱니버튼을 누르면 실행파일이 생성된다.
+
+
