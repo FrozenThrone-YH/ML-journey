@@ -1,0 +1,47 @@
+
+public class Account {
+
+	/*
+	 * 1. 멤버변수는 예금주이름(name : String),
+	 *    비밀번호(password : int), 잔액(balance : int)
+	 *    로 선언하세요.
+	 * 2. 생성자는 3가지 멤버 변수를 모두 매개값으로 받아 
+	 *    초기화하는 생성자를 선언하세요
+	 * 3. 메서드는 입금기능메서드 (deposit : void)
+	 *    출금기능 메서드 (withDraw : void),
+	 *    잔액 조회 기능 메서드 (getBalance : int)
+	 *    3가지를 선언하세요
+	 */
+	
+	String name;
+	int password;
+	int balance;
+	
+	Account(String aName,int aPassword,int aBalance){
+		
+		name = aName;
+		password = aPassword;
+		balance = aBalance;
+		
+	}
+	
+	void deposit(int depositMoney){
+		
+		balance += depositMoney;
+		System.out.println(depositMoney+"원을 입금했습니다.");
+		
+	}
+	
+	void withDraw(int drawMoney){
+		
+		balance -= drawMoney;
+		System.out.println(drawMoney+"원을 출금했습니다.");
+		
+	}
+	int getBalance() {
+		
+		System.out.println("현재 잔금은"+balance+"원 입니다.");
+		return balance;
+	}
+	
+}
