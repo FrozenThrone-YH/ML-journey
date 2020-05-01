@@ -28,19 +28,19 @@ public class Account {
 	void deposit(int depositMoney){
 		
 		balance += depositMoney;
-		System.out.println(depositMoney+"원을 입금했습니다.");
+		System.out.println(depositMoney+"원 입금이 정상처리 되었습니다.");
 		
 	}
 	
 	void withDraw(int drawMoney){
 		
 		balance -= drawMoney;
-		System.out.println(drawMoney+"원을 출금했습니다.");
+		System.out.println(drawMoney+"원 출금이 정상처리 되었습니다.");
 		
 	}
 	int getBalance() {
 		
-		System.out.println("현재 잔금은"+balance+"원 입니다.");
+
 		return balance;
 	}
 	
