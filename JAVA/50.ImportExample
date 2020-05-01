@@ -1,0 +1,34 @@
+package import_ex;
+
+
+/*
+ * 다른 패키지에 있는 클래스를 사용하려면 반드시 package 선언부 아래,
+ * 그리고 class 선언부 위에 import 선언을 통해 해당 클래스의 
+ * 전체 경로(패키지명까지 포함된 경로)를 적어줘야 합니다.
+ * 같은 package 안에서는 안해줘도 된다. 
+ */
+//import fruit.Apple;
+//import fruit.Banana;
+import fruit.*; //fruit 패키지 전체 클래스를 import 
+
+import java.util.Scanner;
+
+import Hello.bye.Bye;
+import Hello.hi.Hi;
+
+public class ImportExample {
+
+	public static void main(String[] args) {
+		
+		Apple a = new Apple(); //빨간줄 발생 
+		Banana b = new Banana(); //빨간줄 발생
+		Test t = new Test(); //import 없어도 된다. 소속이 갖기 때문
+		
+		Hi h = new Hi();
+		Bye y = new Bye();
+		
+		Scanner scan = new Scanner(System.in);
+		
+	}
+	
+}
