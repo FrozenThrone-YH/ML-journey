@@ -45,3 +45,26 @@ public class Employee extends Person{
 	String department;
 	
 }
+
+package inherit.goodcase;
+
+public class MainClass {
+
+	public static void main(String[] args) {
+		
+		Person hong = new Person();
+		hong.name = "홍길동";
+		hong.age = 45;
+		System.out.println(hong.info());
+		
+		Student lee = new Student();
+		lee.stuID = "2018110033";
+		lee.name = "이순신";
+		lee.age = 23;
+		System.out.println(lee.info());
+		
+
+	}
+
+}
+
