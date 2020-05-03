@@ -1,0 +1,63 @@
+package overriding.basic;
+
+public class MainClass {
+
+	public static void main(String[] args) {
+		
+		Parent p = new Parent();
+		
+		p.method1();
+		p.method2();
+		
+		System.out.println("=================");
+		Child c = new Child();
+		
+		c.method3();
+		c.method1();
+		c.method2();
+
+	}
+
+}package overriding.basic;
+
+public class Parent {
+	
+	void method1() {
+		//void는 반환값이 없는것.
+		System.out.println("부모의 1번 메서드 호출");
+		
+	}
+	
+	void method2() {
+		
+		System.out.println("부모의 2번 메서드 호출");
+		
+	}
+
+}
+package overriding.basic;
+
+public class Child extends Parent {
+	
+	/*
+	 * 메서드 재정의 (Overriding)
+	 * 부모클래스가 물려준 메서드를 자식 클래스에서
+	 * 블록 내부만 바꿔서 사용하는 것.
+	 */
+	
+	void method3() {
+		
+		System.out.println("자식의 3번 메서드 호출!");
+		
+	}
+	/*
+	 * 변환유형이 같아야한다.
+	 * 매개변수가 같아야 한다.
+	 */
+	void method2() {
+		
+		System.out.println("재정의된 부모의 2번 메서드 호출!");
+		
+	}
+
+}
