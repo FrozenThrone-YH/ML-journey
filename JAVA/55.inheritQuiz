@@ -1,0 +1,93 @@
+package inherit.phone;
+
+public class Maing {
+
+	public static void main(String[] args) {
+		
+		//Dmb폰 객체 생성
+		DmbPhone dp = new DmbPhone("햅틱","메탈그레이",10);
+		
+		//Phone클래스에서 상속 받은 멤버 변수에 접근
+		System.out.println("모델:"+dp.model);
+		System.out.println("색상:"+dp.color);
+		//DmbPhone에서 선언한 멤버 변수에 접근
+		System.out.println("채널:"+dp.channel);
+		//Phone에서 상속받은 메서드 호출
+		dp.poweron();
+		dp.ring();
+		dp.hangup();
+		//DmbPhone에서 선언한 메서드 호출
+		dp.turnOnDmb(); //방송 수신을 시작합니다.
+		dp.changeChannel(7); //채널 7번으로 변경합니다.
+		dp.turnOffDmb(); //방송 수신을 종료합니다.
+		dp.powerOff(); //전원을 끕니다.
+		
+		
+		
+		
+	}
+
+}
+package inherit.phone;
+
+public class Phone {
+
+	String model;
+	String color;
+	
+	void poweron() {
+		
+		System.out.println("전원을 켭니다.");
+		
+	}
+	
+	void poweroff() {
+		
+		System.out.println("전원을 끕니다.");
+	}
+	
+	void ring() {
+		
+		System.out.println("벨이 울립니다.");
+		
+	}
+	void hangup() {
+		
+		System.out.println("전화를 끊습니다.");
+		
+	}
+}
+package inherit.phone;
+
+public class DmbPhone extends Phone{
+	
+	int channel;
+	
+	DmbPhone(String pmodel,String pcolor,int pchannel){
+		
+		model = pmodel;
+		color = pcolor;
+		channel = pchannel;
+		
+	}
+	
+	void turnOnDmb() { //방송 수신을 시작합니다.
+		
+		System.out.println("방송 수신을 시작합니다.");
+		
+	}
+	void changeChannel(int cnum) {//채널 7번으로 변경합니다.
+		
+		System.out.println("채널 "+cnum+"번으로 변경합니다.");
+		
+	}
+	void turnOffDmb() { //방송 수신을 종료합니다.
+		System.out.println("방송 수신을 종료합니다.");
+	}
+	void powerOff() { //전원을 끕니다.
+		System.out.println("전원을 끕니다.");
+		
+	}
+	
+
+}
