@@ -1,0 +1,83 @@
+package overloading.basic;
+
+/*
+ * 오버로딩(중복) -  하나의 클래스 내부에 같은 이름을 가진 메서드를
+ * 여러개 선언할 수 있게 하는 문법
+ * 
+ * 1. 매개 변수의 데이터 타입이 달라야함
+ * 2. 매개 변수의 순서가 달라야함
+ * 3. 매개 변수의 개수가 달라야함
+ * 
+ */
+
+public class Basic {
+	
+	//input(int)
+	void input(int a) {
+		
+		System.out.println("정수 1개가 입력됨.");
+		
+	}
+	
+	//input(int)
+//	void input(int i) {
+//		
+//		System.out.println("정수 1개가 입력됨. ");
+//	}
+	// 변수 이름이 다른 것은 중복이 안된다.
+	
+//	String input(int i){
+//		System.out.println("정수 1개가 입력됨. ");
+//	}
+	// 반환 값만 다른건 중복이 안된다. 
+	
+	void input(String s) {
+		
+		System.out.println("문자열 1개가 입력됨. ");
+	}
+	//타입이 다른 건 중복 된다. 
+	
+	//input(int, int)
+	void input(int a, int b) {
+		
+		System.out.println("정수 2개가 입력됨. ");
+		
+	}
+	
+	//input(String, double)
+	void input(String s, double d) {
+		
+		System.out.println("문자열 1개와 실수 1개가 입력됨. ");
+		
+	}
+	
+	//input(double, String)
+	void input(double x, String y) {
+		
+		System.out.println("실수 1개와 문자열 1개가 입력됨. ");
+		
+	}
+	
+
+}
+package overloading.basic;
+
+public class MainClass {
+
+	public static void main(String[] args) {
+		
+		Basic b = new Basic();
+		
+		b.input(5); //input이 발동할때 판단하는 것은 5이다.
+		//뭘 소환할지는 ()괄호 안에 있는 것을 보고 판단한다. 
+		
+		b.input("하이");
+		b.input(5,10);
+		b.input(3.14,"하하");
+		b.input("바이",5.5);
+		
+
+
+	}
+
+}
