@@ -1,0 +1,56 @@
+package this_.person;
+
+public class MainClass {
+
+	public static void main(String[] args) {
+		
+		Person kim = new Person("김철수",25);
+		Person park = new Person("박영희");
+
+		Person lee = new Person();
+		
+
+	}
+
+}
+
+package this_.person;
+
+
+
+public class Person {
+	
+	String name;
+	int age;
+	
+	//생성자 선언
+	Person(String name,int age){
+		//지역변수가 전역변수보다 우선된다.
+		//따라서 변수 이름을 다르게 해야한다.
+		//this를 쓰면 변수 이름이 같아도 된다. 
+		
+		this.name = name;
+		this.age = age;
+		System.out.println(this.info());
+		
+		
+	}
+	//생성자 오버로딩
+	Person(String name) {
+		
+		this(name,1); //정의된 생성자를 호출 
+		
+	}
+	
+	Person(){
+		
+		this("이름없음",1);
+		
+	}
+	
+	String info() {
+		
+		return "이름: " + name + ", 나이: " + age;
+	}
+
+}
