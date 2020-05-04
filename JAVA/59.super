@@ -1,0 +1,120 @@
+package super_.person;
+
+public class MainClass {
+	
+	public static void main(String[] args) {
+		
+		Student hong = new Student("홍길동",13,"34");
+		
+		System.out.println(hong.info());
+		
+		Teacher lim = new Teacher("임창정",40,"음악");
+		
+		System.out.println(lim.info());
+		
+		Student kim = new Student();
+		
+		System.out.println(kim.info());
+		
+	}
+
+}
+package super_.person;
+
+
+
+public class Person {
+	
+	String name;
+	int age;
+	
+	//생성자 선언
+	Person(String name,int age){
+		//지역변수가 전역변수보다 우선된다.
+		//따라서 변수 이름을 다르게 해야한다.
+		//this를 쓰면 변수 이름이 같아도 된다. 
+		
+		this.name = name;
+		this.age = age;
+//		System.out.println(this.info());
+		
+		
+	}
+	//생성자 오버로딩
+	Person(String name) {
+		
+		this(name,1); //정의된 생성자를 호출 
+		
+	}
+	
+	Person(){
+		
+		this("이름없음",1);
+		
+	}
+	
+	String info() {
+		
+		return "이름: " + name + ", 나이: " + age;
+	}
+
+}
+package super_.person;
+/*
+ * 다른 클래스로부터 멤버변수와 메서드를 물려받는 클래스르르
+ * 자식 클래스라고 부릅니다.
+ * 자식 클래스의 이름 뒤에 extend라는 키워드를 쓰고
+ * 물려 받을 클래스의 이름을 써줍니다.
+ */
+public class Student extends Person{
+	
+	String stuID;
+	
+	Student(String name,int age,String stuID){
+//		this.name = name;
+//		this.age = age;
+		super(name,age); //parent의 생성자중에 name과 age를 처리하는 생성자가 있으면 가능
+		//한 단계 위 부모의 생성자를 가져온다.
+		
+		//super()가 제일 먼저 와야한다. this보다 부모먼저 만들고 자식을
+		this.stuID = stuID;
+		
+	}
+	
+	Student(){
+		
+		this("이름없음",1,"학번없음");
+		
+	}
+	
+	String info() {
+		
+		return super.info() +
+				", 학번: "+stuID;
+	}
+
+}
+package super_.person;
+
+public class Teacher extends Person {
+	String subject;
+	
+	//생성자가 없으면, 자동으로 기본 생성자가 만들어 진다. ()괄호안에 아무것도 없는것
+	
+	Teacher(String name,int age,String subject){
+		//super();가 없어도 기본값으로 불러들인다. 
+		super(name,age);//super가 왜 없으면 안될까?
+		//Teacher 객체가 생성되기 전에 
+	    //Person 객체가 생성이 된다.
+		//name과 age를 입력하려면, Person의 생성자가 만들어져야한다. 
+		this.subject = subject;
+	}
+	
+	String info() {
+		
+		return super.info() +
+				", 과목: "+subject;
+	}
+	
+	
+}
