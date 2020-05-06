@@ -1,0 +1,77 @@
+package modi.protec.pac1;
+
+public class A {
+	
+	/*
+	 * protected는 다른 패키지일지라도 양 클래스 간의 관계가
+	 * 상속관계라면 제한적으로 접근 허용해주는 접근제한자입니다.
+	 */
+
+	// 멤버변수 선언.
+	protected String s;
+	
+	// 생성자 선언
+	protected A() {}
+	
+	//메서드 선언
+	protected void method() {}
+}
+package modi.protec.pac1;
+
+public class B {
+	
+	public B() {
+		
+		A a = new A();
+		
+		//protected는 같은 패키지라면 접근이 가능
+		a.s = "hi";
+		a.method();
+		
+	}
+	
+
+}
+package modi.protec.pac2;
+
+import modi.protec.pac1.A;
+
+public class C {
+	
+	public C() {
+		
+		//protected는 패키지가 다를 경우 접근 불가 
+		A a = new A();
+		a.s = "hi";
+		a.method();
+		
+	}
+
+}
+package modi.protec.pac2;
+
+import modi.protec.pac1.*;
+
+public class D extends A{//다른 패키지에 있지만 상속함
+	
+	protected D() {
+		
+//		A.class = new A();
+//		a.s = "hi";
+//		a.method(); 사용불가
+		
+		/*
+		 * protected 제한자는 패키지가 다를 경우
+		 * 두 클래스 사이에 상속관계가 있다면
+		 * super를 통한 참조를 허용합니다.
+		 * 
+		 */
+		
+		super();
+		super.s = "hi";
+		super.method();
+		
+	}
+
+}
+
