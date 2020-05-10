@@ -1,0 +1,70 @@
+package poly.casting;
+
+public class MainClass {
+	
+	public static void main(String[] args) {
+		
+		//promotion이 적용되면 자식 클래스의 본래 멤버를 참조할 수 없음.
+		Parent p = new Child();
+		
+		p.method1();
+		p.method2();
+//		p.method3();
+		System.out.println("====================");
+		
+		Child c = (Child) p;
+		//작은 데이터 타입을 큰 데이터 타입으로 변환할때는 자동 변환
+		//큰 데이터 타입을 작은 데이터 타입으로 변환할때는 강제 변환
+		//왜 타입 변환을 하는가? 
+		Child cc = new Child();
+		//cc와 c의 차이점은? - p와 c는 같은 객체이지만, p와 cc는 다른 객체 
+		c.method3();
+		
+		//p는 이종모음을 만들 수 있지만 자식 메서드를 사용할 수 없고,
+		//c는 자식 메서드를 사용할 수 있고, 
+		
+		/*
+		 * 한번 promotion이 일어난 객체를 대상으로만 강제 타입변환을 
+		 * 사용할 수 있습니다. 
+		 */
+		
+//		Child ccc = (Child) new Parent();
+		//error가 뜬다. 
+		//Exception in thread "main" java.lang.ClassCastException: poly.casting.Parent cannot be cast to poly.casting.Child
+		//at poly.casting.MainClass.main(MainClass.java:31)
+		
+	}
+
+}
+package poly.casting;
+
+public class Child extends Parent{
+	
+	@Override
+	public void method2() {
+		System.out.println("제정의된 2번 메서드 호출!");
+	}
+	
+	public void method3() {
+		System.out.println("자식의 3번 메서드 호출!");
+	}
+
+}
+package poly.casting;
+
+public class Parent {
+	
+	public void method1() {
+		
+		System.out.println("부모의 1번 메서드 호출!");
+	}
+	
+	public void method2() {
+		
+		System.out.println("부모의 2번 메서드 호출!");
+		
+	}
+
+	
+
+}
