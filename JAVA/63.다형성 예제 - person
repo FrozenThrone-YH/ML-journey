@@ -1,0 +1,169 @@
+package poly.person;
+
+public class MainClass {
+
+	public static void main(String[] args) {
+		
+		Person hong = new Student("홍길동",15,"32");
+		//upcasing / promotion 
+		Person lee = new Student("이순신",17,"21");
+		Person park = new Student("박찬호",13,"61");
+		
+		Person kim = new Teacher("김철수",26,"영어");
+		Person song = new Teacher("송영희",29,"수학");
+		
+		Person lim = new Employee("임꺽정",45,"행정");
+		
+		Person[] people = {hong,lee,park,kim,song,lim};
+		
+		for (Person p:people) {
+			
+			System.out.println(p.info());
+			
+		}
+		
+//		System.out.println(hong.info());
+//		System.out.println(lee.info());
+//		System.out.println(park.info());
+//		System.out.println(kim.info());
+//		System.out.println(song.info());
+//		System.out.println(lim.info());
+//		
+//		Student[] students = {hong,lee,park};
+//		Teacher[] teachers = {kim,song};
+//		Employee[] Employees = {lim};
+//		int[] arr = {1,3,5,7,9};
+//		
+//		for (int i=0;i<students.length;i++) {
+//			
+//			System.out.println(students[i].info());
+//			
+//		}
+		
+		
+
+	}
+
+}
+package poly.person;
+
+
+
+public class Person {
+	
+	String name;
+	int age;
+	
+	//생성자 선언
+	Person(String name,int age){
+		//지역변수가 전역변수보다 우선된다.
+		//따라서 변수 이름을 다르게 해야한다.
+		//this를 쓰면 변수 이름이 같아도 된다. 
+		
+		this.name = name;
+		this.age = age;
+//		System.out.println(this.info());
+		
+		
+	}
+	//생성자 오버로딩
+	Person(String name) {
+		
+		this(name,1); //정의된 생성자를 호출 
+		
+	}
+	
+	Person(){
+		
+		this("이름없음",1);
+		
+	}
+	
+	String info() {
+		
+		return "이름: " + name + ", 나이: " + age;
+	}
+
+}
+package poly.person;
+/*
+ * 다른 클래스로부터 멤버변수와 메서드를 물려받는 클래스르르
+ * 자식 클래스라고 부릅니다.
+ * 자식 클래스의 이름 뒤에 extend라는 키워드를 쓰고
+ * 물려 받을 클래스의 이름을 써줍니다.
+ */
+public class Student extends Person{
+	
+	String stuID;
+	
+	Student(String name,int age,String stuID){
+//		this.name = name;
+//		this.age = age;
+		super(name,age); //parent의 생성자중에 name과 age를 처리하는 생성자가 있으면 가능
+		//한 단계 위 부모의 생성자를 가져온다.
+		
+		//super()가 제일 먼저 와야한다. this보다 부모먼저 만들고 자식을
+		this.stuID = stuID;
+		
+	}
+	
+	Student(){
+		
+		this("이름없음",1,"학번없음");
+		
+	}
+	
+	String info() {
+		
+		return super.info() +
+				", 학번: "+stuID;
+	}
+
+}
+package poly.person;
+
+public class Teacher extends Person {
+	String subject;
+	
+	//생성자가 없으면, 자동으로 기본 생성자가 만들어 진다. ()괄호안에 아무것도 없는것
+	
+	Teacher(String name,int age,String subject){
+		//super();가 없어도 기본값으로 불러들인다. 
+		super(name,age);//super가 왜 없으면 안될까?
+		//Teacher 객체가 생성되기 전에 
+	    //Person 객체가 생성이 된다.
+		//name과 age를 입력하려면, Person의 생성자가 만들어져야한다. 
+		this.subject = subject;
+	}
+	
+	String info() {
+		
+		return super.info() +
+				", 과목: "+subject;
+	}
+	
+	
+}
+package poly.person;
+
+public class Employee extends Person{
+
+	String department;
+	
+	
+	
+	public Employee(String name, int age, String department) {
+		super(name, age);
+		this.department = department;
+	}
+	// alt shift s 누르고 xxx using field로 간단하게 
+
+
+
+	String info() {
+		
+		return "이름: " + name + ", 나이: " + age +
+				", 부서: "+department;
+	}
+	
+}
