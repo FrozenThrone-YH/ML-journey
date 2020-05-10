@@ -1,0 +1,71 @@
+package poly.param;
+
+public class Car {
+	
+	public void run() {
+		
+		System.out.println("자동차가 달립니다.");
+	}
+	
+	
+
+}
+package poly.param;
+
+public class Ferrari extends Car{
+
+	@Override
+	public void run() {
+		
+		System.out.println("페라리가 달립니다.");
+	}
+
+	
+	
+}
+package poly.param;
+
+public class Sonata extends Car{
+
+	@Override
+	public void run() {
+		System.out.println("소나타가 달립니다.");
+	}
+
+	
+	
+}
+package poly.param;
+
+public class Driver {
+
+	public void drive(Car c) {
+
+		c.run();
+
+	}
+
+
+	
+
+}
+package poly.param;
+
+public class MainClass {
+	
+	public static void main(String[] args) {
+		Driver kim = new Driver();
+		Ferrari f = new Ferrari();
+		Sonata s = new Sonata();
+		
+		kim.drive(f);
+		kim.drive(s); //drive type은 Ferrari 타입만 줄 수 있다. 
+		//쏘나타를 운전할 수 있도록 오버로딩을 하면 된다.
+		//=>차가 많으면 오버로딩을 엄청 해야한다.
+		//drive의 매개변수를 Car c로 했지만 페라리와 소나타를 운전합니다로 뜬다.
+		
+		
+	}
+
+}
+
