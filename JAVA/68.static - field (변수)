@@ -1,0 +1,56 @@
+package static_.field;
+
+public class Count {
+	
+	//일반 멤버변수(instance field)선언.
+	public int a;
+	
+	//정적 멤버변수(static field)선언.
+	public static int b;
+
+}
+package static_.field;
+
+public class MainClass {
+	
+	public static void main(String[] args) {
+		
+		Count c1 = new Count();
+		
+		c1.a++;
+		c1.b++;
+		
+		System.out.println("일반 멤버변수 a:"+c1.a);
+		System.out.println("정적 멤버변수 b:"+c1.b);
+		
+		Count c2 = new Count();
+		
+		c2.a++;
+		c2.b++;
+		
+		System.out.println("일반 멤버변수 a:"+c2.a);
+		System.out.println("정적 멤버변수 b:"+c2.b);
+		//c1과 c2의 객체는 다르지만 b가 2가 되어 있다. 
+		//b는 객체별로 따로 관리되는 것이 아니라 공용으로 관리된다. 
+		//c1,c2는 stack 영역에 메모리 주소를 저장하고
+		//heap영역에는 a에 대한 값이 저장되어 있다. b는 heap에 없다. 
+		//b는 data라는 영역에서 count라는 곳에 공용으로 관리 된다. 
+		
+		//b에 노란줄이 가있다. 
+		//static의 방식으로 access하는 것이 좋겠습니다. 
+		
+		/*
+		 * static멤버는 객체와 무관하기 때문에 클래스 이름만으로
+		 * 참조하여 사용합니다.
+		 */
+		Count.b++;
+		Count.b++;
+		
+//		Count.a++;
+		//Cannot make a static reference to the non-static field Count.a
+		System.out.println(c1.b);
+		System.out.println(c2.b);
+		System.out.println(Count.b);
+	}
+
+}
