@@ -1,0 +1,66 @@
+package static_.method;
+
+public class Count {
+	
+	public int a;
+	public static int b;
+	
+	//일반 메서드 선언.
+	//일반 메서드 안에서는 일반멤버변수와 정적멤버 변수를 모두 참조할 수 있음.
+	public int method1() {
+		
+		a=10;
+		return a+b;
+		
+	}
+	
+	//정적 메서드 선언
+	public static int method2() {
+		/*
+		 * static 메서드 내부에서는 static이 붙은 변수나 메서드만
+		 * 참조할 수 있습니다.
+		 * static블록 내부에서 non-static 멤버를 참조하려면
+		 * 객체 생성을 통해 참조해야합니다.
+		 */
+//		a=10;
+		Count c = new Count();
+		c.a=10;
+//		return a+b;
+		return c.a+b;//a의 소속을 알려줘야한다. 
+		
+	}
+	
+	
+
+}
+package static_.method;
+
+public class MainClass {
+
+	public static void main(String[] args) {
+		
+		/*
+		 * static이 붙은 멤버는 객체 생성없이 클래스 이름으로 
+		 * 직접 참조가 가능합니다.
+		 */
+		System.out.println(Count.method2());
+		Count.b +=50;
+		System.out.println(Count.method2());
+		Count.b -=20;
+		System.out.println(Count.method2());
+//		System.out.println(Count.method1());
+		//이렇게 못 부른다. 
+		
+		System.out.println("==================");
+		Count c1 = new Count();
+		c1.a += 30;
+		System.out.println(c1.method1());
+		
+		Math.random(); //random은 static method라서 바로 부를 수 있다.
+		//객체 안만들고 바로 부를 수 있다.
+		System.out.println(Math.PI);
+		//PI도 static 이다. 
+
+	}
+
+}
