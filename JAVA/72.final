@@ -1,0 +1,51 @@
+package final_.field;
+
+public class Person {
+	
+	public final String nation = "대한민국";
+	public final String name;
+	//The blank final field name may not have been initialized
+	//final변수는 값을 한번 넣으면 변경할 수 없기때문에 초기화를 해줘야한다. 
+	public int age;
+	
+	public Person(String name) {
+		/*
+		 * final 변수는 한번 값이 대입되면 값을 변경할 수 없는
+		 * 특징이 있기 때문에 선언시에 직접 초기화하거나 생성자를 통한
+		 * 초기화 로직을 작성하여 데이터가 반드시 한번 저장될 수 있게 
+		 * 해야 합니다.
+		 */
+		this.name = name;
+		//생성할때 name이 들어온다고 선언하면 앞에 있던 빨간줄이 사라진다.
+//		this.nation="중국";
+		//The final field Person.nation cannot be assigned
+		//final이라서 값이 변경이 안된다.
+	}
+	
+
+}
+package final_.field;
+
+public class MainClass {
+
+	public static void main(String[] args) {
+		
+		Person kim = new Person("김한국");
+//		kim.nation = "미국";
+//		kim.name = "김마이클"; 바꾸지 못한다.
+		kim.age = 17;
+		kim.age = 27;
+		
+		System.out.println("국적 : "+kim.nation);
+		System.out.println("이름 : "+kim.name);
+		System.out.println("나이 : "+kim.age);
+		
+		Person park = new Person("박중국");
+		park.age=30;
+		System.out.println("국적 : "+park.nation);
+		System.out.println("이름 : "+park.name);
+		System.out.println("나이 : "+park.age);
+		
+	}
+
+}
