@@ -1,0 +1,50 @@
+package static_.singleton;
+
+public class Singleton {
+	
+	/*
+	 * 싱글톤 패턴 - 객체 생성을 1개로 제한하기 위한 디자인 패턴
+	 * 1. 외부에서 이 클래스의 객체를 생성할 수 없도록
+	 * 생성자를 단 1개만 선언하고 private제한을 붙임.
+	 */
+	private Singleton() {}
+	
+	/*
+	 * 2. 자신의 클래스 내부에서 스스로의 객체 1개를 생성합니다.
+	 */
+	
+	private static Singleton instance = new Singleton();
+	
+	/*
+	 * 3. 외부에서 이 클래스의 객체 생성을 요구할 경우 
+	 * 2번에서 미리 만들어둔 단 하나의 객체를 공개된 메서드를 통해 제공합니다.
+	 */
+	
+	public static Singleton getInstance() {
+	//static이 없으면 MainClass에서 객체를 만들어서 메서드를 호출해야하는데,
+  //Mainclass에서 instance 객체를 아에 만들지 못해서 메서드를 호출하지 못한다.
+  //그래서, static 메서드로 만들어준다. 그러면? instance 변수도 static으로 만들어줘야한다. 
+		return instance;
+		
+	}
+
+}
+package static_.singleton;
+
+public class MainClass {
+
+	public static void main(String[] args) {
+		
+//		Singleton s1 = new Singleton(); 아에 못 만든다. 
+		
+		Singleton s1 = Singleton.getInstance();
+		Singleton s2 = Singleton.getInstance();
+		
+		System.out.println(s1);
+		System.out.println(s2);
+		//주소가 같다. 같은 객체이다. 아무리 많이 써도 하나밖에 못 쓴다. 
+		
+
+	}
+
+}
