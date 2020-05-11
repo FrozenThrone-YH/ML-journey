@@ -1,0 +1,56 @@
+package static_.init;
+
+public class Computer {
+	
+	public static String company = "LG";
+	public static String model = "gram";
+	public static String info;
+	public int price;
+	
+	Computer(){
+		
+		System.out.println("생성자가 호출됨!");
+		this.price = 1000000;
+		this.info = company + "-" + model;
+		
+	}
+	
+	// 정적 변수의 초기화를 위해서는 정적 초기화자를 사용해야 합니다.
+	static {
+		
+		System.out.println("정적 초기화자 호출!");
+		info = company + "-" + model;
+//		price = 100000; static 변수만 선언할 수 있다. 
+		
+	}
+	
+
+}
+package static_.init;
+
+public class MainClass {
+
+	public static void main(String[] args) {
+		
+//		Computer com = new Computer();
+//		System.out.println(com.info);
+		// 이것은 static 변수를 사용하는 방법이 아니다.
+		
+		System.out.println(Computer.info);
+		// 생성자가 호출되지 않아서 null이다. 
+		// 생성자안에 static 변수를 정의하는 것은 좋은 방법이 아니다.
+		
+		/*
+		 * 정적 초기화자를 호출하려면 클래스를 로딩해야합니다.
+		 * 클래스로딩방법:
+		 * 1. 객체를 생성
+		 * 2. 클래스 이름을 통해 정적 멤버에 접근 
+		 */
+		System.out.println(Computer.info);
+		//정적 초기화는 최초 한번만 호출이 된단다. 
+		
+		//일반 생성자는 부를때마다 실행된다. 
+
+	}
+
+}
