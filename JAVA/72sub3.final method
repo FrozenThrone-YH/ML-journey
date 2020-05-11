@@ -1,0 +1,36 @@
+package final_.method;
+
+public class Parent {
+	
+	public void method1() {}
+	public void method2() {}
+	public final void method3() {}
+
+}
+package final_.method;
+
+public class Child extends Parent{
+
+	@Override
+	public void method1() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void method2() {
+		// TODO Auto-generated method stub
+	}
+	
+//	public void method3() {}
+	//Cannot override the final method from Parent
+	//error가 뜬다. 
+	
+	//alt shift s누르고 override 누르면 method3()는 아에 목록에 없다.
+	Child (){
+		
+		this.method3();
+		//override를 못할뿐이지 사용은 가능하다. 
+		
+	}
+
+}
