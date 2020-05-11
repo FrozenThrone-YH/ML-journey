@@ -1,0 +1,26 @@
+package final_.constant;
+
+public class Earth {
+	
+	public static final double EARTH_RADIUS = 6400;
+	//static과 final은 순서 상관없다. 
+	
+	public static final double EARTH_SURFACE_AREA;
+//	The blank final field EARTH_SURFACE_AREA may not have been initialized
+	
+	//static은 정적초기화자에서 초기화를 했었다.
+	static {
+		EARTH_SURFACE_AREA
+		 = 4* EARTH_RADIUS * EARTH_RADIUS * Math.PI;
+	}
+	
+	public static void main(String[] args) {
+		
+		System.out.println("지구의 반지름 : " + 
+				Earth.EARTH_RADIUS+"km");
+		System.out.println("지구의 표면적 :"+
+				Earth.EARTH_SURFACE_AREA+"km^2");
+		
+	}
+	
+}
