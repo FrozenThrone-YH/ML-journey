@@ -1,0 +1,13 @@
+package final_.cls;
+
+public final class Parent {
+	
+	
+
+}
+package final_.cls;
+
+public class Child extends Parent{
+//The type Child cannot subclass the final class Parent
+//final class의 자식이 될 수 없다. 
+}
