@@ -1,0 +1,107 @@
+package inter.basic;
+
+
+public interface inter1 {
+	
+	//인터페이스에 변수를 선언하면 자동으로 상수로 취급합니다.(static final)
+	double INCH=2;
+	//The blank final field INCH may not have been initialized
+	//final을 안 붙였는데 final 변수?
+	
+	//인터페이스에 메서드를 선언하면  추상메서드로 취급합니다.
+	void method1() ;
+	//Abstract methods do not specify a body	
+		
+	
+	
+	
+
+}
+package inter.basic;
+
+public interface inter2 {
+	
+	int ABC = 10;
+	//상수는 대문자로 만드는 것이 관례
+	//static은 글자가 기울어지고
+	//static final은 글자가 기울어지고 굵어진다.
+	
+	void method2();
+
+}
+package inter.basic;
+
+/*
+ * 1.인터페이스를 사용하려면 클래스에서 해당 인터페이스를 구현해야합니다.
+ * ※인터페이스는 실체가 없다고 보면 된다.
+ * 2. 인터페이스를 구현하는 키워드는 implements입니다.
+ * 3. 인터페이스는 상속과 달리 여러 인터페이스들을 동시에 다중구현할 수 있습니다.
+ * 4. 인터페이스를 구현할 때 인터페이스 내부에 선언된 추상메서드들을 
+ *    반드시 전부 재정의 해야 합니다.
+ */
+
+public class InterClass implements inter1, inter2{
+
+	//두개를 implements 받았기 때문에 두개에 있는 것을 다 정의 해줘야 한다.
+
+	public void method1() {
+
+		System.out.println("inter1의 메서드 구현!");
+
+	}
+	public void method2() {
+
+		System.out.println("inter2의 메서드 구현!");
+
+	}
+
+	public void method3() {
+
+		System.out.println("클래스의 메서드 호출!");
+	}
+
+}
+package inter.basic;
+
+public class MainClass {
+
+
+	public static void main(String[] args) {
+
+
+		//	Inter1 i1 = new Inter1();
+		//Inter1 cannot be resolved to a type
+		//abstact와 같은 에러이다. 
+
+		//인터페이스 객체를 생성할 수 없습니다.
+
+		InterClass ic = new InterClass();
+
+		System.out.println(ic.INCH);
+		System.out.println(ic.ABC);
+//		System.out.println(ic.method1());
+//		The method println(boolean) in the type PrintStream is not applicable for the arguments (void)
+		ic.method1();
+		ic.method2();
+		ic.method3();
+		
+		/*
+		 * 인터페이스 이름도 하나의 타입으로 취급할 수 있습니다. 
+		 * 인터페이스를 통해 상속 없이도 다형성을 구현할 수 있습니다.
+		 * 
+		 */
+		
+		inter1 i1 = ic; //Promotion :InterClass -> inter1 
+		inter2 i2 = new InterClass();
+		
+//		i1.method3();//The method method3() is undefined for the type inter1
+		InterClass icc = (InterClass) i1;
+		icc.method3();
+		
+		//자바에서 다형성, 타입을 여러개 가지려면 상속관계가 있어야 한다.
+		//자식 클래스는 부모 클래스의 타입 사용할 수 있다.
+		//클래스와 인터페이스 사이에 implement관계가 있으면 
+		//클래스는 인터페이스의 타입을 사용할 수 있다. 
+
+	}	
+}
