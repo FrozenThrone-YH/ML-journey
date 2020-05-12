@@ -1,0 +1,155 @@
+package inter.pet;
+
+public abstract class Animal {
+	
+	public abstract void eat();
+	//추상머세드는 abstract를 꼭 붙여줘야 한다 
+
+}
+package inter.pet;
+
+public interface IPet {
+	
+	public void play();
+	
+
+}
+
+package inter.pet;
+
+public class Cat extends Animal implements IPet{
+
+	public void play() {
+		
+		System.out.println("고양이는 방에서 놀아요~");
+		
+	}
+	
+	public void eat() {
+		
+		System.out.println("고양이는 생선을 먹어요~");
+	}
+	
+}
+package inter.pet;
+
+public class Dog extends Animal implements IPet {
+
+	
+	public void play() {
+
+		System.out.println("강아지는 밖에서 놀아요");
+
+	}
+
+	
+	public void eat() {
+		
+		System.out.println("강아지는 사료를 먹어요~");
+
+	}
+
+}
+package inter.pet;
+
+public abstract class Fish {
+	
+	public abstract void swim();
+
+}
+package inter.pet;
+
+public class GoldFish extends Fish implements IPet {
+
+	@Override
+	public void play() {
+		
+		System.out.println("금붕어는 어항에서 놀아요~");
+
+	}
+
+	@Override
+	public void swim() {
+		
+		System.out.println("금붕어는 강에서 헤엄쳐요~");
+
+	}
+
+}
+
+package inter.pet;
+
+public class Shark extends Fish {
+
+	@Override
+	public void swim() {
+		
+		System.out.println("상어는 바다에서 헤엄쳐요");
+
+	}
+
+}
+package inter.pet;
+
+public class TIger extends Animal {
+
+	public void eat() {
+		
+		System.out.println("호랑이는 고기를 먹어요");
+		
+	}
+	
+}
+package inter.pet;
+
+public class MainClass {
+
+	public static void main(String[] args) {
+		
+		Dog baduk = new Dog();
+		Cat nabi = new Cat();
+		TIger hodol = new TIger();
+		
+		Animal[] animals = {baduk,nabi,hodol};
+		//상속관계가 있기 때문에 배열에 들어갈 수 있다. 
+		
+		for (Animal a: animals) {
+			
+			a.eat();
+			
+		}
+		
+		System.out.println("=======================");
+		
+		IPet[] pets = new IPet[3];
+		pets[0] = baduk; //baduk은 dog인데, dog와 ipet은 implements
+		pets[1] = nabi; //cat과 ipet은 implements
+		//만약 nabi의 type이 Animal이면 error가 뜬다. 
+		// Animal과 IPet 간의 관계가 없다.
+		// Animal로 nabi로 선언한 다음 (cat)으로 형변환하면 들어 갈 수 있다. 
+//		pets[2] = hodol;
+		//Type mismatch: cannot convert from TIger to IPet
+//		pets[2] = (IPet) hodol;//runtime error
+//		pets[2] = new Shark(); //comfile error
+		pets[2] = new GoldFish();
+		
+		for (IPet pet:pets) {
+			
+			pet.play();
+			
+		}
+		
+		System.out.println("=====================");
+		
+		PetShop shop = new PetShop();
+		
+		shop.carePet(baduk);
+		shop.carePet((IPet)nabi); 
+		shop.carePet(pets[2]);
+		
+		//인터페이스를 복습하려면 다형성부터 복습해야한다. 
+
+	}
+
+}
+
