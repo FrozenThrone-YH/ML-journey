@@ -1,0 +1,84 @@
+package api.lang.string;
+
+public class StringIndexOf {
+
+	public static void main(String[] args) {
+		
+		String sbj = "자바 프로그래밍";
+		
+		//문자열의 문자개수(길이)를 리턴하는 length()
+		System.out.println("sbj의 길이 : " + sbj.length());
+		
+		//문자열의 특정 인덱스 문자를 추출하는 charAt()
+		System.out.println(sbj.charAt(6));
+		
+		//문자열의 특정 문자의 인덱스 번호를 리턴하는 indexOf()
+		int location = sbj.indexOf("프");
+		System.out.println("프의 인덱스번호 : "+location);
+		
+		
+
+	}
+
+}
+package api.lang.string;
+
+public class StringSubstring {
+
+	public static void main(String[] args) {
+		
+		String ssn = "040404-3412343";
+		System.out.println(ssn);
+		
+		/*
+		 * substring() 메서드에 매개값으로 인덱스를 1개 지정하면
+		 * 해당 인덱스부터 끝까지의 문자를 추출합니다.
+		 */
+		String last = ssn.substring(7);
+		System.out.println(last);
+		
+		/*
+		 * substring() 메서드에 매개값으로 인덱스를 2개 지정하면
+		 * 첫번째 매개값 이상 두번째 미만 인덱스의 문자열을 추출합니다.
+		 */
+		String first = ssn.substring(0,6);//이상,미만 뒤를 포함하지 않는다.
+		System.out.println(first);
+		
+		
+
+	}
+
+}
+package api.lang.string;
+
+public class Replace {
+
+	public static void main(String[] args) {
+		
+		String str1 = "자바는 객체지향 언어입니다. 자바는 풍부한 API를 지원합니다.";
+		String str2 = str1.replace("자바", "JAVA");
+		
+		System.out.println(str1);
+		System.out.println(str2);
+	}
+
+}
+package api.lang.string;
+
+public class StringValueOf {
+
+	public static void main(String[] args) {
+		
+		int a = 10;
+		double b = 8.76;
+		System.out.println(a + b);
+		
+		//이진수라서 소수점 아래가 정확하게 표현이 안된다.
+		
+		String str1 = String.valueOf(a);
+		String str2 = String.valueOf(b);
+		System.out.println(str1 + str2);
+
+	}
+
+}
