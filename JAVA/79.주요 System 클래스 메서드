@@ -1,0 +1,42 @@
+System 클래스 주요 메서드
+https://docs.oracle.com/javase/8/docs/api/ 에서 검색한다. 
+
+1.exit():현재 실행하고 있는 프로세스를 강제 종료시킵니다.
+정상 종료일 경우 매개값으로 0을 주고, 비정상 종료인 경우 0 이외에 다른 값을 줍니다.
+
+2. currentTimeMillis(), nanoTime()
+컴퓨터의 시계로부터 현재 시간을 읽어서 밀리세컨드(1/1000초) 단위와 나노세컨드(1/10^9)단위의
+long값을 리턴합니다. 주로 프로그램의 실행 소요 시간 측정으로 성능을 테스트할 때 사용합니다.
+
+3. getProperty(): JVM이 시작할 때 자동 설정되는 시스템의 속성값을 구합니다.
+
+4. gc() : Garbage Collector를 실행시킵니다. 
+   자바는 포인터가 없다. 사용자가 포인터를 사용할 수 없다. 동적 할당한 객체를 지우려면 기다려야한다.
+   메모리 관리가 힘들다. 메모리영역의 쓰래기 영역을 즉시 제거한다. 속도가 느려지면, 메모리 회수 작업을 한다.
+
+package api.lang.system;
+
+public class SystemTime {
+
+	public static void main(String[] args) {
+		
+		/*
+		 * currentTimeMillis()와 nanoTime() 메서드는
+		 * 1970년 1월 1일 자정부터 현재까지의 시간을 초로 변환한
+		 * 에폭시간을 각각 long타입의 밀리초(1/1000초), 나노초(1/10^9)
+		 * 로 리턴합니다.
+		 */
+		long start = System.currentTimeMillis();
+		long sum = 0;
+		for (long i=1;i<10000000000L;i++) {
+			sum += i;
+		}
+		
+		long end = System.currentTimeMillis();
+		
+		System.out.println("계산에 소요된 시간 : "+(end-start)*0.001+"초"); 
+		
+
+	}
+
+}
