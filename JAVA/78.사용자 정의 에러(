@@ -1,0 +1,75 @@
+package exception.throw_;
+
+public class Accout {
+	
+	private long balance;
+
+	public long getBalance() {
+		return balance;
+	}
+	
+	public void deposit(int money) {
+		
+		balance += money;
+	}
+	public void withDraw(int money) throws BalanceInsufficientException{
+		if (balance < money) {
+			throw new BalanceInsufficientException("잔고가 부족합니다.");
+			//미리 준비되어 있지 않은 에러다. -개발자가 생각하는 에러
+			
+		}
+		balance -= money;
+	}
+
+}
+package exception.throw_;
+
+/*
+ * 사용자 정의 예외 클래스를 만드려면 Exception 클래스나 
+ * RuntimeException클래스를 상속 받습니다.
+ */
+
+public class BalanceInsufficientException extends Exception{
+
+	/*
+	 * 일반적으로 사용자 정의 예외클래스를 만들 때는
+	 * 기본 생성자와 예외 원인 메시지를 매개값을 받는 생성자를
+	 * 선언합니다.
+	 */
+	
+	public BalanceInsufficientException() {}
+	
+	public BalanceInsufficientException(String message) {
+		
+		super(message);
+	}
+	
+}
+package exception.throw_;
+
+public class MainClass {
+
+	public static void main(String[] args) {
+		
+		Accout acc = new Accout();
+		acc.deposit(10000);
+		
+		System.out.printf("입금 후 잔액 : %d원",acc.getBalance());
+		try {
+		acc.withDraw(7000);
+		} catch(BalanceInsufficientException e) {
+			/*
+			 * 예외 클래스가 제공하는 getMessage()메서드는
+			 * 예외의 원인 메세지를 String 타입으로 리턴합니다.
+			 * 자바 표준 API에서 제공하는 다양한 예외클래스들은
+			 * 각각의 예외 원인 메시지가 기본적으로 객체 안에
+			 * 저장되어 있습니다. 
+			 */
+			System.out.println(e.getMessage());
+			//Exception클래스(부모클래스)가 상속해준 메서드이다. 
+		}
+		System.out.printf("출금후 잔액 : %d원",acc.getBalance());
+
+	}
+
+}
