@@ -1,0 +1,100 @@
+package collection.list;
+
+import java.util.*;
+
+public class ArrayListExample {
+
+	public static void main(String[] args) {
+		
+		//ArrayList 객체 생성
+		//제네릭(generic):타입의 안정화를 위해 객체 내부에
+		//저장되는 타입을 일치시키는 방법.<>가 없으면 모든 객체를 담을 수 있지만
+		// for문 돌릴때 타입이 다르면 문제가 생길수도
+		List<String> list = new ArrayList<>();
+		//정수를 하고 싶으면 int가 아닌 Integer를 써야 한다. 
+		//Java 1.7이전에는 ArrayList<String>으로 해야한다.
+		//List is a raw type. 
+		//References to generic type List<E> should be parameterized
+        
+		String str1 = "Java";
+		String str2 = "JSP";
+		
+		System.out.println(list);
+		
+		//list에 객체를 저장하는 메서드 add():데이터를 맨 끝에 추가 
+		list.add(str1);
+		list.add(str2);
+		list.add("DataBase");
+		list.add("JDBC");
+		list.add("JSP");//같은 주소를 가진 데이터 (중복값)을 허용한다.
+		
+		//자료를 순서대로 저장하는 것을 볼 수 있다.
+		System.out.println(list);
+		
+		//list에 저장된 객체 수 얻기 size()
+		int size = list.size();
+		System.out.println("list에 저장된 총 객체 수 : "+size);
+		 
+		//list에 객체 삽입 add(index, 객체): 데이터를 해당 인덱스에 삽입.
+		//해당 인덱스 이후 데이터는 하나씩 뒤로 밀린다.
+		list.add(2,"Oracle");
+		System.out.println(list);
+		
+//		list[3] = "MySQL"; (x)
+		
+		//list 데이터 수정 set(index,객체)
+		list.set(3, "MySQL");
+		System.out.println(list);
+		
+//		System.out.println(list[0]); (x)
+		
+		//list 내부 객체 가져오기 get(index)
+		String s = list.get(2);
+		System.out.println("2번 인덱스 객체: "+s);
+		
+		//list에 저장된 객체의 인덱스번호 확인하기 indexOf(객체)
+		int idx = list.indexOf("MySQL");
+		System.out.println("MySQL이 저장된 인덱스: "+idx);
+		
+		//indexOf는 객체를 검색하지 못했을 경우 -1을 리턴합니다.
+		int idx2 = list.indexOf("안녕~~~");
+		System.out.println(idx2);
+		
+		//list에서 객체 데이터 삭제 remove(index),remove(obj)
+		list.remove(5);
+		System.out.println(list);
+		
+		list.remove(str1);
+		System.out.println(list);
+		
+		//list내부에 저장된 객체의 유무 확인 contains()
+		//boolean으로 return
+		System.out.println(list.contains("JSP"));
+		System.out.println(list.contains("바보야!"));
+		
+		//list의 반복문 처리
+		for(int i=0;i<list.size();i++) {
+			System.out.println(list.get(i));
+		}
+		System.out.println("================");
+		for (String str:list) {
+			System.out.println(str);
+		}
+		
+		//list 내부 객체 전체 삭제 clear()
+		list.clear();
+		System.out.println(list);
+		
+		//list 내부 데이터가 전부 비어있는지 확인하는 메서드 isEmpty()
+		//앞에 is가 붙은 메서드는 거의 다 boolean으로 return
+		if(list.isEmpty()) {
+			System.out.println("list가 비어 있음");
+			
+		}else {
+			System.out.println("list가 비어있지 않음");
+		}
+	}
+
+}
+
+
