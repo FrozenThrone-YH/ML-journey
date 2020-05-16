@@ -1,0 +1,63 @@
+package api.util.calender;
+
+import java.util.Calendar;
+
+public class CalendarExample {
+
+	public static void main(String[] args) {
+		
+		//Calendar는 추상클래스다. 추상클래스는 직접 객체를 생성할 수 없다.
+		//Calendar가 제공하는 getInstacne를 이용해서 추상클래스를 구현하는
+		//자식클래스의 객체를 리턴 받아야 한다. 
+		//Calendar.getInstance를 통해 return 받아야 한다. 
+		Calendar cal = Calendar.getInstance();
+		
+		
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH)+1;//1을 더해줘야한다.
+		int day = cal.get(Calendar.DAY_OF_MONTH);
+		
+		int week = cal.get(Calendar.DAY_OF_WEEK);
+		System.out.println(week); //일주일중에 몇번째 날인가?
+		//일요일이 1이다.
+		
+		String strWeek = null;
+		
+		switch(week) {
+		case Calendar.MONDAY:
+			strWeek="월";
+			break;
+		case Calendar.TUESDAY:
+			strWeek="화";
+			break;
+		case Calendar.WEDNESDAY:
+			strWeek="수";
+			break;
+		case Calendar.THURSDAY:
+			strWeek="목";
+			break;
+		case Calendar.FRIDAY:
+			strWeek="금";
+			break;
+		case Calendar.SATURDAY:
+			strWeek="토";
+			break;
+		case Calendar.SUNDAY:
+			strWeek="일";
+			break;
+		}
+		
+		int hour = cal.get(Calendar.HOUR);
+		int minute = cal.get(Calendar.MINUTE);
+		int second = cal.get(Calendar.SECOND);
+		
+		System.out.println("오늘은 "+year+"년 "+month+"월 "
+				+ day +"일입니다.");
+		System.out.println(hour+"시 "+minute+"분 "
+				+second + "초 "
+				+strWeek+ "요일 ");
+		
+
+	}
+
+}
