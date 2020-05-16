@@ -1,0 +1,354 @@
+package collection.list.student;
+
+import java.util.*;
+
+public class Student {
+	
+	private String stuId;
+	private String name;
+	private int kor;
+	private int eng;
+	private int math;
+	private int tot;
+	private double avg;
+	private char grade;
+	
+	private Scanner sc = new Scanner(System.in);
+	
+	//학생의 정보를 입력받는 메서드 
+	public void inputStuInfo() {
+		System.out.println("# 성적정보 입력을 시작합니다.");
+		System.out.print("- 학번: ");
+		this.stuId = sc.next();
+		System.out.print("- 이름: ");
+		this.name = sc.next();
+		
+		while(true) {
+			try {
+				System.out.print("- 국어: ");
+				this.kor = sc.nextInt();
+				System.out.print("- 영어: ");
+				this.eng = sc.nextInt();
+				System.out.print("- 수학: ");
+				this.math = sc.nextInt();
+				break;
+			} catch(Exception e) {
+				System.out.println("점수는 숫자로만 입력하세요.");
+				sc.nextLine();
+				//nextInt()는 자동으로 엔터를 입력하기 때문에
+				//입력창을 고정하기 위함 
+			}
+			
+		}
+	}
+	
+	//총점, 평균, 학점을 계산할 메서드.
+	public void calcToAvgGrade() {
+		this.tot = this.kor + this.eng + this.math;
+		this.avg = this.tot / 3.0;
+		
+		if (avg >=90) {
+			this.grade = 'A';
+		} else if(avg >= 80) {
+			this.grade = 'B';
+		}else if(avg >= 70) {
+			this.grade = 'C';
+		}else if(avg >= 60) {
+			this.grade = 'D';
+		}else {
+			this.grade = 'F';
+		}
+		
+	}
+	
+	//학생의 성적정보를 출력하는 메서드.
+	public void outputStuInfo() {
+		System.out.printf("%4s %3s  %3d %3d %3d %3d %3.2f %3s\n",
+				this.stuId,this.name,this.kor,this.eng,this.math,
+				this.tot,this.avg,this.grade);
+	} //%4s -> 4칸 확보하고 문자, %3d 3칸 확보하고 숫자, %3.2f 3칸 확보하고 소수점 둘째자리까지 
+	
+	//alt+shift+s 누르고 generate Getters and Setters
+	//누르면 쉽고 빠르게 생성가능
+	public String getStuId() {
+		return stuId;
+	}
+	public void setStuId(String stuId) {
+		this.stuId = stuId;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getKor() {
+		return kor;
+	}
+	public void setKor(int kor) {
+		this.kor = kor;
+	}
+	public int getEng() {
+		return eng;
+	}
+	public void setEng(int eng) {
+		this.eng = eng;
+	}
+	public int getMath() {
+		return math;
+	}
+	public void setMath(int math) {
+		this.math = math;
+	}
+	public int getTot() {
+		return tot;
+	}
+	public void setTot(int tot) {
+		this.tot = tot;
+	}
+	public double getAvg() {
+		return avg;
+	}
+	public void setAvg(double avg) {
+		this.avg = avg;
+	}
+	public char getGrade() {
+		return grade;
+	}
+	public void setGrade(char grade) {
+		this.grade = grade;
+	}
+	
+	
+
+}
+package collection.list.student;
+
+import java.util.*;
+
+public class Point {
+	
+	public static Scanner sc = new Scanner(System.in);
+	
+	public static void showPointUI() {
+		
+		System.out.println("           ***성적표***");
+		System.out.println("==================================");
+		System.out.println(" 학번     이름    국어   영어   수학   총점    평균     학점 ");
+		System.out.println("==================================");
+	}
+		//학생의 성적정보를 입력할 메서드
+	public static void inputPoints(List<Student> students) {
+		/*
+		 * 1.학생의 객체를 1개 생성합니다.
+		 * 2.학생의 객체에 속성값을 설정하는 메서드들을 호출
+		 * 3.정보저장이 완료된 객체를 리스트에 추가
+		 * 4. 저장완료 메세지를 출력하세요.
+		 * ex) xxx님의 성적 정보가 정상적으로 입력되었습니다. 
+		 */
+		
+		Student stu = new Student();
+		stu.inputStuInfo();
+		stu.calcToAvgGrade();
+		students.add(stu);
+		System.out.println(stu.getName()+"님의 성적 정보가 정상적으로 입력되었습니다.");
+		System.out.printf("%s님의 성적 정보가 정상적으로 입력되었습니다.\n",stu.getName());
+
+	}
+	//전체 학생의 성적정보를 출력할 메서드 
+	public static void showAllPoints(List<Student> students) {
+		/*
+		 * 1. 리스트안에 들어 있는 학생객체들의 정보를 
+		 * 반복문을 통해 전체 출력하세요.
+		 * 2. 우리반의 전체평균을 가장 아랫부분에 출력하세요. 
+		 */
+		Point.showPointUI();
+		double classAvg = 0.0;
+		for(Student stu:students) {
+			stu.outputStuInfo();
+			classAvg += stu.getAvg();
+		}
+		System.out.printf("\t 학생들의 전체평균 : %3.2f \n",classAvg/students.size());
+	}
+	
+	//개별 학생의 성적정보를 출력할 메서드
+	public static void searchPoints(List<Student> students) {
+		/*
+		 *1.해당 학번과 일치하는 학생객체를 리스트에서 찾아내서
+		 *그 학생의 정보만 출력하세요.
+		 *2. 찾는 학번이 없을시 검색하지 못했다는 메시지를 출력하세요. 
+		 */
+		System.out.println("성적을 조회할 학생의 학번을 입력하세요.");
+		System.out.print("=> ");
+		String stuNum =sc.next();
+		boolean check=false;
+		for (Student s : students) {
+			if(stuNum.equals(s.getStuId())) {
+				showPointUI();
+				s.outputStuInfo();
+				check = false;
+				break;
+			}
+			check = true;
+		}
+		if(check){
+			System.out.println("찾으시는 학번의 학생이 없습니다.");
+		}
+		}
+	//학생의 성적정보를 수정할 메서드 
+	public static void modifyPoints(List<Student> students) {
+		System.out.println("성적을 조회할 학생의 학번을 입력하세요.");
+		System.out.print("=> ");
+		String stuNum =sc.next();
+		boolean check=false;
+		
+		for(int i =0;i<students.size();i++) {
+			
+			Student stu = students.get(i);
+			if(stuNum.equals(stu.getStuId())) {
+				System.out.printf("%s님의 성적정보를 수정합니다.\n",stu.getName());
+				System.out.println("국어: ");
+				stu.setKor(sc.nextInt());
+				System.out.println("영어: ");
+				stu.setEng(sc.nextInt());
+				System.out.println("수학: ");
+				stu.setMath(sc.nextInt());
+				stu.calcToAvgGrade();
+				System.out.println("성적 수정이 정상 처리되었습니다.");
+				check = false;
+				break;
+			}
+			check = true;
+			
+		}
+		if(check) {
+			System.out.println("찾으시는 학번의 학생이 없습니다.");
+		}
+	}
+	//학생의 성적정보를 삭제할 메서드
+	public static void deletePoints(List<Student> students) {
+		/*
+		 * 1. 성적을 삭제할 학생의 학번을 입력하세요
+		 * 2. 없으면 조회하신 학번정보는 등록되지 않은 학번입니다.
+		 * 3. xxx님의 성적정보를 삭제합니다.[Y/N]
+		 * 4. n누르면 삭제를 취소합니다. 
+		 * 5. y누르면 삭제가 정상 처리 되었습니다. 
+		 */
+		System.out.println("성적을 조회할 학생의 학번을 입력하세요.");
+		System.out.print("=> ");
+		String stuNum =sc.next();
+		boolean check=false;
+		for (Student stu : students) {
+			if(stuNum.equals(stu.getStuId()))
+			System.out.printf("%s님의 성적정보를 삭제합니다.[Y/N]\n",stu.getName());
+			System.out.println("=> ");
+			String answer = sc.next();
+			if (answer.toLowerCase().contentEquals("y")) {
+				students.remove(stu);
+				System.out.println("삭제가 정상처리 되었습니다.");
+			}else {
+				System.out.println("삭제를 취소합니다.");
+				return;//삭제를 취소했을때 함수를 탈출하고 메뉴로 들어가고자 return
+			}
+			check =false;
+			break;
+		}if(check) {
+			System.out.println("찾으시는 학번의 학생이 없습니다.");
+		}
+	}
+	//프로그램 메뉴정보를 보여줄 메서드.
+	public static void menuInfo() {
+		System.out.println("\n*** 성적관리 프로그램 ***");
+		System.out.println(" 1. 성적정보 입력");
+		System.out.println(" 2. 전체성적 조회");
+		System.out.println(" 3. 개별성적 조회");
+		System.out.println(" 4. 성적정보 수정");
+		System.out.println(" 5. 성적정보 삭제");
+		System.out.println(" 6. 프로그램 종료");
+		System.out.println("*********************");
+		
+	}
+
+}
+package collection.list.student;
+
+import java.util.*;
+
+public class MainClass {
+
+	public static void main(String[] args) {
+
+		List<Student> students = new ArrayList<>();
+		Student stu = null;
+
+		for(int i=0;i<2;i++) {
+			stu = new Student();
+			stu.inputStuInfo();
+			stu.calcToAvgGrade();
+			students.add(stu);
+		}
+
+		Point.showPointUI();
+		for(Student s:students) {
+			s.outputStuInfo();
+		}
+	}
+
+}
+package collection.list.student;
+
+import java.util.*;
+
+public class MainClass2 {
+
+	public static void main(String[] args) {
+		
+		List<Student> students = new ArrayList<>();
+		Scanner sc = new Scanner(System.in);
+
+		while(true) {
+
+			Point.menuInfo();
+			int menu = 0;
+			try {
+				System.out.print("메뉴: ");
+				menu = sc.nextInt();				
+			}catch(Exception e) {
+				System.out.println("숫자로만 입력하세요.");
+				sc.nextLine();				
+			}
+
+			switch(menu) {
+
+			case 1:
+				Point.inputPoints(students);
+				break;
+			case 2:
+				if (students.size() == 0) {
+					System.out.println("등록된 학생 정보가 없습니다.");
+				}else {
+					Point.showAllPoints(students);
+				}
+				break;
+			case 3:
+				Point.searchPoints(students);
+				break;
+			case 4:
+				Point.modifyPoints(students);
+				break;
+			case 5:
+				Point.deletePoints(students);
+				break;
+			case 6:
+				System.out.println("프로그램을 종료합니다.");
+				sc.close();
+				System.exit(0);
+				break;
+			default:
+				System.out.println("메뉴를 잘못 입력했습니다.");
+			}
+
+		}
+	}
+
+}
