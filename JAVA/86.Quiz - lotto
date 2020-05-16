@@ -1,0 +1,77 @@
+package api.util.random;
+
+import java.util.Arrays;
+import java.util.Random;
+
+public class Lotto {
+    public static int[] createLotto() {
+    	
+    	int[] lotto = new int[6];
+    	
+    	Random r = new Random();
+		int i = 0;
+		boolean check = false;
+		while(true) {
+			int rn1 = r.nextInt(45)+1;
+			for(int k=0;k<=i;k++) {
+				if(rn1 == lotto[k]) {
+					check = false;
+					break;
+				} 
+				check = true;
+			}			  
+				if(check) {
+					lotto[i]=rn1;i++;
+				}
+				if(i==6) break;
+			}
+		return lotto;
+    }
+	public static void main(String[] args) {
+
+
+		int[] win=createLotto();
+		int[] my_lotto = createLotto();
+		Random Second_r = new Random();
+		int sr = Second_r.nextInt(45)+1;
+			System.out.println(Arrays.toString(win));
+			System.out.println(Arrays.toString(my_lotto));
+			
+		int cnt = 0;
+		int sw = 0;
+		
+		for (int i:my_lotto) {
+			for (int j:win) {
+				if(i==j) {
+					cnt += 1;
+				}
+			if (i==sr) {
+				sw +=1;
+			}
+			}
+			
+		}
+		switch(cnt) {
+		case(6):
+			System.out.println("1등입니다.");
+			break;
+		case(5):
+			if (sw ==1 ) {
+				System.out.println("2등입니다.");
+			}else{
+			System.out.println("3등입니다.");}
+			break;
+		case(4):
+			System.out.println("4등입니다.");
+			break;
+		case(3):
+			System.out.println("5등입니다.");
+			break;
+		default:
+			System.out.println("당첨되지 않았습니다.");
+		}
+
+
+		}
+
+	}
