@@ -1,0 +1,81 @@
+package api.lang.wrapper;
+
+import java.util.Arrays;
+
+public class Boxing {
+
+	public static void main(String[] args) {
+		
+		int a = 100;
+		double b = 3.51;
+		char c = 'H';
+		boolean d = false;
+		
+		//Boxing : 기본타입의 데이터를 객체타입으로 변환.
+		Integer val1 = new Integer(a);
+		Double val2 = new Double(b);
+		Character val3 = new Character(c);
+		Boolean val4 = new Boolean(d);
+//		Byte val5 = new Byte(75);
+		//The constructor Byte(int) is undefined
+		Byte val5 = new Byte((byte)75);
+		String val6 = new String("hello");
+		
+		//모두의 부모는 object이다. 
+		Object[] arr = {val1,val2,val3,val4,val5,val6};
+		
+		//각자 다른 타입이 배열로 묶이는 걸 볼 수 있다. 
+		//Integer, Bouble, Character, Boolean, Byte, String
+		//객체들의 부모는 Object이므로 다형성이 가능함.
+		System.out.println(Arrays.deepToString(arr));
+		
+		//Unboxing : 포장된 데이터를 다시 기본타입으로 변환.
+		//포장클래스가 제공하는 기본타입이름 +Value()메서드 이용.
+		int i = val1.intValue();
+		double j = val2.doubleValue();
+		char k = val3.charValue();
+		boolean x = val4.booleanValue();
+		byte y = val5.byteValue();
+
+	}
+
+}
+package api.lang.wrapper;
+
+import java.util.Arrays;
+
+public class AutoBoxing {
+
+	public static void main(String[] args) {
+		
+		//AutoBoxing : 기본타입 데이터를 자동으로 객체로 변환
+		//자바 10버전부터는 오토박싱 기능만을 사용하도록 권고하고 있습니다.
+		
+		int a = 100;
+		
+		Integer val1 = a;
+		Double val2 = 3.1415;
+		
+		Object[] arr = {56,3.154,"안녕",99,200.12};
+		System.out.println(Arrays.toString(arr));
+		
+		//AutoUnboxing
+		int x = val1;
+		double y = val2 + 5.3;
+		
+		//Parsing : 문자열데이터를 기본타입으로 변환
+		
+		String s1 = "10";
+		String s2 = "5.43";
+		
+		int i = Integer.parseInt(s1);
+		//public static int parseInt(String s) throws NumberFormatException
+		
+		double j = Double.parseDouble(s2);
+		boolean k = Boolean.parseBoolean("true");
+		
+		System.out.println(i+j);
+		
+	}
+
+}
