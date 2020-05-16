@@ -1,0 +1,73 @@
+package api.lang.sb;
+
+public class StringBuilderExample {
+
+	public static void main(String[] args) {
+		
+		StringBuilder sb = new StringBuilder("Java ");
+		
+		//문자열을 맨 끝에 추가하는 메서드 append()
+		
+		sb.append("Program Study");
+		System.out.println(sb);
+		
+		//이 행동이랑 같다
+//		String str = "Java ";
+//		str = str + "Program study";
+//		System.out.println(str); 이것은 객체가 두개라서 메모리 낭비
+		
+		//문자열을 특정 인덱스 위치에 삽입하는 메서드 insert()
+		sb.insert(12, "ming");
+		System.out.println(sb);
+		
+		//특정 인덱스 범위의 문자열을 교체하는 메서드 replace()
+		sb.replace(5, 16, "Book");
+		System.out.println(sb);
+		
+		//문자열을 삭제하는 메서드 delete(begin, end)
+		sb.delete(4, 9);
+		System.out.println(sb);
+		
+		System.out.println(sb.length());
+		
+		
+
+	}
+
+}
+package api.lang.sb;
+
+public class StringTest {
+
+	public static void main(String[] args) {
+		
+		System.gc();
+		
+		long start = System.currentTimeMillis();
+		
+		String str = "A";
+		
+		for(int i=0;i<100;i++) {
+			str += str +"A";
+		}
+		
+		long end = System.currentTimeMillis();
+		
+		System.out.println("String : "+(end - start)*0.001);
+		
+		start =System.currentTimeMillis();
+		
+		StringBuilder sb = new StringBuilder();
+		
+		for(int i=0;i<100;i++) {
+			sb.append("A");
+		}
+		
+		end = System.currentTimeMillis();
+		
+		System.out.println("String : "+(end - start)*0.001);
+
+
+	}
+
+}
