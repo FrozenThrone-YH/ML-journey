@@ -1,0 +1,70 @@
+package collection.map;
+
+import java.util.*;
+
+public class HashMapExample {
+
+	public static void main(String[] args) {
+		
+		Map<String, Integer> map = new HashMap();
+		//key는 String으로 value는 Integer로 
+		
+		//map에 객체를 저장 put(key,Value)
+		map.put("치킨", 20000);
+		map.put("라면", 2000);
+		map.put("족발", 30000);
+		//중복 key를 통해 put을 사용하면 value가 수정됨.
+		map.put("라면", 3000);
+		System.out.println(map);
+		
+		//map에 저장된 총 Entry객체 수 얻기 size()
+		System.out.println("map에 저장된 총 객체 수 : "+map.size());
+		
+		//map에 저장된 Value값 얻기 get(key)
+		Integer price = map.get("족발");
+		//int로 받아도 된다. 자동으로 unboxing 된다.
+		System.out.printf("족발의 가격: %d원\n",price);
+		
+		//map에서 key를 전부 추출하는 메서드 keyset()
+		Set<String> kSet = map.keySet();
+		System.out.println(kSet);
+		
+		Iterator<String> kIter = kSet.iterator();
+		System.out.println("--------------------");
+		
+		while(kIter.hasNext()) {
+			
+			String foodName = kIter.next();
+			int foodPrice = map.get(foodName);
+			System.out.printf("%s의 가격 : %d원입니다.\n",foodName,foodPrice);
+			
+		}
+		
+		//map 내부에 있는 key의 유무를 확인하는 메서드 containKey()
+		String food = "피자";
+		if(map.containsKey(food)) {
+			System.out.println(food+"의 가격은 "
+					+map.get(food));
+		} else {
+			System.out.println(food+"는 없는 메뉴입니다.");
+		}
+		
+		//map내부 데이터 삭제 remove(key)
+		//해당 key에 대응하는 Entry객체를 삭제.(value까지 삭제)
+		map.remove("치킨");
+		System.out.println(map);
+		
+		map.clear();
+		
+		if (map.isEmpty()) {
+			System.out.println("map객체가 비었습니다.");
+			
+		}else {
+			System.out.println("map객체가 비어있지 않습니다.");
+		}
+		
+		
+
+	}
+
+}
