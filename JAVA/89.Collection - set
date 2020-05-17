@@ -1,0 +1,67 @@
+package collection.set;
+
+import java.util.*;
+
+public class HashSetExample {
+
+	public static void main(String[] args) {
+		
+		Set<String> set = new HashSet<>();
+		
+		//set에 객체를 추가 add()
+		set.add("닭강정");
+		set.add("김밥");
+		set.add("김말이");
+		set.add("단무지");
+		set.add("김밥");
+		
+		//set에 저장된 객체의 수를 알보는 메서드 size()
+		System.out.println("set에 저장된 객체 수 : "+set.size());
+		//김밥이 중복이라 1개가 삭제 
+		System.out.println(set);
+		
+		/*
+		 * Set의 객체 데이터를 사용하려면 반복자(Iterator)를 
+		 * 통해 모든 객체를 대상으로 한번씩 반복해서 꺼내야 합니다.
+		 */
+		
+		Iterator<String> iter = set.iterator();
+		//인터페이스
+		
+		/*
+		 * 반복자 객체가 next()메서드를 통해 set 내부의 데이터를
+		 * 반복소진할 때 더 이상 조회할 데이터가 없으면 예외를 발생시키기
+		 * 때문에 hasNext()를 통해 더 이상 소모할 데이터가 있는지의
+		 * 유무를 체크합니다. 
+		 */
+		while (iter.hasNext()) {
+			String s = iter.next();
+			if(s.equals("닭강정")) {
+				System.out.println(s);
+				break;
+			}
+			System.out.println(s);
+		}
+		//iter.next()를 계속하다보면 5번째에서 에러가 난다.
+		// 더이상 꺼낼 것이 없어서 에러가 난다. 
+		//hasNext는 다음에 next 할것이 있는지 검사한다.
+		//다음에 꺼낼 것이 없으면 false를 반환한다. 
+		
+		
+		//set의 데이터 삭제 기능 remove(), clear()
+		set.remove("단무지");
+		System.out.println(set);
+		
+		set.clear();
+		
+		if(set.isEmpty()) {
+			System.out.println("set이 비어 있음");
+			
+		}else {
+			System.out.println("set이 비어 있지 않음");
+		}
+		
+
+	}
+
+}
