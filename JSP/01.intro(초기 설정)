@@ -1,0 +1,13 @@
+
+1 . 맨우측상단 java ee 누르기
+2. windows - preference - 검색어 encoding utf-8로 변경 
+3. css / html / xml 다 utf-8로 변경
+4. 하단 콘솔에서 server를 project 밑에 창 배치 
+5. servers에 Noserver are available. click this link to create a new server 클릭
+6. 제일 상단부 apache에서 내려서 tomcat v9.0 선택 next
+7. tomcat installation directory - tomcat 폴더 경로 지정
+8. sever list에서 tomcat 더블클릭
+9. sever locations - 2번째 use tomcat installation 체크
+10. Server options 2번째/3번째 체크 - 수동 버튼을 통해서 반영하겠니?
+11. port port number 8181로 설정 한 뒤 저장
+12. Web browser - chrome 설정
