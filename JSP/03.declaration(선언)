@@ -1,0 +1,61 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- 선언(declaration)실습 - class 내부선언하는 변수와 메서드라고 생각하면 된다.-->
+<%!
+	public int i;
+	public String str = "홍길동";
+	public int add(int n1, int n2){
+		return n1 + n2;
+	}
+    //Math.random()
+   //메서드 호출은 메서드 안이나 생성자 블록 내부에서만 가능하다. 
+
+%>
+<!-- Scriptlet은 main method라고 생각하면 된다.  -->
+<%
+ double d = Math.random();
+ int result = add(4,7);
+ int j = 0;
+ i++;
+ j++;
+ 
+ out.println("i의 값은: "+ i + "<br/>");
+ out.println("j의 값은: "+ j + "<br/>");
+ out.println("result의 값은: "+ result + "<br/>");
+ out.println("d의 값은: "+ d + "<br/>");
+ 
+ //웹페이지에서 f5(새로고침)를 누르면 i는 계속 증가하지만 j는 1 그대로 이다.
+ //JSP 아키텍쳐
+ //.jsp파일을 실행(요청)하면 웹 서버에서 우선 jsp파일을 java
+ //코드로 변환합니다. 그 이후 그 파일을 컴파일하고 html로 응답합니다.
+ //ex) helloworld.jsp -> helloworld_jsp.java(서버에서 servlet화)
+ //->helloworld_jsp.class(서블릿 클래스 컴파일 ) 
+
+ //Client -> WAS로 request를 줄때 declaration.jsp를 준다.
+ //WAS에서 declaration.jsp를 declaration_jsp.java로 바꾼다.
+ //파일명이 클래스명이다.클래스화가 된다.
+ // class declaration.jsp {
+ //	public int i
+ // ...
+ // 이안의 메서드 중에 
+ // public void _jspservice {
+ // int j 
+ // double d 등이 들어 있게 된다. 
+ // } 이 된다.
+ // 위 클래스를 declaration_jsp.class 가된다.
+ // 힙에 i = 0 , str="홍길동"
+ // 지역변수의 특징은 실행이 끝나면 없어진다. 
+ // 서버에 재 요청이 들어오면 힙에 들어 있는 것을 재활용한다. 
+ // WAS -> Client로 response할때 다시 html로 
+
+%>
+
+</body>
+</html>
