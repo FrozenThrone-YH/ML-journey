@@ -1,0 +1,29 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%-- 외부 패키지 임포트 방법 --%>
+<%@ page import = "java.util.Date" %>
+<!-- 이런 형태를 리텍티브라고 하며 import하려면 이걸 써야 한다.  -->
+
+<%
+	Date date = new Date (); //날짜 정보를 담는 객체
+	//java.util에 있는 기능이다. import가 필요
+	
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 mm월 dd일");
+	String dayInfo = sdf.format(date);
+%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<p>
+	오늘은 <%=dayInfo %>입니다.
+</p>
+
+</body>
+</html>
