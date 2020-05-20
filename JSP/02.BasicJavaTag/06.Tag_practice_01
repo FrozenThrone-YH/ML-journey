@@ -8,6 +8,8 @@
   public int randomNumber(){
 	  //랜덤정수 1~10까지 발생시켜 리턴해주세요.
 	  int ri = (int)(Math.random()*10)+1; 
+	  //Random r = new Rnadom(); java.util.random import 필요
+	  //return r.nextInt(10)+1
 	  return ri;
 	  
   }
@@ -39,10 +41,15 @@
    total++;
    present++;
 %>
+<p>
 페이지 누적 요청수 : <%=total %>, 페이지 개별 요청수 : <%=present %><br/> 
-
+</p>
 <h3>오늘의 행운의 숫자와 행운의 색깔</h3>
-행운의 숫자 : <%=randomNumber() %><br/>
-행운의 색깔 : <%=randomColor() %>
+<p>
+<!-- strong은 굵게 -->
+행운의 숫자 : <strong><%=randomNumber() %></strong><br/>
+<!-- em은 이텔릭체 -->
+행운의 색깔 : <em><%=randomColor() %></em>
+</p>
 </body>
 </html>
