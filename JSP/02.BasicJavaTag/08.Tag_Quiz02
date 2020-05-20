@@ -1,0 +1,42 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import = "java.util.*" %>
+<%
+	//declaration으로 하면 리스트에 계속 숫자가 쌓이므로
+	//clear를 해주던가, scriptlet으로 계속 초기화
+	List<Integer> numbers = new ArrayList<>();    
+
+	while (numbers.size()<6){
+		int r = (int)(Math.random()*45)+1;
+		if (!numbers.contains(r)){
+			numbers.add(r);
+		}
+	}
+	Collections.sort(numbers);
+
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+ <h1>로또 번호 생성 결과!</h1>
+
+<p>
+이번주 로또는 이 번호다!!
+</p>
+<% for(int num:numbers){ 
+	out.println(num+"&nbsp");
+	Thread.sleep(700); //CPU를 잠시 멈추는 메서드 (700 = 0.7초)
+	//잠시 쉬면 버퍼가 쌓인다. 그래서 버퍼를 비운다. 
+ 	out.flush(); //브라우저의 출력 버퍼를 비우는 메서드 
+	
+}
+%>
+
+
+</body>
+</html>
