@@ -1,0 +1,50 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import = "java.util.*" %>
+
+<%! List<String> party = new ArrayList<>();%>
+    
+<%
+   	String[] class_ = {"전사","도적","사냥꾼","마법사","사제"};
+    
+	int r = (int)(Math.random()*class_.length);
+    
+	String job = class_[r];
+   
+    party.add(job);
+    
+    int count = 0;
+    for(String player:party){
+    	if(job.equals(player)){
+    		count+=1;
+    	}
+    }
+    
+    
+   %>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h2> 당신의 역할</h2>
+<p>
+ 당신에게 부여된 역할은 <strong>[<%= job %>]</strong>입니다.<br/>
+ 현재 파티에 당신과 같은 역할을 가진 플레이어는 <%= count %>명입니다.<br/>
+ <br/>
+ </p>
+ </p>
+ 	현재파티 구성<br/>
+ 	<%=party %>(<%=party.size() %>명 참가중)
+ 
+</p>
+<% if (party.size() == 10){
+party.clear();}	
+	%>
+
+
+</body>
+</html>
