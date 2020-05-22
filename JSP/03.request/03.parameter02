@@ -1,0 +1,52 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
+<%-- bmi 체중(kgf) / 신장(m) * 신장(m)
+23을 초과하면 당신은 과체중입니다.
+18.5미만이면 "당신은 저체중입니다."
+나머지는 "당신은 정상입니다." 
+
+그냥 실행하면 에러가 뜬다. cm과 kg에 입력값이 없어서
+null이 되기 때문이다.
+http://localhost:8181/JSPBasic/JspObj/req_bmi.jsp?cm=177&kg=79
+라고 url 입력창에 적어야 결과값이 나온다. 
+--%>
+<%
+
+ String strCm = request.getParameter("cm");
+ String strKg = request.getParameter("kg");
+ double height = Double.parseDouble(strCm);
+ double weight = Double.parseDouble(strKg);
+ double BMI = weight/(height*height/100/100);
+ BMI = Math.round(BMI*1000)/1000.0;
+ 
+ %>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>체질량 지수(BMI) 계산</h1>
+<hr/>
+
+<p>
+ - 신장 : <%= height %>cm <br/>
+ - 체중 : <%= weight %>kg <br/>
+</p>
+<p>
+BMI 지수 : <%= BMI %>
+<% if(BMI>23){ %>
+	당신은 과체중입니다.
+<%} else if(BMI<18.5){ %>
+	당신은 저체중입니다."
+<% } else{ %>
+	당신은 정상입니다.
+<% }%>
+
+</p>
+
+</body>
+</html>
