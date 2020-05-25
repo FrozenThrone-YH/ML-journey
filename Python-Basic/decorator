@@ -1,0 +1,23 @@
+user_datas = [
+    {'id':"python","pw":"1234","count":0},
+    {"id":"java","pw":"5678","count":0}
+]
+
+def need_login(func):
+    def wrapper(*args,**kwargs):
+        input_id,input_pw = input("insert user_id pw : ").split(" ")
+        for idx,user_data in enumerate(user_datas):
+            if ((user_data["id"]==input_id) and (user_data["pw"]==input_pw)):
+                result = func(*args,**kwargs)
+                user_datas[idx]["count"] += 1
+                return result
+            elif ((user_data["id"]==input_id) and (user_data["pw"]!=input_pw)):
+                print("비밀번호가 틀렸습니다.")
+                return
+            else:
+                print("등록되지 않은 아이디입니다.")
+    return wrapper
+    
+plus(1,2)
+
+user_datas
