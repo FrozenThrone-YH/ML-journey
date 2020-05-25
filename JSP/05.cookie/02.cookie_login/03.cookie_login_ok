@@ -1,0 +1,25 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+ <%
+    //post 방식 한글 처리
+ 	request.setCharacterEncoding("utf-8");
+ 
+ 	
+ 	String id = request.getParameter("id");
+ 	String pw = request.getParameter("pw");
+ 	
+ 	if(id.equals("abc1234")&&pw.equals("aaa1111")){
+ 		//로그인에 성공한 사람의 징표
+ 		//Cookie("쿠키이름","쿠키에 담을 정보")
+ 		//쿠키이름 얻을때는 getName, 정보 얻을때는 getValue
+ 		Cookie idCookie = new Cookie("id_cookie",id);
+ 		idCookie.setMaxAge(30);
+ 		response.addCookie(idCookie);
+ 		
+ 		response.sendRedirect("cookie_login_welcome.jsp");
+ 		
+ 	}else{
+ 		response.sendRedirect("cookie_login.jsp");
+ 	}
+ %>
