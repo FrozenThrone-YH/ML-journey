@@ -14,7 +14,14 @@
 
 </head>
 <body>
+<%
 
+	if(session.getAttribute("user_id")!=null){
+		String nick = (String)session.getAttribute("user_nick");
+%>
+		<p><%=nick %>님이 현재 로그인중입니다. </p>
+		<a href = "session_welcome.jsp"> 메인페이지로 </a>
+<% } else { %>
 <form action="session_login_ok.jsp" method="post">
 
 	<fieldset>
@@ -27,6 +34,6 @@
 	</fieldset>
 	
 </form>
-
+<% } %>
 </body>
 </html>
