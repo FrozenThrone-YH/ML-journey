@@ -20,6 +20,8 @@
 	String id = (String)session.getAttribute("user_id");
 %>
 
+<%@include file="../Application/app_basic.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +36,7 @@
 <a href="session_album.jsp">엘범페이지로 가기<br/></a>
 <a href="session_logout.jsp">로그아웃<br/></a>
  
-
+<hr/><h3>방문자수: <%=count %></h3>
 
 </body>
 </html>
