@@ -1,0 +1,37 @@
+class Calculator:
+    
+    def __init__(self,num1,num2):
+        self.num1 = num1
+        
+        # 변수 앞에 언더바 2개 __ 를 붙여서 바로 접근을 하지 못하도록 설정할 수 있다. 
+        self.__num2 = num2
+        
+    def getter(self):
+        return self.__num2
+    
+    #num2에 0이 들어가지 않도록 설정
+    def setter(self,num2):
+        if num2 == 0:
+            num2 = 1
+        self.__num2 = num2
+        
+    def div(self):
+        return self.num1 / self.__num2
+    
+    ## 함수 역시도 언더바 2개를 붙여서 바로 호출이 안되게 한다. 
+    #attribute : 속성값 
+    #어떤 경우에 사용하나? 함수를 class안에서는 활용은 해야하지만, 외부에서 사용하지 않게 하기 
+    # private
+    def __disp(self):
+        print(self.num1,self.num2)
+    
+    number2 = property(getter,setter)
+    
+calc = Calculator(1,2)
+calc.div()
+## 바로 접근이 안된다. 
+calc.__num2 
+# _Calculator__num2로 강제 접근이 가능하다. 
+calc._Calculator__num2
+# 메서드 역시 바로 접근이 안된다. 
+calc.__disp()
