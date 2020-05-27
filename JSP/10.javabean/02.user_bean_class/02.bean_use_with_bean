@@ -1,0 +1,22 @@
+<%@page import="kr.co.koo.jspbasic.user.userBean"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<%-- userBean 이라 치고 ctrl + space 치면 자동으로 import 된다.  --%>
+<% userBean user = (userBean)request.getAttribute("user");%>
+
+# 아이디 : <%= user.getId() %>
+# 패스워드 : <%= user.getPw() %>
+# 이름 : <%= user.getName() %>
+# 이메일 : <%= user.getEmail() %>
+
+
+</body>
+</html>
