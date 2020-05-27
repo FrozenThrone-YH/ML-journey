@@ -13,7 +13,11 @@
 </head>
 <body>
 <%--NullPointException이 발생예상 --%>
+<% try { %>
 <h4><%=id.toUpperCase() %></h4>
-
+<%} catch(Exception e){ %>
+<h4>죄송합니다. 서버측 오류가 발생했습니다.</h4>
+<p><strong>잠시만 기다리시면 빠른 시간 내에 해결하겠습니다.</strong></p>
+<%} %>
 </body>
 </html>
