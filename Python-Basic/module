@@ -1,0 +1,38 @@
+%%writefile dss.py
+
+num = 1234
+def disp1(msg):
+    print("disp1",msg)
+
+def disp2(msg):
+    print("disp2",msg)
+    
+class Calc:
+    def plus(self,*args):
+        return sum(args)
+        
+        
+# 변수 리셋        
+%reset
+
+%whos
+# 변수 조회 
+
+#모듈 호출
+import dss
+
+%whos
+
+dss.num
+dss.disp1("python")
+calc = dss.Calc()
+calc.plus(1,2,3,4,5)
+
+
+from dss import num,disp2
+num
+disp2("python")
+
+%reset
+from dss import *
+%whos
