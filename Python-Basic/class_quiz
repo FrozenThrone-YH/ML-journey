@@ -1,0 +1,20 @@
+class Account:
+    def __init__(self,asset,interest):
+        self.asset = asset
+        self.interest = interest
+        
+    def draw(self, money):
+        if (money <= self.asset):
+            self.asset -= money
+            print("{}원 인출하여 현재 잔액은 {}원입니다.".format(money,self.asset))
+        else:
+            print("찾고자하시는 금액{}이 현재 잔액{}보다 큽니다.".format(money,self.asset))
+            
+    def insert(self, money):
+        self.asset += money
+        print("{}원 입금하여 현재 잔액은 {}원입니다.".format(money,self.asset))
+        
+    def add_interest(self):
+        interest = self.asset * self.interest / 100
+        self.asset += interest
+        print("{}원 이자가 추가되어 현재 잔액은 {}원입니다.".format(interest, self.asset))
