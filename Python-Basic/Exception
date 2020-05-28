@@ -1,0 +1,45 @@
+ls = [1,2,3]
+
+try:
+    print(ls[3])
+except Exception as e:
+    print("error")
+    print(e)
+print("done")
+
+try:
+    1/0
+except:
+    print("error")
+finally:
+    print("done")
+    # finally는 에러가 발생해도 실행, 발생안해도 실행
+    # db에 접속해서 작업을 처리하다가 에러를 만나면 db자원을 반납해줘야한다.
+    
+# raise : 강제로 에러를 발생시키는 명령
+
+try:
+    1/0
+except Exception as e:
+    print("error")
+    raise(e)
+
+# done이 출력되지 않는다. 
+print("done")
+
+
+# 에러 생성 : 10이상의 숫자가 입력되도록 하는 에러 
+# LowNumber error 만들기
+
+class LowNumber(Exception): # Exception class를 상속 받는다.
+    def __str__(self):
+        return "Number grater than 10"
+        
+        
+def input_number(num):
+    if num<=10:
+        raise LowNumber()
+    print(num)
+    
+input_number(12)
+input_number(10)
