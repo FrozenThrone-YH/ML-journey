@@ -1,0 +1,6 @@
+file - new - dynamic web project - JDBC - NEXT 2번 - GENERATE WEB.XML deployment descriptor 체크 
+
+tomcat server 우클릭 - add and remove - 기존에 있던 프로젝트 remove - 새로 만든 프로젝트 add
+
+mysql-connector-java-5.1.49-bin.jar 를 JDBC-WebContent-> web-inf -> lib 폴더에 ctrl v로 붙여 넣는다. 
+※ 파일은 connector j로 다운 받는다. 
