@@ -1,0 +1,30 @@
+# 트랜젝션 처리 
+# auto commit mode 끄기 
+# edit -> preference => SQL execution => New connection auto commit mode 체크 풀기 => 워크 벤치 재실행 
+
+insert into member values('가가가','1234','가가가','가가가');
+commit;
+insert into member values('나나나','1234','나나나','나나나');
+insert into member values('다다다','1234','다다다','다다다');
+
+rollback; # commit; 다음부터 다 취소 
+select * from member
+
+#테이블 객체 삭제
+DROP TABLE member; # member 라는 테이블을 통째로 날린다.
+select * from member;
+
+rollback; # DROP table은 rollback 이 안된다. rollback은 DML만 가능하다.
+
+# 테이블 다시 만들기 
+
+Truncate table member; # 테이블은 남겨두고, 안에 있는 DB만 날린다. 
+select * from member;
+
+# 테이블 칼럼 수정 
+# EX : 회원정보에서 주소 칼럼 추가 하는 방법
+ALTER TABLE member ADD address varchar(100);
+select * from member;
+
+ALTER TABLE member DROP COLUMN email;
+select * from member;
