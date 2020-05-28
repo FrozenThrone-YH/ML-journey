@@ -1,0 +1,13 @@
+1. https://www.mysql.com/downloads/ => MySQL Community Downloads => installer for windows => 용량 큰 걸로
+   (https://dev.mysql.com/downloads/installer/) 
+   
+2. choosing set-up type : custom => MySQL Servers 제일 하단 8.x.xx 추가 
+                                    Applications - workbench => next => execute => next=> next=> next => port 3306확인 next=> next
+                                    => 비번설정 => next => execute => next => finish
+                                    
+3. Mysql80 실행했는데, 에러가 나면?
+   => MySQL 8.0 command line client => enter password: mysql (설정된 비번) 서버 구동이 된다. 
+   
+
+                                    
+                     
