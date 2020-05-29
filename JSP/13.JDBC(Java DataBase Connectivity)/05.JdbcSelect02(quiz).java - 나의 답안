@@ -1,0 +1,78 @@
+package kr.co.hee.jdbc.basic;
+
+import java.sql.*;
+import java.util.*;
+
+public class JdbcSelect2 {
+
+	public static void main(String[] args) {
+		
+		/*
+		 * 문제 : 조회할 회원의 ID를 입력하세요. 
+		 * > 
+		 * 아이디를 치면
+		 * ============회원정보============
+		 * 아이디 : 
+		 * 비밀번호 : 
+		 * 이름 : 
+		 * 이메일 : 
+		 * ==============================
+		 */
+		Scanner sc = new Scanner(System.in);
+		System.out.println("조회할 회원의 ID를 입력하세요");
+		System.out.print("> ");
+		String search_id = sc.next();
+		
+		String url = "jdbc:mysql://localhost:3306/jsp_practice";
+		String uid = "jsp";
+		String upw = "jsp"; 
+		
+		String sql ="SELECT * FROM member WHERE id='"+search_id+"'";
+		
+		Connection conn=null;
+		Statement stmt = null;
+		ResultSet rs = null; //select 문에서만 사용하는 객체.
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(url,uid,upw);
+			stmt = conn.createStatement();
+			
+
+			rs = stmt.executeQuery(sql);
+			
+
+			
+			//다음줄에 데이터가 없으면 rs.next()는 false가 뜨기 때문에 
+			//데이터가 없으면 while문은 종료 
+			if (rs.next()) {
+			/*
+			 * select의 실행 결과의 컬럼 레코드를 읽어오려면
+			 * getString(),getInt()등의 메서드를 사용합니다.
+			 * 해당 메서드의 매개값으로 읽어올 테이블의 컬럼명을 지정합니다. 
+			 */
+			System.out.println("============회원정보============");
+			String id = rs.getString("id");
+			String pw = rs.getString("pw");
+			String name = rs.getString("name");
+			String email = rs.getString("email");
+			
+			System.out.printf("# 아이디 : %s \n# 비번 : %s \n# 이름 : %s \n# 이메일 : %s\n",id,pw,name,email);
+			System.out.println("==============================");}
+			else {
+				System.out.println("입력하신 ID가 없습니다.");
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close(); stmt.close(); rs.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+
+	}
+
+}
