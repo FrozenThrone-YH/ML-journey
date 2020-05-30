@@ -27,7 +27,7 @@
 		conn = DriverManager.getConnection(url,uid,upw);
 		stmt = conn.createStatement();
 		rs = stmt.executeQuery(sql);
-		
+		//아무리 한줄이라도 rs.next()로 불러내지 않으면 에러 
 		if (rs.next()){
 		String dbID = rs.getString("id");
 		String dbPW = rs.getString("pw");
