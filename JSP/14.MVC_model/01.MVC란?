@@ -1,0 +1,18 @@
+Client에서 request가 오면 controller가 받아서 Model을 통해서 db에서 정보를 받아 해당하는 ui를 보여주는 것 view
+
+Client는 servlet Model은 class나 interface사용 view는 jsp 파일 
+이것을 MVC model 2 architecture
+
+작은 웹사이트는 MVC 1 architecture 
+1. 회원관리는 1 아키텍쳐
+2. 게시판은 2 아키텍쳐 
+
+1 아키텍쳐는 db전담만 빠로 빼서 운영하는 것
+
+Model 을 구성하는 클래스
+
+1. DAO - data access object db에 접근하는 class
+2. 모델은 db테이블 하나당 dao하나를 운영한다. user table에 하나, member에 하나 
+3. 자바빈 클래스를 항상 작성해야한다. vo(value object), dto(data transfer object) 라 한다. 
+  - 데이터를 객체로 묶어서 관리한다.
+  
