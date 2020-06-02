@@ -1,3 +1,9 @@
+<%-- 
+login_modal.jspf의 54번째 줄
+type="button" value="로그인" class="btn form-control tooltipstered" id="signIn-btn" 
+에서 type="submit" id="#"으로 변경--%>
+
+
 <%@page import="kr.co.koo.izone.member.model.MemberDAO" %>
 <%@page import="kr.co.koo.izone.member.model.MemberVO" %>
 <%@page import="java.util.*" %>
