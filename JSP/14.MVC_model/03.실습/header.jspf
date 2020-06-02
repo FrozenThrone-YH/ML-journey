@@ -1,0 +1,6 @@
+
+<%--122번째줄 수정 href="#"--%>
+<a class="nav-link js-scroll-trigger" href="/izone/users/mypage_change_pw.jsp">MYPAGE</a>
+
+<%--140번째줄 수정 href="#"--%>
+<a class="btn btn-chu btn-xl text-uppercase js-scroll-trigger" href="/izone/users/mypage_change_pw.jsp"><%=userSessionName %>님 안녕~♥</a>
