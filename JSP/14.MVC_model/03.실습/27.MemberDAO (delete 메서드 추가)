@@ -1,0 +1,286 @@
+package kr.co.koo.izone.member.model;
+
+import java.sql.*;
+import java.util.*;
+import javax.sql.DataSource;
+import javax.naming.*;
+
+public class MemberDAO {
+	
+	public static final int LOGIN_SUCCESS = 1;
+	public static final int LOGIN_FAIL_ID = -1;
+	public static final int LOGIN_FAIL_PW = 0;
+	
+	//싱글톤 패턴 
+	private static MemberDAO dao = new MemberDAO();
+	private DataSource ds;
+	
+	private MemberDAO() {
+		try {
+			Context ct = new InitialContext();
+			ds = (DataSource)ct.lookup("java:comp/env/jdbc/mysql");
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static MemberDAO getInstance() {
+		if(dao == null) {
+			dao = new MemberDAO();
+		}
+		return dao;
+	}
+	
+	//ID 중복확인을 하는 메서드 선언.
+	public boolean confirmId(String id){
+		
+		boolean flag = false;
+		
+		String sql = "SELECT user_id FROM izone_member WHERE user_id=?";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				//결과가 true면 database에 있다는 것이니까
+				//중복이다.
+				flag = true;
+			} else {
+				//결과가 false면 database에 없다. 
+				flag = false;
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			Jdbcutil.close(conn);
+			Jdbcutil.close(pstmt);
+			Jdbcutil.close(rs);
+		}
+		return flag;
+	}
+	
+	//회원가입 하는 메서드 
+	public boolean JoinId(MemberVO izone_member){
+		
+		boolean flag = false;
+
+		String sql = "INSERT INTO izne_member"
+				+"(user_id,user_pw,user_name,user_email)"+
+				"VALUES(?,?,?,?)";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, izone_member.getUserId());
+			pstmt.setString(2, izone_member.getUserPw());
+			pstmt.setString(3, izone_member.getUserName());
+			pstmt.setString(4, izone_member.getUserEmail());
+			
+			int i = pstmt.executeUpdate();
+			
+			if(i==1) {
+				flag = true;
+			} else {
+				flag = false;
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			Jdbcutil.close(conn);
+			Jdbcutil.close(pstmt);
+		}
+		return flag;
+	}
+	
+	//로그인의 유효성을 검증하는 메서드 선언.
+	public int userCheck(String id, String pw){
+		
+		int resultnum =0;
+		//전달된 정보를 바탕으로 로그인이 유효한지를 판정할 수 있는
+		//select로 가입한 회원인지 확인
+		String sql = "SELECT user_pw,user_name FROM izone_member WHERE user_id=?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,id);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				String dbPw = rs.getString("user_pw");
+				if(dbPw.equals(pw)) { //로그인 성공
+					//나중에 숫자가 헷갈리니 클래스 맨 상위에 상수 지정 
+					resultnum= LOGIN_SUCCESS;
+		
+				} else { //비밀번호가 틀렸을 경우 
+					resultnum=LOGIN_FAIL_PW;
+				}
+			} else {
+				//아이디가 존재 하지 않는 경우
+				resultnum=LOGIN_FAIL_ID;
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			Jdbcutil.close(conn);
+			Jdbcutil.close(pstmt);
+			Jdbcutil.close(rs);
+		}
+		//jdbc로직을 작성하세요.
+		//1. 로그인 성공 2. 비번 틀림 3. 아이디없음
+		return resultnum;
+	}
+	
+	//로그인한 회원의 정보를 모두 가져오는 메서드 선언.
+	public MemberVO getMemberInfo(String id) {
+		
+		MemberVO user = null;
+		//로그인한 회원의 모든 정보를 DB로부터 조회하는 로직 작성
+		String sql = "SELECT * FROM izone_member WHERE user_id=?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,id);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+			user = new MemberVO();
+			user.setUserId(rs.getString("user_id"));
+			user.setUserName(rs.getString("user_name"));
+			user.setUserPw(rs.getString("user_pw"));
+			user.setUserEmail(rs.getString("user_email"));
+			}
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			Jdbcutil.close(conn);
+			Jdbcutil.close(pstmt);
+			Jdbcutil.close(rs);
+		}
+		
+		return user;
+	}
+	
+	//비밀번호 수정을 위한 메서드 선언.
+	public boolean changePassword(String id, String newPw){
+		
+		boolean flag = false;
+		String sql = "UPDATE izone_member SET user_pw=? WHERE user_id=?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,newPw);
+			pstmt.setString(2,id);
+			int rn = pstmt.executeUpdate();
+			if(rn==1) {
+				
+				flag = true;
+			}else {
+				flag = false;
+			}
+			
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			Jdbcutil.close(conn);
+			Jdbcutil.close(pstmt);
+		
+		}
+		
+		return flag;
+		
+	}
+	
+	public boolean updateMember(MemberVO member){
+		
+		boolean flag= false;
+		String sql = "UPDATE izone_member SET user_name=?,user_email=? WHERE user_id=?";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,member.getUserName());
+			pstmt.setString(2,member.getUserEmail());
+			pstmt.setString(3,member.getUserId());
+			int rn = pstmt.executeUpdate();
+			if(rn==1) {
+				
+				flag = true;
+			}else {
+				flag = false;
+			}
+			
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			Jdbcutil.close(conn);
+			Jdbcutil.close(pstmt);
+		
+		}
+		
+		return flag;
+	}
+	public boolean deleteMember(String id) {
+		
+		boolean flag= false;
+		String sql = "DELETE FROM izone_member WHERE user_id=?";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,id);
+			int rn = pstmt.executeUpdate();
+			if(rn==1) {
+				
+				flag = true;
+			}else {
+				flag = false;
+			}
+			
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			Jdbcutil.close(conn);
+			Jdbcutil.close(pstmt);
+		
+		}
+		
+		return flag;
+	
+	}
+	
+}
