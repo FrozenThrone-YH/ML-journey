@@ -1,0 +1,11 @@
+1. 디렉토리 패턴 : 리렉토리 형태로 서버의 해당 컴포넌트를 찾아서 실행하는 구조입니다.
+
+http://localhost:8181/cr/hello => /hello 서블릿
+http://localhost:8181/cr/world => /world 서블릿
+
+2. 확장자 패턴 : 확장자 형태로 서버의 해당 컴포넌트를 찾아서 실행하는 구조
+
+http://localhost:8181/cr/hello.do => *.do 서블릿
+http://localhost:8181/cr/world.do => *.do 서블릿
+
+*.do로 끝나는 것을 controller 하나가 다받고, 어떤 요청인지 .do 앞에 있는 글자로 구분한다. 
