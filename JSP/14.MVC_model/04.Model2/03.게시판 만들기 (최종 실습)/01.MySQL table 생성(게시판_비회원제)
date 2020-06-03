@@ -1,0 +1,15 @@
+CREATE TABLE izone_board(
+	borad_id INT PRIMARY KEY AUTO_INCREMENT,
+    #인서트 될때 마다, 자동으로 시퀀스, 글을쓰면 자동으로 1이 됨
+    board_name VARCHAR(30) NOT NULL,
+    board_title VARCHAR(60) NOT NULL,
+    board_content VARCHAR(300),
+    board_data DATETIME DEFAULT CURRENT_TIMESTAMP,
+    board_hit INT DEFAULT 0
+);
+
+INSERT INTO izone_board
+(board_name,board_title,board_content)
+VALUES("홍길동","테스트용 게시물입니다.","가나다라마바사");
+
+SELECT * FROM izone_board;
