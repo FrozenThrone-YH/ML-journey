@@ -1,0 +1,55 @@
+package ko.co.koo.servlet;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+//서블릿 클래스 선언 방법 : HttpServlet클래스를 상속 받습니다.
+//URL Mapping : 페이지의 URL을 사용자 정의로 지정하는 방식
+@WebServlet("/apple")
+public class ServletBasic extends HttpServlet{
+	//이렇게 되면, 이것이 jsp파일처럼 된다.
+	//이것은 자바기반에 html을 넣는것이고,
+	//jsp에 <%%>를 하는 것은 html기반에 java를 넣는것.
+	//이상태로 ctrl+f11을 눌러도 된다. 자바코드가 노출이 되어
+	//url mapping을 한다. 경로를 숨길 수 있다.
+	
+	//기본생성자
+	public ServletBasic() {
+		System.out.println("apple페이지 서블릿 객체 생성!");
+	}
+	//HttpServlet클래스에서 상속받은 메서드들을 오버라이딩합니다.
+	//init(), doGet(), doPost(), destroy() 등
+	
+	@Override
+	public void init() throws ServletException {
+		/*
+		 * 페이지 요청이 들어왔을 때 처음 실행할 로직을 생성
+		 * init() 메서드는 컨테이너에 의해 서블릿 객체가 
+		 * 생성될 때 최초 1회 자동 호출합니다.
+		 */
+		System.out.println("init메서드가 호출됨!");
+	}
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//Http Get요청이 들어왔을 때 호출되는 메서드
+		System.out.println("doGet메서드 호출!");
+	}
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//Http Post요청이 들어왔을 때 호출되는 메서드 
+		System.out.println("doPost메서드 호출!");
+	}
+	@Override
+	public void destroy() {
+		//서블릿 객체가 소멸할 때 호출되는 메서드 (객체소멸시  1회 호출- 자동적)
+		System.out.println("destroy메서드 호출!");
+	}
+	
+	
+}
