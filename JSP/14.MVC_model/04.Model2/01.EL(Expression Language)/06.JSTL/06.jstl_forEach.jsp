@@ -36,5 +36,21 @@
 		${dan} x ${hang} = ${dan*hang} <br/>
 	</c:forEach>
 </c:forEach>
+
+<h4>배열이나 컬렉션 내부값 출력</h4>
+<%-- 기존 
+<%
+	int[] arr = new int[] {1,3,5,7,9};
+	for(int i:arr)
+		out.print(i+"&nbsp;");
+%>--%>
+
+<c:set var="arr" value="<%=new int[] {1,3,5,7,9} %>"/>
+<c:forEach var="i" items="${arr}">
+	${i} &nbsp;
+</c:forEach>
+
+
+
 </body>
 </html>
