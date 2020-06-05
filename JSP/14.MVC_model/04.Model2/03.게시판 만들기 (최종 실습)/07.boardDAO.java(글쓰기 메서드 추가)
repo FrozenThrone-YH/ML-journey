@@ -1,0 +1,67 @@
+package kr.co.koo.izone.board.model;
+
+import java.sql.*;
+import java.util.*;
+import javax.sql.DataSource;
+
+import kr.co.koo.izone.member.model.Jdbcutil;
+
+import javax.naming.*;
+
+public class BoardDAO {
+	
+	//싱글톤 패턴을 사용하여 DAO클래스 설계.
+	//커넥션 연동을 생성자에서 처리. 
+	private static BoardDAO dao = new BoardDAO();
+	private DataSource ds;
+	
+	private BoardDAO() {
+		try {
+			Context ct = new InitialContext();
+			ds = (DataSource)ct.lookup("java:comp/env/jdbc/mysql");
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static BoardDAO getInstance() {
+		if(dao == null) {
+			dao = new BoardDAO();
+		}
+		return dao;
+	}
+	
+	//게시글 내용을 DB에 저장하는 메서드 
+	public void write(String bName,String bTitle,String bContent) {
+		String sql = "INSERT INTO izone_board"
+				+"(board_name,board_title,board_content)"
+				+"VALUES (?,?,?)";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, bName);
+			pstmt.setString(2, bTitle);
+			pstmt.setString(3, bContent);
+			
+			int i = pstmt.executeUpdate();
+			if(i == 1) {
+				System.out.println("게시글 등록 성공!");
+			}else {
+				System.out.println("게시글 등록 실패!");
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			Jdbcutil.close(conn);
+			Jdbcutil.close(pstmt);
+		}
+	}
+
+
+}
