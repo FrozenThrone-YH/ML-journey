@@ -41,7 +41,13 @@ header.masthead {
 							<!-- 게시글리스트가 들어갈 행 getter를 안써도 된다.-->
 							<td>${article.bId}</td>
 							<td>${article.bName}</td>
-							<td>${article.bTitle}</td>
+							
+							<td>
+							<%-- 글내용 보여달라는 request를 controller로 보내야한다.  --%>
+								<a href="/izone/board/bContent.izone?bId=${article.bId}" style="color: orange">
+							${article.bTitle}
+							</a>
+							</td>
 							<td>
 								<fmt:formatDate pattern="yyyy년 MM월 dd일 hh시 mm분" value="${article.bDate}"/>
 							</td>
