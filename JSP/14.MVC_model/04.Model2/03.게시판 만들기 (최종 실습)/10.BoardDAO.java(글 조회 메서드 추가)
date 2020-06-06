@@ -1,0 +1,138 @@
+package kr.co.koo.izone.board.model;
+
+import java.sql.*;
+import java.util.*;
+import javax.sql.DataSource;
+
+import kr.co.koo.izone.member.model.Jdbcutil;
+
+import javax.naming.*;
+
+public class BoardDAO {
+	
+	//싱글톤 패턴을 사용하여 DAO클래스 설계.
+	//커넥션 연동을 생성자에서 처리. 
+	private static BoardDAO dao = new BoardDAO();
+	private DataSource ds;
+	
+	private BoardDAO() {
+		try {
+			Context ct = new InitialContext();
+			ds = (DataSource)ct.lookup("java:comp/env/jdbc/mysql");
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static BoardDAO getInstance() {
+		if(dao == null) {
+			dao = new BoardDAO();
+		}
+		return dao;
+	}
+	
+	//게시글 내용을 DB에 저장하는 메서드 
+	public void write(String bName,String bTitle,String bContent) {
+		String sql = "INSERT INTO izone_board"
+				+"(board_name,board_title,board_content)"
+				+"VALUES (?,?,?)";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, bName);
+			pstmt.setString(2, bTitle);
+			pstmt.setString(3, bContent);
+			
+			int i = pstmt.executeUpdate();
+			if(i == 1) {
+				System.out.println("게시글 등록 성공!");
+			}else {
+				System.out.println("게시글 등록 실패!");
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			Jdbcutil.close(conn);
+			Jdbcutil.close(pstmt);
+		}
+	}
+	
+	//게시글 목록을 DB로부터 받아올 메서드 선언
+	public List<BoardVO> getBoardArticles(){
+		
+		//최신글 id는 제일 클 테니 내림차순 정렬 
+		String sql = "SELECT * FROM izone_board ORDER BY borad_id DESC";
+		List<BoardVO> articleList = new ArrayList<>();
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				BoardVO article = new BoardVO(
+						rs.getInt("borad_id"),
+						rs.getString("board_name"),
+						rs.getString("board_title"),
+						rs.getString("board_content"),
+						rs.getTimestamp("board_data"),
+						rs.getInt("board_hit")
+						);
+				articleList.add(article);
+			}
+			System.out.println("게시글 목록 정보 조회 완료!");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			Jdbcutil.close(conn);
+			Jdbcutil.close(pstmt);
+			Jdbcutil.close(rs);
+		}
+		return articleList;
+	}
+	//선택된 게시물의 정보를 db로부터 조회하는 메서드
+	//글 번호 받아서 특정 글의 내용을 리턴하는
+	public BoardVO getBoardContent(String bId) {
+		BoardVO contents = null;
+		String sql = "SELECT * FROM izone_board WHERE borad_id=?";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(bId));
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				contents = new BoardVO(
+						rs.getInt("borad_id"),
+						rs.getString("board_name"),
+						rs.getString("board_title"),
+						rs.getString("board_content"),
+						rs.getTimestamp("board_data"),
+						rs.getInt("board_hit")
+						);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			Jdbcutil.close(conn);
+			Jdbcutil.close(pstmt);
+			Jdbcutil.close(rs);
+		}
+		
+		
+		return contents;
+	}
+
+}
