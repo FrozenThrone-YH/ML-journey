@@ -142,8 +142,7 @@ public class BoardDAO {
 	//글 제목을 클릭할때마다 조회수를 1상승시키는 메서드 
 	private void upHit(String bId) {
 		
-		String sql = "UPDATE izone_board SET board_hit=board_hit+1"
-				+"WHERE borad_id=?";
+		String sql = "UPDATE izone_board SET board_hit=board_hit+1 WHERE borad_id=?";
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
