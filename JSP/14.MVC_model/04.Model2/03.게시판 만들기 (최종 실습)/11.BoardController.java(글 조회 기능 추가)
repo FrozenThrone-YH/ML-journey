@@ -1,0 +1,73 @@
+package kr.co.koo.izone_board.controller;
+
+import java.io.IOException;
+import java.util.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse; 
+import kr.co.koo.izone.board.model.BoardDAO;
+import kr.co.koo.izone.board.model.BoardVO;
+
+
+@WebServlet("*.izone")
+public class BoardController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    public BoardController() {
+        super();
+    }
+
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doRequest(request,response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doRequest(request,response);
+	}
+	
+	private void doRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//get방식이든 post방식이든 어떤 요청이 와도 doRequest로 온다.
+		request.setCharacterEncoding("utf-8");
+		String uri = request.getRequestURI();
+		
+		//controller가 안내해줄UI페이지의 경로 정보를 담을 변수.
+		String viewPage = null;
+		BoardDAO dao = BoardDAO.getInstance();
+		
+		if(uri.equals("/izone/board/Blist.izone")) {
+			List<BoardVO> articles = dao.getBoardArticles();
+			//List를 request객체에 담아 포워드로 넘긴다. 
+			request.setAttribute("articles",articles);
+			viewPage = "/board/board_list.jsp";
+		} else if(uri.equals("/izone/board/BWriteView.izone")) {
+			viewPage = "/board/board_write_view.jsp";
+		} else if(uri.equals("/izone/board/BWrite.izone")) {
+			String bName = request.getParameter("bName");
+			String bTitle = request.getParameter("bTitle");
+			String bContent = request.getParameter("bContent");
+			//DAO를 통해 DB로직 처리 
+			
+			dao.write(bName, bTitle, bContent);
+			viewPage = "/board/Blist.izone";
+		} else if(uri.equals("/izone/board/bContent.izone")) {
+			String bId = request.getParameter("bId");
+			
+			//dao메서드를 통해 선택된 게시물 정보를 select해서 리턴 받으세요.
+			//request객체에 조회된 게시글 정보를 저장하세요. EL 변수 : "content"
+			BoardVO contents = dao.getBoardContent(bId);
+			request.setAttribute("contents",contents);
+			viewPage = "/board/board_content_view.jsp";
+		}
+		
+		//주소를 가리기 위해서 forwarding 한다.<강제이동>
+		//<jsp:forward page=""로 했었음>
+		RequestDispatcher dp = request.getRequestDispatcher(viewPage);
+		//request와 response를 그대로 보내준다. 
+		dp.forward(request, response);
+	}
+
+}
