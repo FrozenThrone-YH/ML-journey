@@ -19,10 +19,9 @@
                    (초반에는 부모가 전체다.)
     wrap_content : 내용의 크기에 따라 뷰의 크기를 설정.
     fill-parent : 예전에 사용되던 상위 태그에 크기를 맞추는 속성값.
-
+    dp로 설정할 수 도 있다.
    -->
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -35,8 +34,20 @@
     android:textSize="60px"
      - 텍스트 사이즈 설정
 
+    app:layout_constraint[뷰의 연결점]_to[타겟뷰 연결점]of = "타겟뷰의 아이디"
+    아이디는 객체명? 태그를 구분할 수 있는 이름
+    @+id/아이디로 적어준다.  @id/아이디가 아니다.
+    ex) app:layout_constraintEnd_toStartOf
+    위아래는 top/bottom/ left = start / right = end
+    start/end가 많이 쓰인다.
+
+    마진 dp? Device independant pixel
+    디바이스에 독직적인 픽셀값
+    디바이스의 크기에 따라 확대 축소를 하기위해 만들어진 단위
+    크기를 설정할때는 dp를 권장한다.
     -->
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World! 첫 앱"
@@ -45,5 +56,35 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="164dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.116" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="205dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="365dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
