@@ -1,0 +1,43 @@
+view
+ - 화면에 보이는 각각의 것들
+ - 컨트롤이나 위젯이라 불리는 구성요소
+ - 화면을 구성하는 모든 것들
+ 
+view group
+ - 뷰들이 여러개 포함되어 있는 그룹
+ - 화면에 보이지 않는 것들까지 포함이 되어 있다.
+ - 뷰 그룹안에는 뷰들이 포함된다.
+ 
+widget 
+ - 뷰중에 일반적으로 컨트롤의 역할을 하고 있는 것들
+ - 버튼이나 텍스트 아이콘
+ - 컨트롤이라 하면 눈에 보이는 것들
+ 
+Layout 
+ - 뷰 그룹중에서 내부에 뷰들을 포함하고 배치하는 역할을 하는 것
+ 
+ 1) ConstraintLayout
+  - 상대적으로 위치 잡아주는 것
+  - iphone에서 쓰던 것 relatvive보다 안정성이 좋다.
+ 2) RelativeLayout
+  - 상대적으로 위치 잡아주는 것
+ 3) LinearLayout
+ 4) TableLayout
+ 5) FrameLayout
+ 6) GridLayout
+ 
+ 사용 버전 8.1 oreo
+ AVD manager : pixel 2 api 27 사용 
+ tools - sdk manager - 8.1 체크하고 ok - 설치 
+ file - settings - editor - font - 글자 크기 수정 
+ 
+ 폴더는 java와 res를 자주 쓴다.
+ drawalbe은 주로 사진
+ layout은 보여지는 화면 
+ values는 jsp의 css라고 보면 된다. strings를 많이 쓰게 된다. 
+ 
+ 화면구성시 xml과 java파일 한쌍이 기본 구성 
+ xml은 화면구성을 해준다.
+ java 버튼에 기능을 입히는 것 
+ 
+ 
