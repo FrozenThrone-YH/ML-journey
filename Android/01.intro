@@ -19,6 +19,10 @@ Layout
  1) ConstraintLayout
   - 상대적으로 위치 잡아주는 것
   - iphone에서 쓰던 것 relatvive보다 안정성이 좋다.
+  - 화면의 뷰들의 위치를 상대적으로 위치할 수 있도록 하는 레이아웃
+  - 현재 화면이 전환 되어도 안정적으로 사용할 수 있는 레이아웃
+  - 얼마전까지는 기본 레이아웃 방식은 RelativeLayout이었다
+  - 아이폰에서 사용하던 방식을 안드로이드에서 가져다 사용하게 된다. 
  2) RelativeLayout
   - 상대적으로 위치 잡아주는 것
  3) LinearLayout
