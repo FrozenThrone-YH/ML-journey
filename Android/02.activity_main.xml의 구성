@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 주석 처리 -->
+<!-- 태그명은 클래스명이다. 풀로 적은 것은 외부에서 가져온 것
+   xmlns:android="http://schemas.android.com/apk/res/android"
+   안드로이드에 필요한 클래스를 사용하려면 무조건 적혀 있어야 한다.
+   지우면 에러뜬다.
+
+   xmlns:app="http://schemas.android.com/apk/res-auto"
+   외부라이브러리를 사용할때 적는 속성이다.
+   andoroid라고 적힌 속성들은 내부에서 지원해주는 속성
+   app이라고 하는 것은 외부또는 직접 만든 속성
+
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+    - 거의 모든 태그들의 필수 속성
+    항상 적어야 하는 속성 가로 길이 설정하는 속성
+    match_parent : 남은 공간을 다 채운다.
+                   상위 태그의 그 크기를 맞춘다.
+                   (초반에는 부모가 전체다.)
+    wrap_content : 내용의 크기에 따라 뷰의 크기를 설정.
+    fill-parent : 예전에 사용되던 상위 태그에 크기를 맞추는 속성값.
+
+   -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- 클래스명만 적었다.
+    android:text="Hello World!"
+     - 화면에 보여질 텍스트를 설정하는 속성
+    android:textSize="60px"
+     - 텍스트 사이즈 설정
+
+    -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World! 첫 앱"
+        android:textSize="60px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
