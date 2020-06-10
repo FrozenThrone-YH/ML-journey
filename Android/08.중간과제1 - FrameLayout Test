@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- 과제 : 사진 6장
+    첫째줄 : FrameLayout Test
+    두번째줄 : 두장이전 / 이전 / 다음 / 두장다음 등간격 4개 버튼
+    -->
+</androidx.constraintlayout.widget.ConstraintLayout>
