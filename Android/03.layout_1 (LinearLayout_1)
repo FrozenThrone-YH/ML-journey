@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <!--tools는 왠만하면 적어주는게 좋다.
+     태그 안에서 주석을 적으면 안된다. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+tools:context=".MainActivity">
+
+<!-- LinearLayout은 우리가 설정을 잡지 않으면 디폴트로 수평이 된다.
+     우리가 설정을 잡아야 세로로 넣을 수 있다. 왠만하면 수평이든 새로든 우리가 직접 설정하자.
+     android : orientation="horizontal" - LinearLayout필수 속성
+
+     android : layout_gravity - 뷰의 정렬 속성
+     - 어느 방향으로 배치할지 정하는 옵션 -->
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_weight="1"
+    android:text="버튼 1!" />
+
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_weight="1"
+    android:text="버튼 2!" />
+
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_weight="1"
+    android:text="버튼 3!"/>
+
+<!--android:layout_gravity="center" 뷰의 정렬속성
+      => text view만 중간으로 간다. 글자가 중간으로 가지 않는다
+    android:gravity="center" 뷰의 내용의 정렬 속성
+    중요! layout이 붙어 있으면 View 전체, 안붙어있으면 View의 내용
+
+    margin과 padding의 차이
+    margin은 앞에 layout이 붙고
+    padding은 layout이 안붙는다.
+
+    layout_margin : 뷰와 뷰 사이의 여백
+    padding : view와 내용물의 여백
+
+    android:layout_weight="정수값"
+      - 남아 있는 공간을 자동으로 할당하는 속성
+      - 두개이상이 있으면 두 속성의 합을 구해서 비율적으로
+        나누어주는 속성.
+        ex) 4개가 있으면 4개를 균등하게 분배
+        ex) 2,1,1이면 2:1:1이 아니다. 2.1:1.6정도 된다.
+
+        RGB color bit는 내일! 
+    -->
+
+<TextView
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    android:text="abcd"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:layout_margin="10dp"
+    android:paddingTop="100dp"
+    />
+
+</LinearLayout>
