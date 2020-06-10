@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    <!--
+        FrameLayout
+            - 가장 상위에 있는 하나의 뷰 또는 뷰 그룹만 보여주는 Layout
+            - 여러개의 뷰가 중첩적으로 쌓인다.
+            - 카드 쌓여 있는 것으로 생각하면 된다.
+            - 뷰를 전화하여 보여주는 방식에서 자주 사용된다.
+            - 중첩되는 효과와 함께 뷰의 가시성 속성(Visibility)을
+            이용해서 구현한다.
+        - 사진 복사는 MyFrameLayout폴더 - app - src - main - res - drawable-v24에 붙여 넣기.
+    -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FrameLayout Test"
+                android:textSize="25dp"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:background="#ffeb3b"/>
+            <!-- onClick 이란 명령이 있다.
+            Click이 되면 메서드를 실행하라는 의미 -->
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#ffeb3b"
+                android:text="이미지 전환"
+                android:textSize="25dp"
+                android:onClick="onClickButton"/>
+
+
+        </LinearLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- ImageView 이미지를 보여주는 뷰 -->
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/zelda1"/>
+
+            <!--
+                android:visibility = 가기성 속성
+                 -visible : 보이기
+                 - invisible : 안보이기
+                 - id값을 mainactivity에서 구분한다.
+            -->
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/zelda2"
+                />
+
+        </FrameLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
