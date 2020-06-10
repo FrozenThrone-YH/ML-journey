@@ -1,0 +1,101 @@
+package com.example.kyh;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import java.util.*;
+import android.view.View;
+import android.widget.ImageView;
+
+
+public class MainActivity extends AppCompatActivity {
+
+    List<ImageView> imageList = new ArrayList<>();
+    ImageView imageView1;
+    ImageView imageView2;
+    ImageView imageView3;
+    ImageView imageView4;
+    ImageView imageView5;
+    ImageView imageView6;
+    ImageView imageView7;
+
+    int idx = 0;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        imageView1 = (ImageView)findViewById(R.id.imageView1);
+        imageView2 = (ImageView)findViewById(R.id.imageView2);
+        imageView3 = (ImageView)findViewById(R.id.imageView3);
+        imageView4 = (ImageView)findViewById(R.id.imageView4);
+        imageView5 = (ImageView)findViewById(R.id.imageView5);
+        imageView6 = (ImageView)findViewById(R.id.imageView6);
+        imageView7 = (ImageView)findViewById(R.id.imageView7);
+
+        imageList.add(imageView1);
+        imageList.add(imageView2);
+        imageList.add(imageView3);
+        imageList.add(imageView4);
+        imageList.add(imageView5);
+        imageList.add(imageView6);
+        imageList.add(imageView7);
+
+
+    }
+
+    public void onClickNext(View v){
+        for (ImageView imageView:imageList){
+            imageView.setVisibility(View.INVISIBLE);
+        }
+        idx ++;
+        if (idx==8){
+            idx=0;
+        }
+        imageList.get(idx).setVisibility(View.VISIBLE);
+
+    }
+
+    public void onClickPrevious(View v){
+        for (ImageView imageView:imageList){
+            imageView.setVisibility(View.INVISIBLE);
+        }
+        idx --;
+        if (idx==-1){
+            idx=7;
+        }
+        imageList.get(idx).setVisibility(View.VISIBLE);
+
+    }
+
+    public void onClickNext2Step(View v){
+        for (ImageView imageView:imageList){
+            imageView.setVisibility(View.INVISIBLE);
+        }
+        idx += 2;
+        if (idx==8){
+            idx=0;
+        } else if(idx==9){
+            idx=1;
+        }
+        imageList.get(idx).setVisibility(View.VISIBLE);
+
+    }
+
+    public void onClickPrevious2Step(View v){
+        for (ImageView imageView:imageList){
+            imageView.setVisibility(View.INVISIBLE);
+        }
+        idx -= 2;
+        if (idx==-1){
+            idx=7;
+        } else if(idx==-2){
+            idx=6;
+        }
+        imageList.get(idx).setVisibility(View.VISIBLE);
+
+    }
+
+
+
+}
