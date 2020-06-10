@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Talbe Layout
+      - 자식(Children) View위젯들을 테이블 (행과 열)로 나누어 표시하는
+        layout 클래스
+      - 격자 모델이라고도 한다. 이것은 GridLayout에 넘겨줬다.
+      - 격자 모양의 배열을 사용하면 화면을 구성한다.
+      - HTML의 table태그오 방식이 유사하지만
+        - 많이 사용 안되는 레이아웃 <사용빈도가 높지 않다.>
+      - 앱 정렬 - GridView를 쓴다 / 연락처 - ListView를 쓴다
+        - 많이 쓰는 녀석이 GridView와 ListView이다.
+      - <TableRow>를 통해 줄추가
+      -
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TableLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:stretchColumns="0,1,2">
+
+        <!-- 한줄에 들어가는 뷰들은 TableRow를 통해 그룹화를 시켜줘야 한다.
+            android:layout_span="2"
+             - 칸을 합치는 속성 jsp의 colspan
+             - 2는 2칸 합치고, 3은 3칸을 합친다.
+            android:stretchColumns
+             - 줄마다 남아 있는 공간을 다 채우기 위한 속성.
+             - 인덱스 값을 지정한다.
+             - 0,1,2,3 ...
+             - 내가 지정한 인덱스 위치에 뷰를 삽입할수도 있다.
+        -->
+
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이름 : "
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="name input"
+                >
+            </EditText>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="전화번호 : "
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="phone input"
+                android:layout_span="2">
+
+            </EditText>
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:text="전송"
+
+
+                />
+        </TableRow>
+        <TableRow>
+            <Button
+                android:text="그냥???"
+                android:layout_column="2"
+                />
+        </TableRow>
+    </TableLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
