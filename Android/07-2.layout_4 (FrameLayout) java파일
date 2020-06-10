@@ -1,0 +1,50 @@
+package com.example.myframelayout;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+
+public class MainActivity extends AppCompatActivity {
+
+    ImageView imageView1;
+    ImageView imageView2;
+    //activity가 실행될때마다 변수를 만들어 줄 수 없으니
+    //클래스 멤버 변수를 만들어 준다.
+
+    boolean check = true;
+    //보여지고, 안보여지는 것을 결정하기 위해
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        //자바에서 onCreate는 메인메서드라고 생각하면 된다 main()
+        //activity_main.xml과 연결시키기 위한 코드라고 생각하면 된다.
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        imageView1 = (ImageView)findViewById(R.id.imageView1);
+        imageView2 = (ImageView)findViewById(R.id.imageView2);
+
+        //findViewbyId : 아디리를 통해 ID를 찾는 매서드
+        //안드로이드는 왠만한 것들은 상수화를 시킨다. (static final)
+        // imageView1에 해당하는 상수가 있다. ex) 1000145 / ctrl + space로 확인
+        //R- Resource 객체
+        //id - 아디에 접근
+        // 원하는 아이디를 찾으면 된다.
+        // 캐스팅을 지원해서 (ImageView) 안써도 된다.
+    }
+    public void onClickButton(View v){
+        //매개변수 view - > android.View에 있다. 메서드가 실행된 view가 뭔지는 알아야 한다.
+        //View가 없으면 실행되기 애매하다. 매서드에 View를 왠만하면 같이 넣은다.
+        if(check){
+            check=false;
+            imageView1.setVisibility(View.VISIBLE); //넣는 인수값이 int인 이유는 resource가 상수라서
+            imageView2.setVisibility(View.INVISIBLE);
+        }else{
+            check=true;
+            imageView1.setVisibility(View.INVISIBLE);
+            imageView2.setVisibility(View.VISIBLE);
+        }
+
+    }
+}
