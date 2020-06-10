@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- RelativeLayout
+     - 위젯들이 서로간의 상대적인 배치 관계에 따라 화면에 표시될 위치가
+       결정되도록 만들어주는 레이아웃
+     - 규칙기반모델
+     - Constrainlayout과 다른점, 연결선이 아닌 속성을 통해 위치를 지정한다.
+     - layout_margin을 통해 위치를 지정해야한다.
+     - match_parent는 상대적으로 위치를 지정할 필요성이 없는 상태 (전체화면이므로)
+     -->
+
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!--
+        android:layout_alignParent[부모뷰의위치] = "true"
+            - 부모뷰를 타겟으로 위치를 지정하는 옵션
+        android:layout_to[start,end]of
+            - 타겟뷰의 왼쪽, 오른쪽에 붙일지 정하는 옵션
+
+        android:layout_below="타겟 아이디"
+            - 타겟뷰의 아래쪽에 위치하기 위한 속성
+        android:layout_above="타겟아이디"
+            - 타겟뷰의 위족에 취이하기 위한 속성
+
+    -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="텍스트1"
+            android:textSize="30dp"
+            android:layout_alignParentBottom="true"
+            />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="텍스트2"
+            android:textSize="30dp"
+            android:layout_marginTop="100dp"
+            android:layout_alignParentEnd="true"
+            />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="텍스트3"
+            android:textSize="30dp"
+            android:layout_marginTop="300dp"
+            android:layout_marginStart="150dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="텍스트4"
+            android:textSize="30dp"
+            android:layout_toEndOf="@+id/textView3"
+            />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="텍스트5"
+            android:textSize="30dp"
+            android:layout_above="@+id/textView"
+            />
+
+
+
+
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>
