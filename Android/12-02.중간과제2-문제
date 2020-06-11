@@ -1,0 +1,4 @@
+name : 이름 입력하는 곳 (hint로 name plz)
+marry : married 체크 박스
+gender : female male 라디오 박스
+blood : item 1 sub item1 (spinner?)
