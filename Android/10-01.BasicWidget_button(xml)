@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!--
+        Button(버튼)
+         - 화면에 버튼을 만드는 뷰
+         - 버튼은 TextView를 상속받았기 때문에
+         - TextView에서 사용하는 속성들도 사용이 가능하다.
+         - 라디오 버튼, 체크 박스 등도 함께 구성되어 있다.
+         - 라디오 버튼은 그룹으로 묶어서 표현해야 한다.
+            - RadioGroup을 통해 그룹핑을 해준다.
+            - 다중선택이 안된다.
+
+    -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="128dp"
+        tools:layout_editor_absoluteY="150dp" >
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RadioButton" />
+
+        <RadioButton
+            android:id="@+id/radioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RadioButton" />
+    </RadioGroup>
+
+    <!--string.xml에 <string name="naver">http://www.naver.com</string>를 적어준다. -->
+    <!-- link를 걸어줄수 있다. -->
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/naver"
+        android:autoLink="all"
+        tools:layout_editor_absoluteX="158dp"
+        tools:layout_editor_absoluteY="654dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CheckBox"
+        tools:layout_editor_absoluteX="123dp"
+        tools:layout_editor_absoluteY="239dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CheckBox"
+        tools:layout_editor_absoluteX="123dp"
+        tools:layout_editor_absoluteY="288dp" />
+
+    <!-- inputtype에 text를 넣으면 실행시 글자 자판이
+    date를 넣으면 숫자자판이 뜬다. textUri qwert키 나온다.
+    number주면 숫자 나온다. -->
+    <!-- EditText
+        - 입력을 받을 수 있는 뷰
+        - android:hint - 설명적는 속성
+        - android:inputType - 키패드 설정하는 속성
+        -->
+    
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="390dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginend="8dp"
+        android:layout_marginBottom="232dp"
+        android:maxLength="50"
+        android:inputType="text"
+        android:layout_constraintBottom_toBottomOf="parent"
+        android:layout_constraintEnd_toEndOf="parent"
+        android:layout_constraintStart_toStartOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
