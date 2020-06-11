@@ -32,7 +32,7 @@
             - 별점을 체크할 수 있는 바
          Containers - Spinner
             - 목록에서 선택하기
-            - checkbox와 비슷하다. 
+            - checkbox와 비슷하다.
         -->
 
     <LinearLayout
@@ -53,6 +53,23 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
+        <!--
+        String.xml에 문자열 배열 설정
+            <string-array name="List">
+        <item>JAVA</item>
+        <item>jsp</item>
+        <item>spring</item>
+        <item>python</item>
+
+    </string-array>
+
+        불러오기 : android:entries="@array/List"/>
+        실행시키면 화살표 선택 목록중에 선택하기 
+         -->
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/List"/>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
