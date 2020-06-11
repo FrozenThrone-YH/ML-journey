@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!--
+        ImageView
+            - 이미지를 띄워주는 뷰
+            - android:src = 원본 이미지 경로 적는 속성
+            - 텍스트에서 문자열을 넣듯이
+            - 이미지뷰에서는 이미지를 넣어줘야 한다.
+            - 이미지는 drawable 폴더에 넣어준다.
+            -maxWidth, maxHeight
+                -이미지의 최대 가로 세로 길이를 설정하는 속성
+            - android:scaleType="fitCenter"
+                - 이미지가 원본 이미지의 크기와 다르게 화면에 보이는 경우
+                - 확대 또는 축소를 어떤 방식으로 설정할지 정하는 속성
+                - fitcenter : 중앙
+                - fitXY : 화면 전체, 원본을 짜른다.
+                - fitend: 끝부분 짜르겠다.
+                - 등등
+
+         ProgerssBar
+            - 진행 수치같은 걸을 보여줄수 있는 바.
+            - 원형과 바형이 존재한다.
+         SeekBar
+            - 음량조절같은 바
+         RatingBar
+            - 별점을 체크할 수 있는 바
+         Containers - Spinner
+            - 목록에서 선택하기
+            - checkbox와 비슷하다. 
+        -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/abc_vector_test"
+            android:maxHeight="50dp"
+            android:maxWidth="50dp"
+            android:scaleType="fitCenter"/>
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
