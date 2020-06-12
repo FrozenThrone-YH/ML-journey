@@ -40,3 +40,15 @@ public class MainActivity extends AppCompatActivity {
 
     </string-array>
 */
+
+/*
+실행이 잘되고 있는지 확인하기 위해서 출력을 잘사용해야한다.
+안드로이드는 콘솔창에 System.out.pringln을 제대로 사용할 수 없다.
+오류의 위치를 확인하거나 경로확인 값 확인 등을 할때 로그를 사용한다
+에뮬레티어 구동시 로그가 보이지 않으면 log.d로 변경해서 사용하면 된다.
+
+log.i(tag,msg)
+-tag - 로그 이용
+- msg 출력 내용 
+
+*/
