@@ -1,0 +1,103 @@
+package com.example.mygridview;
+
+import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.GridLayout;
+import android.widget.GridView;
+import android.widget.ImageView;
+
+
+public class ImageAdapter extends BaseAdapter {
+
+    // BaseAdapter는 추상클래스다.
+    // extends Object implements ListAdapter와 SpinnerAdatper
+    // 추상메서드를 오버라이드를 해줘야한다.
+    // 궁금한게 있으면 더블클릭하고 ctrl + Q누르면 그것에 대한 설명이 나온다.
+    // ingerited methods가 뜨면 이 클래스의 고유 기능, 건들지 않았다.
+
+    private Context context; //화면을 의미하는 객체
+    //이미지 배열을 만드려면 정수형 배열을 만들어야 한다.
+    private Integer[] img = new Integer[]{
+
+            //file저장은 소문자로, 대문자로 하면 error뜬다.
+            R.drawable.aa, R.drawable.bb,
+            R.drawable.cc, R.drawable.dd,
+            R.drawable.ee, R.drawable.ff,
+            R.drawable.gg, R.drawable.hh,
+            R.drawable.ii, R.drawable.jj,
+            R.drawable.kk, R.drawable.ll,
+            R.drawable.mm, R.drawable.nn,
+            R.drawable.oo, R.drawable.pp,
+            R.drawable.qq, R.drawable.rr,
+            R.drawable.ss, R.drawable.tt,
+            R.drawable.uu, R.drawable.vv,
+            R.drawable.ww, R.drawable.xx,
+            R.drawable.yy, R.drawable.zz
+    };
+
+    //생성자
+    public ImageAdapter(Context context){
+        this.context = context;
+    }
+
+    //내가 표현하고자 하는 item의 갯수를 반환
+    @Override
+    public int getCount(){
+        return img.length;
+    }
+    @Override
+    public Object getItem(int position){
+        //내가 원하는 위치의 아이템을 반환하는 아이템
+        return img[position];
+    }
+
+    //거의 쓸일이 없다.
+    @Override
+    public long getItemId(int i) {
+        return 0;
+    }
+    //마우스 오른쪽 클릭 generate - override method 하면 method들이 쭉 나온다.
+    //어노테이션 강제속성부여 왠만하면 같이 적어주는것이 좋다.
+    @Override
+    //int i 는 int position이다.
+    public View getView(int i, View view, ViewGroup viewGroup) {
+        //실제 아이템을 화면에 배치할때 호출되는 메서드
+        //현재 메서드가 바로 하면에 표현할 객체를 생성해서 반환 시켜야 한다.
+
+        ImageView imageView = null;
+        //view == null일지 물어보는 이유는?
+        //null 이면 imageview클릭안하고 들어온것이다.
+        if(view == null){
+            //현재 화면이라는 의미에서 contexxt
+            imageView = new ImageView(context);
+
+        }else {
+            //imageView는 view를 상속 받기 때문에
+            //casting을 해줘야 한다. 다운 캐스팅
+            imageView = (ImageView) view;
+        }
+        //생성된 뷰에 이미지를 설정하는 메서드
+        //해당 위치에 해당하는 이미지 반환
+        imageView.setImageResource(img[i]);
+
+        //여기까지 하면 이미지가 사이즈가 재각각 나온다.
+        //이미지 크기를 위한 메서드
+        imageView.setLayoutParams(new GridView.LayoutParams(200,200));
+
+        //이미지의 출력 형식을 지원하는 메서드
+        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+        //이미지 뷰간의 간격 조정 메서드
+        //left,top,rigth,bottom 순
+        imageView.setPadding(10,10,10,10);
+
+        //return은 화면에 보여줄 이미지뷰를 리턴한다.
+        return imageView;
+    }
+
+
+
+
+}
