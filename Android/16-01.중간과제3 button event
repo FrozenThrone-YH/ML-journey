@@ -2,3 +2,5 @@
 하단에 true인지, false인지 판별
 
 true조건은 거꾸로 해도 같은 숫자일경우 
+글자를 받아오는 것은 getText
+글자 넣는 것은 setText 
