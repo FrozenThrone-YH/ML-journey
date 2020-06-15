@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!-- strings.xml에서 string 지정
+menu file의 정식명칭은 main_menu.xml이긴하다. 일반적으로 이 이름으로 만들어 준다. -->
+
+    <item
+        android:id="@+id/add"
+        android:title="@string/Add"
+        />
+    <item
+        android:id="@+id/edit"
+        android:title="@string/Edit"
+        />
+    <item
+        android:id="@+id/email"
+        android:title="@string/Email"
+        />
+
+
+
+</menu>
