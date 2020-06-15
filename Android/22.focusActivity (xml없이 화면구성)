@@ -1,0 +1,67 @@
+package com.example.myfocusactivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.ActionBar;
+import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //setContentView(R.layout.activity_main);
+
+        //인플레이션 전환 없이 onCreate 메서드 내에서 화면 구성
+
+        //root layout 생성
+        LinearLayout linearLayout = new LinearLayout(this);
+
+        //방향 설정
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+        //버튼 7개 설정 후 셋팅
+        for (int i=0;i<7;i++){
+            Button button = new Button(this);
+            button.setId(i);// 아이디 셋팅
+
+            //리스너 설정
+            button.setOnClickListener(onClickListener);
+
+            button.setText("button"+(i+1));
+            button.setTextSize(TypedValue.COMPLEX_UNIT_DIP,25); //25dp
+
+            //width, height을 설정
+            button.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
+            button.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
+            // 위에 것이 안되는 경우는 아래와 같이 새로 설정 
+//            button.setLayoutParams(
+//                    new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+//                            ViewGroup.LayoutParams.WRAP_CONTENT)
+//            );
+
+
+            //linearLayout에 button 보이게 해주기
+            linearLayout.addView(button);
+        }
+
+        //linearLayout을 화면에 보여주기
+        setContentView(linearLayout);
+    }
+
+    View.OnClickListener onClickListener = new View.OnClickListener(){
+        @Override
+        public void onClick(View view) {
+            //짝수번째 버튼이 클릭이 되면 실행
+            if((int)view.getId()%2 !=0 ){
+                Toast.makeText(MainActivity.this,"get Foucus",Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+}
