@@ -1,0 +1,16 @@
+<!-- 파일 만들때 res에서 root element를 shape으로 변경 -->
+
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!--
+        rectangle - 사각형
+        ring - 원
+        line - 선
+        oval - 타원
+    -->
+    <solid
+        android:color="#00ffffff"
+        />
+
+</shape>
