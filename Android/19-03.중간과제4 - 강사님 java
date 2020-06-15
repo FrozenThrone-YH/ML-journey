@@ -1,0 +1,96 @@
+package com.example.kyh;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import java.util.*;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+
+
+
+
+public class MainActivity extends AppCompatActivity {
+
+    ImageView[] arr = new ImageView[7];
+    int idx = 0;
+
+    Button button1,button2,button3,button4;
+    private View.OnClickListener onClickListener = new View.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+            onClickButton(v);
+        }
+    };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        button1 = (Button)findViewById(R.id.button1);
+        button2 = (Button)findViewById(R.id.button2);
+        button3 = (Button)findViewById(R.id.button3);
+        button4 = (Button)findViewById(R.id.button4);
+
+        button1.setOnClickListener(onClickListener);
+        button2.setOnClickListener(onClickListener);
+        button3.setOnClickListener(onClickListener);
+        button4.setOnClickListener(onClickListener);
+
+        arr[0] = (ImageView)findViewById(R.id.imageView1);
+        arr[1] = (ImageView)findViewById(R.id.imageView2);
+        arr[2] = (ImageView)findViewById(R.id.imageView3);
+        arr[3] = (ImageView)findViewById(R.id.imageView4);
+        arr[4] = (ImageView)findViewById(R.id.imageView5);
+        arr[5] = (ImageView)findViewById(R.id.imageView6);
+        arr[6] = (ImageView)findViewById(R.id.imageView7);
+
+        this.setVisible();
+
+    }
+    //초기 세팅 메서드
+    private void setVisible(){
+        for(int i =0; i<arr.length;i++){
+            if(i ==idx){
+                arr[i].setVisibility(View.VISIBLE);
+                continue;
+            }
+            arr[i].setVisibility(View.INVISIBLE);
+        }
+    }
+
+    //View를 넣어주는 이유는 어떤 버튼을 눌렀는지 확인하기 위해서
+    public void onClickButton(View v){
+        //버튼을 뭘 눌렀냐에 따라서 처리하는 구조
+        switch(v.getId()) {
+            case R.id.button1:
+                if(idx <2){
+                    idx = 7 + (idx-2);
+                } else{
+                    idx -=2;
+                }
+            case R.id.button2:
+                if(idx==0){
+                    idx=6;
+                }else{
+                    idx --;
+                }
+            case R.id.button3:
+                if(idx==6){
+                    idx=0;
+                }else{
+                    idx++;
+                }
+            case R.id.button4:
+                if(idx>4){
+                    idx=(idx+2) - 7;
+                }else{
+                    idx +=2;
+                }
+                this.setVisible();
+        }
+    }
+
+
+}
