@@ -1,8 +1,9 @@
 package com.example.mydialog;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -41,14 +42,17 @@ public class MainActivity extends AppCompatActivity {
 
                 //다이얼로그 설정시 왠만하면 setContentView 위에 작성하는 것이 좋다.
 
-                //다이틀 없애기
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                //뒷부분 반투명화 없애기
-                dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+//                //다이틀 없애기
+//                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//                //뒷부분 반투명화 없애기
+//                dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+//
+//                //다이얼로그 자체 조명을 투명하게
+//                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(
+//                        Color.TRANSPARENT
+//                ));
 
-                //다이얼로그 자체 조명을 투명하게
-                
-                
+
 
                 //인플레이션 진행
                 dialog.setContentView(R.layout.dialog_layout);
