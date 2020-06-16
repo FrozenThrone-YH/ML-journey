@@ -53,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 return false;
+                //true를 반환하면 이벤트 객체가 내부적으로 항상 이벤트를 발생하고 있다고 생각한다.
+                //이벤트는 필요시에만 호출해야 하기 때문에
+                //필요한 경우에만 해당 이벤트 처리를 한 후 에 fals를 반환함으로써 항상 이벤트를 발생하고 
+                //잇다는 생각을 하지 않도록 해야한다. 터치 이벤트와 반대다. 
             }
         });
 
