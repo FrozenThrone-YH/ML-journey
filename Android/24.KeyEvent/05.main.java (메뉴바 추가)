@@ -1,0 +1,122 @@
+package com.example.mykeyeventy;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class MainActivity extends Activity {
+
+    private EditText editText;
+    private Button button;
+    private TextView textView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        editText = (EditText)findViewById(R.id.editText);
+        button = (Button)findViewById(R.id.button);
+        textView = (TextView)findViewById(R.id.textView);
+
+        //key 리스너는 key가 눌렸을때다.
+        //onKeyListener
+        //  - onKey메서드로 재정의 하여야 한다.
+        editText.setOnKeyListener(new View.OnKeyListener(){
+
+            //여기서 i는 keyCode이다. key값이다. 아스키코드와 유니코드와는 다르다.
+            //keyEvent는 motionEvent와 사용방법이 거의 비슷하다.
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+
+                //키가 눌렸는지 안눌렸는지 확인할때 쓴다.
+                if(keyEvent.getAction() == KeyEvent.ACTION_UP){
+                    //KeyEvent.ACTION_DOWN
+                    // - 예전 코드들을 살펴 보면 다운으로 처리하였다.
+                    // OREO버전에서는 DOWN으로 처리하면 제대로 되지 않는다.
+                    // 없어도 되는데, 빠르게 두번 눌렀을때 어떻게 처리하느냐. 방지하고자
+
+                    //키가 눌려 졌을때 0~9까지의 숫자키 거르기
+                    textView.setText("Input data :" + i);
+                    //KEYCODE_0은 실제로 누르는 KEY의 코드이다.
+                    if(i >= KeyEvent.KEYCODE_0 && i<= KeyEvent.KEYCODE_9){
+                        Toast.makeText(getApplicationContext(),"number"+i,Toast.LENGTH_LONG).show();
+                    }
+
+                }
+
+                return false;
+                //true를 반환하면 이벤트 객체가 내부적으로 항상 이벤트를 발생하고 있다고 생각한다.
+                //이벤트는 필요시에만 호출해야 하기 때문에
+                //필요한 경우에만 해당 이벤트 처리를 한 후 에 fals를 반환함으로써 항상 이벤트를 발생하고
+                //잇다는 생각을 하지 않도록 해야한다. 터치 이벤트와 반대다.
+            }
+        });
+
+        button.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                openOptionsMenu();//메뉴바 열기
+//                closeOptionsMenu();//메뉴바 닫기
+
+                //위에까지만 하면 아무것도 안된다.
+                // 테마 속상을 바꾸어야 가능하다.
+                //manifast에서 속성값을 변경해야한다.
+                //manifests 폴더 - 안드로이드에서 어플리케이션의 정보 설정이라고 보면 된다.
+                //               - android:theme=이걸 바꿔줘야한다.
+                //                  android:theme="@style/AppTheme" >android:theme="@android:style/Theme.Light.NoTitleBar"
+                //                  로 바꿔준다. 이상태에서 실행하면 터진다.
+                // error가 난 이유는, 타이틀바가 없었을때 메뉴바가 올라가면서 타이틀이 있는게 기본 디폴트가 되었다.
+                // 예전에는 상속은 AppCompatActivity가 아닌 Activity을 상속 받았다.
+                // 상속 클래스를 변경해야한다.
+
+                // 이제 하단에 add/edit/email이 뜬다. 
+            }
+        });
+
+
+    }
+    //메뉴 바를 활성화 시키기 위해서는
+    //onCreateOptionMenu,onOptionItemSelected 를 오버라이드 시켜야한다.
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //인플레이션을 진행해야한다.
+        //getMenuInflater()의 반환값이 MenuInflater 이것을 용해서 inflate
+        //이녀석은 메뉴바를 만들었고,
+        //onOptionsItemSelected가 기능 수행
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        //하나의 메뉴 아이템이 선택되었을때 현재 메서드 수행
+
+        switch (item.getItemId()){
+            case R.id.add:
+                textView.setText("Selected ADD");
+                break;
+            case R.id.edit:
+                textView.setText("Selected EDIT");
+                break;
+            case R.id.email:
+                textView.setText("Selected EMAIL");
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+}
