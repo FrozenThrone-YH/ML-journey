@@ -1,0 +1,23 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--
+        누가 버전 이후에는 다이얼로그의 타이틀이 보여지지 않는다.
+        타이틀을 보여지게 하려면 우리가 따로 설정을 잡아줘야 한다.
+
+    -->
+    <style name="Dialog" parent="@android:style/Theme.Holo.Light.Dialog">
+        <!-- 다이얼 로그의 기본 테마-->
+        <item name="android:windowNoTitle">false</item>
+        <!-- 타이틀바가 true면 없고, false면 있다.-->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 화면 범위 설정 true면 현재 화면 false면 아니다. -->
+    </style>
+
+</resources>
