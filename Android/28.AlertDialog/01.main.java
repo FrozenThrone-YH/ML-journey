@@ -56,6 +56,25 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+                dialog.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //취소
+                        //dialog.dismiss(); : 없어도 된다.
+                    }
+                });
+
+                //  버튼의 위치가 정해져 있다. 
+                dialog.setNeutralButton("now", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                dialog.setTitle("EXIT?");
+
+                dialog.show();
+
             }
         }
 
