@@ -35,6 +35,8 @@ public class SubActivity extends Activity {
                 startActivity(intent);
 
                 finish(); //현재 Activity가 모두 끝이 났다.
+                //finish를 하는 것과 안하는 것의 차이는?
+                //창이 점점 쌓여 간다. Main을 다시 실행하는 것이 아니라 Main을 위로 sub을 아래로 내리는 법을 배울 것이다.
             }
         });
     }
