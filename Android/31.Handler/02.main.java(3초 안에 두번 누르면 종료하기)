@@ -1,0 +1,83 @@
+package com.example.myhandler;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.KeyEvent;
+import android.widget.TextView;
+import android.widget.Toast;
+
+//Handler
+// - 자바에서의 Thread와 비슷한 개념으로써 사용된다.
+// - Activity의 순환 주기와는 별개로 독립적인 작업을 반복하는 클래스
+// - Android에서는 쓰레드보다 더 많이 사용된다.
+
+// 뒤로 가기 버튼을 두번 눌렀을때 종료 시키기
+// 3초 이내로
+
+public class MainActivity extends AppCompatActivity {
+
+    private int num = 3; //textView의 내용을 갱신하기 위한 변수
+    private TextView txt_count;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        txt_count = (TextView)findViewById(R.id.txt_count);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        //뒤로 가기 했을때 종료 되는 코드
+        switch(keyCode){
+            case KeyEvent.KEYCODE_BACK:
+                if(num != 3){
+                    System.exit(0);
+                } else{
+                    Toast.makeText(getApplicationContext(),"뒤로가기 한번더!",Toast.LENGTH_SHORT).show();
+                }
+                //핸들러 실행 : 3초 동안 num이 1씩 줄어든다.
+                //뒤로 가기를 한번 더 누르면 exit실행된다. KeyEvent코드가 실행되는것과 별개로
+                //mHandler.sendEmptyMessage(0);는 실행된다.
+                mHandler.sendEmptyMessage(0);
+        }
+
+        return false;
+    }
+
+    //핸들러 정의
+    Handler mHandler = new Handler(){
+      //메세지를 받으려면 서브 클래스에서 이를 구현해야 합니다.
+        //@NonNull : null값을 집어넣을 수 없다.
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            //1초에 한번씩 핸들러가 반복적으로 수행하는 메서드
+            //sendMessageDelayed(Message msg, long delayMillis)
+            // what : 어느 핸들러에 딜레이를 줄건지.
+            mHandler.sendEmptyMessageDelayed(0,1000);
+            if(num > 0){
+               //num이 1초에 한번씩 1씩 줄어든다.
+                num --;
+            } else{ //num==0일때
+                //3초가 지나면 다시 3이된다.
+                num = 3;
+
+                //핸들러 종료
+                //핸들러 종료 메서드가 sendEmptyMessageDelayed보다 위에 있으면
+                //종료하지 못하고 다시 sendEmptyMessageDelayed 통해 핸들러를 다시
+                //구동해서 removeMessage메서드는 항상
+                // sendEmptyMessageDelayed 밑에 두도록 하자
+                mHandler.removeMessages(0);
+            }
+            txt_count.setText(num + "");
+        }
+    };
+
+
+}
