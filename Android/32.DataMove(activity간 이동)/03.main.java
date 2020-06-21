@@ -69,11 +69,24 @@ public class MainActivity extends AppCompatActivity {
 
                 //데이터를 다른 Activity를 넘기는 방법은 2가지가 있다.
                 // 1번째 - intent를 통하여 전달하는 방식 (연결시켜놓은 것이라고 보면 된다. - 저쪽에서 받을 수 있다.)
+
+//                i.putExtra("name",name);
+//                i.putExtra("age",age);
+//                i.putExtra("b_day",b_day);
+
                 // 2번째 - Bundle을 통하여 전달하는 방식
                 //        : 여러가지의 타입을 저장할 수 있게 만들어주는 Map 타입의 클래스이다.
                 //        : 어차피 이것도 Intent를 통해서 만든다.
                 //        : Bundle에다가 데이터를 다 넣고, intent를 통해 전달해야한다.
+                Bundle bundle = new Bundle();
+                bundle.putString("name",name);
+                bundle.putString("age",age);
+                bundle.putString("b_day",b_day);
 
+                //Intent객체에 Bundle을 저장
+                i.putExtras(bundle);
+
+                startActivity(i);
             }
         });
 
