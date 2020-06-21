@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MyIntentTest</string>
+    <string-array name="bloodList">
+        <item>A형</item>
+        <item>B형</item>
+        <item>O형</item>
+        <item>AB형</item>
+
+    </string-array>
+</resources>
