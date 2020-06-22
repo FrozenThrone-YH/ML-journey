@@ -1,4 +1,4 @@
-package com.example.mycanvas;
+package com.example.mycanvasactivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,11 +41,13 @@ public class MainActivity extends AppCompatActivity {
         switch(newConfig.orientation){
             case Configuration.ORIENTATION_LANDSCAPE:
                 Toast.makeText(getApplicationContext(),"가로",Toast.LENGTH_SHORT).show();
+                break;
             case Configuration.ORIENTATION_PORTRAIT:
                 Toast.makeText(getApplicationContext(),"세로",Toast.LENGTH_SHORT).show();
-             //화면이 돌아갈때마다 그림을 그린게 사라진다.
-             //그것은 화면이 돌아갈때마다 재호출을 해서 그렇다.
-             //속성값을 추가해서 유지하고자 하낟.
+                break;
+                //화면이 돌아갈때마다 그림을 그린게 사라진다.
+                //그것은 화면이 돌아갈때마다 재호출을 해서 그렇다.
+                //속성값을 추가해서 유지하고자 하낟.
         }
     }
 }
