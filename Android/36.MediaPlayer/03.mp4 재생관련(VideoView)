@@ -1,0 +1,65 @@
+https://altongmon.tistory.com/778
+
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+tools:context=".ViewActivity">
+
+<android.support.constraint.ConstraintLayout
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+<ImageView
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintBottom_toTopOf="@+id/videoView"
+android:src="@drawable/image"
+android:id="@+id/imgView"
+android:layout_width="0dp"
+android:layout_height="0dp" />
+<VideoView
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintTop_toBottomOf="@+id/imgView"
+android:id="@+id/videoView"
+android:layout_width="0dp"
+android:layout_height="0dp" />
+</android.support.constraint.ConstraintLayout>
+</layout>
+
+출처: https://altongmon.tistory.com/778 [IOS를 Java]
+
+package park.sunggyun.thomas.texttospeechex;
+
+import android.databinding.DataBindingUtil;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+
+import com.bumptech.glide.Glide;
+
+import park.sunggyun.thomas.texttospeechex.databinding.ActivityViewBinding;
+
+public class ViewActivity extends AppCompatActivity {
+
+private ActivityViewBinding binding;
+
+@Override
+protected void onCreate(@Nullable Bundle savedInstanceState) {
+super.onCreate(savedInstanceState);
+
+binding = DataBindingUtil.setContentView(this, R.layout.activity_view);
+Glide.with(this).load(R.drawable.image).into(binding.imgView);
+String videoRootPath = "android.resource://" + getPackageName() + "/";
+binding.videoView.setVideoURI(Uri.parse(videoRootPath + R.raw.video));
+binding.videoView.start();
+
+binding.videoView.setOnCompletionListener(mp -> binding.videoView.start());
+}
+}
+
+출처: https://altongmon.tistory.com/778 [IOS를 Java]
