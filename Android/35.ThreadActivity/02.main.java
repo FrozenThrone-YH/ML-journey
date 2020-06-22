@@ -52,6 +52,25 @@ public class MainActivity extends AppCompatActivity {
                 threadEX.start();
             }
         });
+
+        bar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pBar = new ProgressDialog(MainActivity.this);
+
+                //수평 프로그래스바로 설정
+                pBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+
+                //메세지 설정
+                pBar.setMessage("Loading ... ");
+                pBar.show();
+
+                //도중 취소 여부
+                pBar.setCancelable(false);
+                threadEX = new ThreadEX(handler);
+                threadEX.start();
+            }
+        });
     }
 
     Handler handler = new Handler(){
