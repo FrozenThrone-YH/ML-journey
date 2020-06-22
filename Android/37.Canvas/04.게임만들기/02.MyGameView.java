@@ -129,10 +129,34 @@ public class MyGameView extends View {
             }
 
             //위의 과정이 문제가 없을때만 while 탈출
-            //겹치지도 않고, 범위 안에서 
+            //겹치지도 않고, 범위 안에서
             if(bFindIntersect == false){
                 break;
             }
         }
+        //도형 모양 결정
+        shape.what = rnd.nextInt(3);
+
+        //도형 컬러
+        switch(rnd.nextInt(5)){
+            case 0:
+                shape.color = Color.WHITE;
+                break;
+            case 1:
+                shape.color = Color.RED;
+                break;
+            case 2:
+                shape.color = Color.GREEN;
+                break;
+            case 3:
+                shape.color = Color.BLUE;
+                break;
+            case 4:
+                shape.color = Color.MAGENTA;
+                break;
+        }
+
+        shape.rt = rt;
+        arShape.add(shape);
     }
 }
