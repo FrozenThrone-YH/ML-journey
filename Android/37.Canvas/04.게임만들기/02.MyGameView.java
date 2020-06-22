@@ -1,20 +1,21 @@
 package com.example.mygameview;
 
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.Rect;
-import android.os.Handler;
-import android.os.Message;
-import android.view.View;
+        import android.app.Activity;
+        import android.content.Context;
+        import android.graphics.Canvas;
+        import android.graphics.Color;
+        import android.graphics.Paint;
+        import android.graphics.Path;
+        import android.graphics.Rect;
+        import android.os.Handler;
+        import android.os.Message;
+        import android.view.MotionEvent;
+        import android.view.View;
 
-import androidx.annotation.NonNull;
+        import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
-import java.util.Random;
+        import java.util.ArrayList;
+        import java.util.Random;
 
 public class MyGameView extends View {
     private static final int BLANK = 0; //대기상태
@@ -33,6 +34,8 @@ public class MyGameView extends View {
         mParent = (Activity)context;
         status = BLANK;
         //핸들러 실행
+        //1.5초 후에 실행됨
+        handler.sendEmptyMessageDelayed(0,DELAY);
     }
 
     //도형의 색상, 모양등의 속성을 관리할 수 있는 클래스(중첩클래스)
@@ -89,8 +92,11 @@ public class MyGameView extends View {
         public void handleMessage(@NonNull Message msg) {
 
             addNewShape();
-
             status = PLAY;
+            invalidate();
+
+            String title = "stage - " + arShape.size();
+            mParent.setTitle(title);
         }
     };
 
@@ -158,5 +164,15 @@ public class MyGameView extends View {
 
         shape.rt = rt;
         arShape.add(shape);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        
+        if(event.getAction() == MotionEvent.ACTION_DOWN){
+            int sel;
+            
+        }
+        
     }
 }
