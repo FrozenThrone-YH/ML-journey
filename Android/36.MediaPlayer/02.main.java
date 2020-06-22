@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(switch1.isChecked()){
                     //스위치가 On이면 true이다. Off이면 false이다.
-                    //file명 대문자 포함하면 안된다.
+                    //res폴더 하위에 raw폴더를 만들어 준다음, mp3나 mp4 file을 복사 붙여 넣어준다. file명 대문자 포함하면 안된다.
                     mplayer = MediaPlayer.create(MainActivity.this,R.raw.nonstop);
                     mplayer.start();
                 }else{
