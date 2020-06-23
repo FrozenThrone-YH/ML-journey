@@ -1,7 +1,9 @@
 package com.example.mygameview;
 
         import android.app.Activity;
+        import android.app.AlertDialog;
         import android.content.Context;
+        import android.content.DialogInterface;
         import android.graphics.Canvas;
         import android.graphics.Color;
         import android.graphics.Paint;
@@ -168,11 +170,59 @@ public class MyGameView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        
+        //도형을 터치 했을때,
         if(event.getAction() == MotionEvent.ACTION_DOWN){
             int sel;
-            
+            //도형의 위치를 제대로 클릭 했는지 판별하기 위한 메서드 호출
+
+            sel = findShapeIdx((int)event.getX(),(int)event.getY());
+            if(sel == -1){ //클릭이 안됐다.
+                return true;
+            }
+            //마지막에 생성된 도형을 클릭했으면 다음 스테이지 넘기겠다.
+            if (sel == arShape.size()-1){
+                status = BLANK;
+                invalidate();
+                handler.sendEmptyMessageDelayed(0,DELAY);
+            }else{
+                //게임 종료시 alertDialog 생성
+                AlertDialog.Builder builder = new AlertDialog.Builder(mParent);
+                builder.setMessage("restart Game??");
+                builder.setTitle("Game Over");
+                builder.setNegativeButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //게임 초기화
+                        arShape.clear();
+                        status = BLANK;
+                        invalidate();
+                        handler.sendEmptyMessageDelayed(0,DELAY);
+                    }
+                });
+
+                builder.setPositiveButton("exit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mParent.finish();//종료
+                    }
+                });
+                builder.setCancelable(false);
+                builder.show();
+            }
         }
-        
+
+        return false;
+
+    }
+
+    public int findShapeIdx(int x, int y){
+        for (int idx=0;idx<arShape.size();idx++){
+            //arShape에 담긴 도형중에 터치된 x,y좌표를 가진 rect객체의 인덱스 값을 반환
+            //contains : 있는지 없는지 찾기
+            if(arShape.get(idx).rt.contains(x,y)){
+                return idx;
+            }
+        }
+        return -1;
     }
 }
