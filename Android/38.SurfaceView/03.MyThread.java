@@ -31,10 +31,13 @@ public class MyThread extends Thread{
                     if(surface.getImg_x() >= surface.getWidth()-72){
                         break;
                     }
+
+                    //x값 증가
                     int x = surface.getImg_x() + 5;
 
-                    //증가된 값을 저장
+                    //증가된 값을 SurFaceView에 저장
                     surface.setImg_x(x);
+
 
                     c = holder.lockCanvas();
 
@@ -43,7 +46,13 @@ public class MyThread extends Thread{
                 }catch (InterruptedException e){
                     e.printStackTrace();
                 }
+                holder.unlockCanvasAndPost(c);
             }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
         }
     }
-}
+
+
