@@ -1,0 +1,43 @@
+package com.example.myactivity_fast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.util.Log;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        //tag는 이름/꼬리표, 특정한 꼬리표를 보고 싶을때 tag를 검색하면 된다.
+        Log.d("life_cycle","onCreate");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("life_cycle","onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("life_cycle","onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("life_cycle","onPause");
+        //Pause와 Stop이 명확히 구분이 안된다.
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("life_cycle","onStop");
+    }
+}
